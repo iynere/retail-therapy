@@ -5,5 +5,6 @@
 // to get access to the User model.
 
 const User = require('./user')
-
-module.exports = {User}
+const Product = require('./products')
+//we'll add associations in the future
+module.exports = {User, Product}
