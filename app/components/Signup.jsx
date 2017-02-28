@@ -3,11 +3,11 @@ import React from 'react'
 export const Signup = ({ signup }) => (
 	<form onSubmit={evt => {
 		evt.preventDefault()
-		signup()
+		signup(evt.target.name.value, evt.target.email.value, evt.target.password.value)
 	}}>
-		<input name="name" />
-		<input name="email" />
-		<input name="password" type="password" />
+		<input name="name" placeholder="type your name"/>
+		<input name="email" placeholder="type your email"/>
+		<input name="password" type="password" placeholder="type a good password" />
 		<input type="submit" value="Signup" />
 	</form>
 )

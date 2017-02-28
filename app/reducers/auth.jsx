@@ -16,7 +16,8 @@ export const authenticated = user => ({
 
 export const signup = (name, email, password) => dispatch =>
 		axios.post('/api/auth/local/signup', {name, email, password})
-		
+		// .then some stuff, login the user, dispatch whoami()
+			// .catch(() => dispatch(whoami()))  
 
 export const login = (username, password) =>
 	dispatch =>

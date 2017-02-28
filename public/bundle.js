@@ -68,6 +68,10 @@
 	
 	var _Login2 = _interopRequireDefault(_Login);
 	
+	var _Signup = __webpack_require__(309);
+	
+	var _Signup2 = _interopRequireDefault(_Signup);
+	
 	var _WhoAmI = __webpack_require__(308);
 	
 	var _WhoAmI2 = _interopRequireDefault(_WhoAmI);
@@ -75,36 +79,37 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var ExampleApp = (0, _reactRedux.connect)(function (_ref) {
-	  var auth = _ref.auth;
-	  return { user: auth };
+		var auth = _ref.auth;
+		return { user: auth };
 	})(function (_ref2) {
-	  var user = _ref2.user,
-	      children = _ref2.children;
-	  return _react2.default.createElement(
-	    'div',
-	    null,
-	    _react2.default.createElement(
-	      'nav',
-	      null,
-	      user ? _react2.default.createElement(_WhoAmI2.default, null) : _react2.default.createElement(_Login2.default, null)
-	    ),
-	    children
-	  );
+		var user = _ref2.user,
+		    children = _ref2.children;
+		return _react2.default.createElement(
+			'div',
+			null,
+			_react2.default.createElement(
+				'nav',
+				null,
+				user ? _react2.default.createElement(_WhoAmI2.default, null) : _react2.default.createElement(_Signup2.default, null),
+				' '
+			),
+			children
+		);
 	});
 	
 	(0, _reactDom.render)(_react2.default.createElement(
-	  _reactRedux.Provider,
-	  { store: _store2.default },
-	  _react2.default.createElement(
-	    _reactRouter.Router,
-	    { history: _reactRouter.browserHistory },
-	    _react2.default.createElement(
-	      _reactRouter.Route,
-	      { path: '/', component: ExampleApp },
-	      _react2.default.createElement(_reactRouter.IndexRedirect, { to: '/jokes' }),
-	      _react2.default.createElement(_reactRouter.Route, { path: '/jokes', component: _Jokes2.default })
-	    )
-	  )
+		_reactRedux.Provider,
+		{ store: _store2.default },
+		_react2.default.createElement(
+			_reactRouter.Router,
+			{ history: _reactRouter.browserHistory },
+			_react2.default.createElement(
+				_reactRouter.Route,
+				{ path: '/', component: ExampleApp },
+				_react2.default.createElement(_reactRouter.IndexRedirect, { to: '/jokes' }),
+				_react2.default.createElement(_reactRouter.Route, { path: '/jokes', component: _Jokes2.default })
+			)
+		)
 	), document.getElementById('main'));
 
 /***/ },
@@ -28455,6 +28460,8 @@
 			return _axios2.default.post('/api/auth/local/signup', { name: name, email: email, password: password });
 		};
 	};
+	// .then some stuff, login the user, dispatch whoami()
+	// .catch(() => dispatch(whoami()))  
 	
 	var login = exports.login = function login(username, password) {
 		return function (dispatch) {
@@ -31050,6 +31057,46 @@
 	  var auth = _ref2.auth;
 	  return { user: auth };
 	}, { logout: _auth.logout })(WhoAmI);
+
+/***/ },
+/* 309 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.Signup = undefined;
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _auth = __webpack_require__(273);
+	
+	var _reactRedux = __webpack_require__(233);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Signup = exports.Signup = function Signup(_ref) {
+		var signup = _ref.signup;
+		return _react2.default.createElement(
+			"form",
+			{ onSubmit: function onSubmit(evt) {
+					evt.preventDefault();
+					signup(evt.target.name.value, evt.target.email.value, evt.target.password.value);
+				} },
+			_react2.default.createElement("input", { name: "name", placeholder: "type your name" }),
+			_react2.default.createElement("input", { name: "email", placeholder: "type your email" }),
+			_react2.default.createElement("input", { name: "password", type: "password", placeholder: "type a good password" }),
+			_react2.default.createElement("input", { type: "submit", value: "Signup" })
+		);
+	};
+	
+	exports.default = (0, _reactRedux.connect)(function (state) {
+		return {};
+	}, { signup: _auth.signup })(Signup);
 
 /***/ }
 /******/ ]);

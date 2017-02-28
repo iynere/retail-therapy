@@ -7,28 +7,29 @@ import {connect, Provider} from 'react-redux'
 import store from './store'
 import Jokes from './components/Jokes'
 import Login from './components/Login'
+import Signup from './components/Signup'
 import WhoAmI from './components/WhoAmI'
 
 const ExampleApp = connect(
-  ({ auth }) => ({ user: auth })
+	({ auth }) => ({ user: auth })
 ) (
-  ({ user, children }) =>
-    <div>
-      <nav>
-        {user ? <WhoAmI/> : <Login/>}
-      </nav> 
-      {children}
-    </div>
+	({ user, children }) =>
+		<div>
+			<nav>
+				{user ? <WhoAmI/> : <Signup/>} {/* <Login/>*/}
+			</nav> 
+			{children}
+		</div>
 )
 
 render (
-  <Provider store={store}>
-    <Router history={browserHistory}>
-      <Route path="/" component={ExampleApp}>
-        <IndexRedirect to="/jokes" />
-        <Route path="/jokes" component={Jokes} />
-      </Route>
-    </Router>
-  </Provider>,
-  document.getElementById('main')
+	<Provider store={store}>
+		<Router history={browserHistory}>
+			<Route path="/" component={ExampleApp}>
+				<IndexRedirect to="/jokes" />
+				<Route path="/jokes" component={Jokes} />
+			</Route>
+		</Router>
+	</Provider>,
+	document.getElementById('main')
 )
