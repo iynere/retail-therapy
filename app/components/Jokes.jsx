@@ -1,35 +1,39 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
+import Navbar from './Navbar'
 
 export default class BonesJokes extends Component {
-  componentDidMount() {
-    this.nextJoke()
-  }
+	componentDidMount() {
+		this.nextJoke()
+	}
 
-  nextJoke = () =>
-    this.setState({
-      joke: randomJoke(),
-      answered: false,
-    })
+	nextJoke = () =>
+		this.setState({
+			joke: randomJoke(),
+			answered: false,
+		})
 
-  answer = () =>
-    this.setState({answered: true})
+	answer = () =>
+		this.setState({answered: true})
 
-  render() {
-    if (!this.state) { return null }
+	render() {
+		if (!this.state) { return null }
 
-    const {joke, answered} = this.state    
-    return (
-      <div onClick={answered ? this.nextJoke : this.answer}>
-        <h1>{joke.q}</h1>
-        {answered && <h2>{joke.a}</h2>}
-        <cite>~xoxo, bones</cite>
-      </div>
-    )
-  }
+		const {joke, answered} = this.state    
+		return (
+			<div>
+				<Navbar />
+				<div onClick={answered ? this.nextJoke : this.answer}>
+					<h1>{joke.q}</h1>
+					{answered && <h2>{joke.a}</h2>}
+					<cite>~xoxo, bones</cite>
+				</div>
+			</div>
+		)
+	}
 }
 
 function randomJoke() {
-  return jokes[Math.floor(Math.random() * jokes.length)]
+	return jokes[Math.floor(Math.random() * jokes.length)]
 }
 
 const jokes = `Q: Who won the skeleton beauty contest? 
@@ -146,9 +150,9 @@ Q: How did skeletons send their letters in the old days?
 A: By bony express!
 Q: How do you make a skeleton laugh? 
 A: Tickle his funny bone!`
-  .split('\n')
-  .reduce((all, row, i) =>
-    i % 2 === 0
-    ? [...all, {q: row}]
-    : [...all.slice(0, all.length - 1), Object.assign({a: row}, all[all.length - 1])],
-    [])
+	.split('\n')
+	.reduce((all, row, i) =>
+		i % 2 === 0
+		? [...all, {q: row}]
+		: [...all.slice(0, all.length - 1), Object.assign({a: row}, all[all.length - 1])],
+		[])
