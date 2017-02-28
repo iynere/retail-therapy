@@ -12,21 +12,21 @@ const getProducts = (products) => ({type: PRODUCTS, products})
 const initialState =[]
 
 const reducer = (state= initialState, action) =>{
-  switch(action.type){
-    case PRODUCTS:
-    return action.products
+	switch(action.type){
+		case PRODUCTS:
+		return action.products
 
-  }
-  return state
+	}
+	return state
 }
 
 
 //---------------THUNK------------------------------//
 
 export const fetchProducts = () =>
-  dispatch =>
-    axios.get('/api/products')
-         .then(products => dispatch(getProducts(products.data)))
-         .catch((err)=>console.error(err))
+	dispatch =>
+		axios.get('/api/products')
+				 .then(products => dispatch(getProducts(products.data)))
+				 .catch((err)=>console.error(err))
 
 export default reducer
