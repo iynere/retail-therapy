@@ -120,7 +120,7 @@ passport.use(new (require('passport-local').Strategy) (
 
 auth.get('/whoami', (req, res) => res.send(req.user))
 
-auth.post('/:strategy/login', (req, res, next) =>
+auth.put('/:strategy/login', (req, res, next) =>
 	passport.authenticate(req.params.strategy, {
 		successRedirect: '/'
 	})(req, res, next)
@@ -134,7 +134,7 @@ auth.post('/:strategy/signup', (req, res, next) => {
 		.catch(next)
 })
 
-auth.post('/logout', (req, res, next) => {
+auth.put('/logout', (req, res, next) => {
 	req.logout()
 	res.redirect('/api/auth/whoami')
 })

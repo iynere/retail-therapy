@@ -16,19 +16,19 @@ export const authenticated = user => ({
 
 export const signup = (name, email, password) => dispatch =>
 		axios.post('/api/auth/local/signup', {name, email, password})
-		// .then some stuff, login the user, dispatch whoami()
-			// .catch(() => dispatch(whoami()))  
+			.then(() => dispatch(login(email, password)))
+			.catch(() => dispatch(whoami()))
 
 export const login = (username, password) =>
 	dispatch =>
-		axios.post('/api/auth/local/login',
+		axios.put('/api/auth/local/login',
 			{username, password})
 			.then(() => dispatch(whoami()))
 			.catch(() => dispatch(whoami()))      
 
 export const logout = () =>
 	dispatch =>
-		axios.post('/api/auth/logout')
+		axios.put('/api/auth/logout')
 			.then(() => dispatch(whoami()))
 			.catch(() => dispatch(whoami()))
 

@@ -14,12 +14,15 @@ const User = db.define('users', {
 	email: {
 		type: Sequelize.STRING,
 		allowNull: false,
+		unique: true,
 		validate: {
 			isEmail: true,
-			notEmpty: true,
+			notEmpty: true
 		}
 	},
 	address: Sequelize.STRING,
+	googleId: Sequelize.STRING,
+	facebookId: Sequelize.STRING,
 	// We support oauth, so users may or may not have passwords.
 	password_digest: Sequelize.STRING,
 	password: Sequelize.VIRTUAL

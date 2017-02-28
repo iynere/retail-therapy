@@ -5,3 +5,7 @@ const rootReducer = combineReducers({
 })
 
 export default rootReducer
+
+// state = {
+// auth: // either a user object or null
+// }
