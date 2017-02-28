@@ -19,7 +19,7 @@ render (
 	<Provider store={store}>
 		<Router history={browserHistory}>
 			<Route path="/" component={Root}>
-        <Route path="/allProducts" component={AllProducts} onEnter={onProductsEnter} />
+                <Route path="/allProducts" component={AllProducts} onEnter={onProductsEnter} />
 				<Route path="/signup" component = {Signup} />
 				<Route path="/login" component = {Login} />
 			</Route>
