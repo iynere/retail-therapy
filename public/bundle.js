@@ -30868,17 +30868,17 @@
 	    _react2.default.createElement(
 	      'div',
 	      { id: 'product-grid' },
-	      products.map(function (product) {
-	        return _react2.default.createElement(
-	          'li',
-	          { key: product.id },
-	          _react2.default.createElement(
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'row' },
+	        products.map(function (product) {
+	          return _react2.default.createElement(
 	            'div',
-	            { className: 'row' },
+	            { key: product.id, className: 'product-card col-sm-6 col-md-4' },
+	            _react2.default.createElement('img', { src: product.photoUrl, className: 'product-img' }),
 	            _react2.default.createElement(
 	              'div',
-	              { className: 'product-card col-sm-6 col-md-4' },
-	              _react2.default.createElement('img', { src: product.photoUrl, className: 'product-img' }),
+	              { className: 'product-content' },
 	              _react2.default.createElement(
 	                'h3',
 	                null,
@@ -30901,9 +30901,9 @@
 	                'Add to cart'
 	              )
 	            )
-	          )
-	        );
-	      })
+	          );
+	        })
+	      )
 	    )
 	  );
 	}
