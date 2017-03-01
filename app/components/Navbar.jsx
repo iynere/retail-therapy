@@ -42,6 +42,7 @@ class Navbar extends Component {
 						*/}
 						{currentUser ? this.renderUser() : this.renderLoginSignup()}
 						{currentUser ? this.renderLogout() : null}
+                        <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
 					</div>
 				</div>
 			</nav>

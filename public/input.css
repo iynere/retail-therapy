@@ -1,0 +1,13 @@
+#product-grid {
+  width: 100%;
+  display: inline-block; }
+  #product-grid .product-card {
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 10px; }
+  #product-grid .product-img {
+    width: 100%;
+    height: 200px; }
+  #product-grid .product-content {
+    padding: 20px; }
