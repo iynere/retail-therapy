@@ -13,8 +13,8 @@ export const Signup = ({ signup }) => (
 			<input name="password" type="password" placeholder="type a good password" />
 			<input type="submit" value="Signup" />
 		</form>
-		<p><a href="/api/auth/google/signup">sign up with Google</a></p>
-		<p><a href="/api/auth/facebook/signup">sign up with Facebook</a></p>
+		<p><a href="/api/auth/google/login">sign up with Google</a></p>
+		<p><a href="/api/auth/facebook/login">sign up with Facebook</a></p>
 	</div>
 )
 
