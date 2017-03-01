@@ -19,3 +19,5 @@ const forbidden = message => (req, res, next) => {
 module.exports = {mustBeLoggedIn, selfOnly, forbidden,}
 
 // controlling authentication in the backend / routes, instead of just in the frontend
+
+// write a filter to keep out non-admins

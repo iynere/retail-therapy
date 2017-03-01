@@ -25,6 +25,7 @@ render (
 	<Provider store={store}>
 		<Router history={browserHistory}>
 			<Route path="/" component={Root}>
+				<IndexRedirect to="/allProducts" />
 				<Route path="/allProducts" component={AllProducts} onEnter={onProductsEnter} />
 				<Route path="/allProducts/:id" component={SingleProduct} onEnter={onProductEnter} />
 				<Route path="/signup" component = {Signup} />
