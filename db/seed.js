@@ -13,11 +13,18 @@ const seedProducts = () => db.Promise.map([
   
 ], product => db.model('products').create(product))
 
+const seedReviews = () => db.Promise.map([
+  {rating: 5, text: "This made me so happy!", product_id: 1, user_id: 1},
+  {rating: 2, text: "This made me so sad!", product_id: 2, user_id: 2}
+], review => db.model('reviews').create(review))
+
 db.didSync
   .then(() => db.sync({force: true}))
   .then(seedUsers)
   .then(users => console.log(`Seeded ${users.length} users OK`))
   .then(seedProducts)
   .then(products => console.log(`Seeded ${products.length} products OK`))
+  .then(seedReviews)
+  .then(reviews => console.log(`Seeded ${reviews.length} reviews OK`))
   .catch(error => console.error(error))    
   .finally(() => db.close())
