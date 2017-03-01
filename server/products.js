@@ -15,10 +15,7 @@ router.get('/', function(req, res, next){
 
 // View a single product and its reviews
 router.get('/:productId', (req, res, next) => {
-	Product.findOne({
-			where: { id: req.params.productId}, 
-			include: [{ model: Review, where: { product_id: req.params.productId } }]
-		})
+	Product.findById(req.params.productId, {include: [Review]})
 		.then(product => res.json(product))
 		.catch(next)
 })

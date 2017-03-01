@@ -6,7 +6,7 @@ const db = require('APP/db')
 
 const User = db.define('users', {
 	name: Sequelize.STRING,
-	class:  {
+	role:  {
 		type: Sequelize.ENUM('basic', 'admin', 'anonymous'),
 		allowNull: false,
 		defaultValue: 'basic'

@@ -3,9 +3,6 @@
 const Sequelize = require('sequelize')
 const db = require('APP/db')
 
-const User = require('./user')
-const Product = require('./products')
-
 const Review = db.define('reviews', {
 	date: {
 		type: Sequelize.DATE,
@@ -17,15 +14,13 @@ const Review = db.define('reviews', {
 		validate: {min: 1, max: 5}
 	},
 	text: {
-		type: Sequelize.TEXT('medium'),
+		type: Sequelize.TEXT,
+		// add validator for text length
 		allowNull: false,
 		validate: {
 			notEmpty: true
 		}
 	},
 })
-
-User.hasMany(Review)
-Product.hasMany(Review)
 
 module.exports = Review
