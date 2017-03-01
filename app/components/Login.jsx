@@ -2,15 +2,19 @@ import React from 'react'
 import {browserHistory} from 'react-router'
 
 export const Login = ({ login }) => (
-	<form onSubmit={evt => {
-		evt.preventDefault()
-		login(evt.target.username.value, evt.target.password.value)
-		browserHistory.push('/')
-	} }>
-		<input name="username" />
-		<input name="password" type="password" />
-		<input type="submit" value="Login" />
-	</form>
+	<div>
+		<form onSubmit={evt => {
+			evt.preventDefault()
+			login(evt.target.username.value, evt.target.password.value)
+			browserHistory.push('/')
+		} }>
+			<input name="username" />
+			<input name="password" type="password" />
+			<input type="submit" value="Login" />
+		</form>
+		<p><a href="/api/auth/google/login">log in with Google</a></p>
+		<p><a href="/api/auth/facebook/login">log in with Facebook</a></p>
+	</div>
 )
 
 import {login} from 'APP/app/reducers/auth'
