@@ -3,18 +3,22 @@ import {connect} from 'react-redux'
 import {fetchProduct} from '../reducers/product'
 
 export const SingleProduct = props => {
-	const product = props.product
+	const product = props.product || []
 	return(
-		<div>
-			<ul>
-				<li>{product && product.name}</li>
-				<li>{product && product.description}</li>
-				<li>{product && product.categories}</li>
-				<li>{product && product.price}</li>
-				<li>{product && product.stock}</li>
-				<li>{product && product.photoUrl}</li>
-			</ul>
-		</div>	
+      <div className="product-grid">
+		<div className="product-card col-sm-6 col-md-4">
+            <img src={product.photoUrl} className="product-img"/>
+            <div className="product-content">
+               <h3>{product.name}</h3> 
+              <h2>{product.price}</h2>
+              <p className="product-desc">{product.description}</p>
+              <button type="button" className="btn btn-default">
+                <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+                Add to cart
+              </button>
+            </div>
+        </div>
+      </div>
 	)
 }
 

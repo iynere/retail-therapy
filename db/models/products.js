@@ -19,7 +19,10 @@ const Product = db.define('products', {
 	price: {
 		//number is *100 to account for decimals
 		type: Sequelize.INTEGER,
-		allowNull: false
+		allowNull: false,
+        get: function() {
+          return '$' + (this.getDataValue('price') / 100);
+        }
 	},
 	stock: {
 		type: Sequelize.INTEGER,
