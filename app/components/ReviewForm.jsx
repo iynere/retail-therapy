@@ -1,12 +1,18 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import {addReview} from 'APP/app/reducers/reviews'
 
-export const ReviewForm = ({submitReview}) => (
-	<div>
+export const ReviewForm = props => {
+	return (<div>
 		<form onSubmit={evt => {
 			evt.preventDefault()
-			// Need to write submitReview reducer and action creator
-			submitReview(evt.target.rating.value, evt.target.text.value)
-			browserHistory.push('/')
+			const review = {
+				rating: evt.target.rating.value,
+				text: evt.target.text.value,
+				product_id: props.productId,
+				user_id: props.currentUser.id
+			}
+			props.addReview(review, props.productId)
 		}}>	
 			<div>
 			Rating 
@@ -23,13 +29,18 @@ export const ReviewForm = ({submitReview}) => (
 			</div>
 			<input type="submit" value="Submit Review" />
 		</form>
-	</div>
-)
+	</div>)
+}
 
-import {submitReview} from 'APP/app/reducers/review'
-import {connect} from 'react-redux'
+const mapStateToProps = state => ({
+	currentUser: state.auth
+})
 
-export default connect(
-	state => ({}),
-	{submitReview}
+const mapDispatchToProps = dispatch => ({
+	addReview: (review, productId) => {
+		dispatch(addReview(review, productId))
+	}
+})
+
+export default connect(mapStateToProps, mapDispatchToProps
 )(ReviewForm)
