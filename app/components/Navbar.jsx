@@ -13,6 +13,7 @@ class Navbar extends Component {
 	render() {
 		// need to include user in redux store / state
 		const currentUser = this.props.currentUser
+        const userRole = this.props.currentUser ? this.props.currentUser.role : null
 		return (
 			<nav className="navbar navbar-default">
 				<div className="container">
@@ -40,6 +41,9 @@ class Navbar extends Component {
 								</li>
 							</ul>
 						*/}
+                        {/*come back here after set the user component*/}
+                        {(userRole === 'admin') ? <li>add a product</li> : null}
+                        {currentUser ? <li>orders</li> : null}
 						{currentUser ? this.renderUser() : this.renderLoginSignup()}
 						{currentUser ? this.renderLogout() : null}
                         <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>

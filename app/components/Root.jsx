@@ -5,10 +5,10 @@ import Navbar from './Navbar'
 const Root = ({children}) => {
 	return (
 		<div id="main" className="container-fluid">
-		<Navbar />
-		{ children }
-		{/*<Footer />*/}
-	</div>
+          <Navbar />
+          { children }
+          {/*<Footer />*/}
+	    </div>
 	)
 }
 
