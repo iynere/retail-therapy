@@ -5,24 +5,26 @@ const Sequelize = require('sequelize')
 const db = require('APP/db')
 
 const User = db.define('users', {
-  name: Sequelize.STRING,
-  role: {
-    type: Sequelize.ENUM('basic', 'admin', 'anonymous'),
-    allowNull: false,
-    defaultValue: 'basic'
-  },
-  email: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    unique: true,
-    validate: {
-      isEmail: true,
-      notEmpty: true
-    }
-  },
-  address: Sequelize.STRING,
-  googleId: Sequelize.STRING,
-  facebookId: Sequelize.STRING,
+	name: Sequelize.STRING,
+	role:  {
+		type: Sequelize.ENUM('basic', 'admin', 'anonymous'),
+		allowNull: false,
+		defaultValue: 'basic'
+	},
+	email: {
+		type: Sequelize.STRING,
+		// commenting this out so that OAUTH login will work; there might be a better way to do this
+		// allowNull: false,
+		unique: true,
+		validate: {
+			isEmail: true,
+			notEmpty: true
+		}
+	},
+	address: Sequelize.STRING,
+	// possibly don't need these two id's, because of the ways the oauth <-> user associations are designed
+	// googleId: Sequelize.STRING,
+	// facebookId: Sequelize.STRING,
 	// We support oauth, so users may or may not have passwords.
   password_digest: Sequelize.STRING,
   password: Sequelize.VIRTUAL
