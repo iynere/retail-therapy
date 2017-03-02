@@ -8,8 +8,8 @@ export const Login = ({ login }) => (
 			login(evt.target.username.value, evt.target.password.value)
 			browserHistory.push('/')
 		} }>
-			<input name="username" />
-			<input name="password" type="password" />
+			<input name="username" required/>
+			<input name="password" type="password" required/>
 			<input type="submit" value="Login" />
 		</form>
 		<p><a href="/api/auth/google/login">log in with Google</a></p>

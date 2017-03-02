@@ -16,15 +16,17 @@ module.exports = require('express').Router()
 		.then(user => res.status(201).json(user))
 		.catch(next))
 	.get('/:id', mustBeLoggedIn, (req, res, next) => 
-		User.findById(req.params.id)
+		User.findById(req.params.id, {include: [Review]})
 		.then(user => res.json(user))
 		.catch(next))
-	.get('/:id/reviews', mustBeLoggedIn, (req, res, next) => {
-		Review.findAll({
-			where: { 
-				user_id: req.params.id 
-			}
-		})
-			.then(reviews => res.json(reviews))
-			.catch(next)	
-	})
+	// moved review getting to separate router
+	// .get('/:id/reviews', mustBeLoggedIn, (req, res, next) => {
+	// 	Review.findAll({
+	// 		where: { 
+	// 			user_id: req.params.id 
+	// 		}
+	// 	})
+	// 		.then(reviews => res.json(reviews))
+	// 		.catch(next)	
+	// })
+	

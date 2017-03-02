@@ -9,6 +9,7 @@ import AllProducts from './components/AllProducts'
 import SingleProduct from './components/SingleProduct'
 import {fetchProducts} from './reducers/products'
 import {fetchProduct} from './reducers/product'
+import {fetchProductReviews} from './reducers/reviews'
 import Login from './components/Login'
 import Signup from './components/Signup'
 import WhoAmI from './components/WhoAmI'
@@ -18,7 +19,8 @@ const onProductsEnter = function(){
 }
 
 const onProductEnter = nextRouterState => {
-	store.dispatch(fetchProduct(nextRouterState.params.id));
+	store.dispatch(fetchProduct(nextRouterState.params.id))
+	store.dispatch(fetchProductReviews(nextRouterState.params.id))
 };
 
 render (
