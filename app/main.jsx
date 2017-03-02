@@ -8,14 +8,16 @@ import Root from './components/Root'
 import AllProducts from './components/AllProducts'
 import SingleProduct from './components/SingleProduct'
 import {fetchProduct} from './reducers/product'
+import {fetchProductReviews} from './reducers/reviews'
 import Login from './components/Login'
 import Signup from './components/Signup'
 import WhoAmI from './components/WhoAmI'
 import LandingPage from './components/LandingPage'
 
 const onProductEnter = nextRouterState => {
-  store.dispatch(fetchProduct(nextRouterState.params.id))
-}
+	store.dispatch(fetchProduct(nextRouterState.params.id))
+	store.dispatch(fetchProductReviews(nextRouterState.params.id))
+};
 
 render(
 	<Provider store={store}>
