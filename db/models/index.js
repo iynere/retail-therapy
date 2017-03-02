@@ -25,4 +25,4 @@ Order.hasMany(ProductsOrdered)
 Product.hasMany(ProductsOrdered)
 Category.belongsToMany(Product, { through: 'ProductsCategories' })
 
-module.exports = {User, Product, Review, Order, ProductsOrdered, Category}
+module.exports = {User, Product, Review, Order, ProductsOrdered, Category, OAuth}
