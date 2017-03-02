@@ -4,17 +4,17 @@ import {Link, browserHistory} from 'react-router'
 import {logout} from '../reducers/auth'
 
 class Navbar extends Component {
-	constructor(props) {
-		super(props)
-		this.renderLoginSignup = this.renderLoginSignup.bind(this)
-		this.renderLogout = this.renderLogout.bind(this)
-	}
-	
-	render() {
-		// need to include user in redux store / state
-		const currentUser = this.props.currentUser
-        const userRole = this.props.currentUser ? this.props.currentUser.role : null
-		return (
+  constructor (props) {
+    super(props)
+    this.renderLoginSignup = this.renderLoginSignup.bind(this)
+    this.renderLogout = this.renderLogout.bind(this)
+  }
+
+  render () {
+	// need to include user in redux store / state
+    const currentUser = this.props.currentUser
+
+    return (
 			<nav className="navbar navbar-default">
 				<div className="container">
 					<div className="navbar-header">
@@ -41,20 +41,17 @@ class Navbar extends Component {
 								</li>
 							</ul>
 						*/}
-                        {/*come back here after set the user component*/}
-                        {(userRole === 'admin') ? <li>add a product</li> : null}
-                        {currentUser ? <li>orders</li> : null}
 						{currentUser ? this.renderUser() : this.renderLoginSignup()}
 						{currentUser ? this.renderLogout() : null}
-                        <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+            <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
 					</div>
 				</div>
 			</nav>
-		)
-	}
-	
-	renderLoginSignup() {
-		return (
+    )
+  }
+
+  renderLoginSignup () {
+    return (
 			<ul className="nav navbar-nav navbar-right">
 				<li>
 				 <Link to="/signup" activeClassName="active">signup</Link>
@@ -63,12 +60,12 @@ class Navbar extends Component {
 					<Link to="/login" activeClassName="active">login</Link>
 				</li>
 			</ul>
-		)
-	}
-	
-	renderUser() {
-		const currentUser = this.props.currentUser
-		return (
+    )
+  }
+
+  renderUser () {
+    const currentUser = this.props.currentUser
+    return (
 			<ul className="nav navbar-nav navbar-right">
 			<li>
 				<Link to={`/users/${currentUser.id}`} activeClassName="active">
@@ -76,11 +73,11 @@ class Navbar extends Component {
 				</Link>
 			</li>
 			</ul>
-		);
-	}
-	
-	renderLogout() {
-		return (
+    )
+  }
+
+  renderLogout () {
+    return (
 			<ul className="nav navbar-nav navbar-right">
 				<li>
 				<button
@@ -90,25 +87,25 @@ class Navbar extends Component {
 				</button>
 				</li>
 			</ul>
-		);
-	}
+    )
+  }
 }
 
 // container: mapStateToProps, mapDispatchToProps, connect()(Navbar)
 
 const mapStateToProps = state => {
-	return {
-		currentUser: state.auth
-	}
+  return {
+    currentUser: state.auth
+  }
 }
 
 const mapDispatchToProps = dispatch => {
-	return {
-		logout: () => {
-			dispatch(logout()) // need to write this function
-			browserHistory.push('/')
-		}
-	}
+  return {
+    logout: () => {
+      dispatch(logout()) // need to write this function
+      browserHistory.push('/')
+    }
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar)

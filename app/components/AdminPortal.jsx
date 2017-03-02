@@ -3,7 +3,7 @@ import {Link} from 'react-router'
 import {connect} from 'react-redux'
 
 export default function AdminPortal (props) {
-  return(
+  return (
     <div className="admin">
       <ul>
         <li><Link >orders</Link></li>
