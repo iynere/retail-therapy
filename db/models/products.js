@@ -12,10 +12,10 @@ const Product = db.define('products', {
 		type: Sequelize.TEXT,
 		allowNull: false
 	},
-	categories: {
-		//tbd - do we want to keep it an array or make it into a concat string and then use a getter method
-		type: Sequelize.ARRAY(Sequelize.STRING)
-	},
+	// categories: {
+	// 	//tbd - do we want to keep it an array or make it into a concat string and then use a getter method
+	// 	type: Sequelize.ARRAY(Sequelize.STRING)
+	// },
 	price: {
 		//number is *100 to account for decimals
 		type: Sequelize.INTEGER,
