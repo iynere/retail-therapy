@@ -15,3 +15,16 @@
     padding: 20px;
   }
 }
+
+.Admin-Portal{
+  width: 100%;
+  display: inline-block;
+  ul {
+    list-style: none;
+  }
+  .Admin-options-pane{
+    border: 1px solid #808080;
+    width: 25%;
+    border-radius: 5px;
+  }
+}

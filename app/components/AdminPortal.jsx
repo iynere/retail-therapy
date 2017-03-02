@@ -4,12 +4,16 @@ import {connect} from 'react-redux'
 
 export default function AdminPortal (props) {
   return (
-    <div className="admin">
+    <div className="Admin-Portal">
+      <div className="Admin-options-pane">
       <ul>
-        <li><Link >orders</Link></li>
-        <li><Link >users</Link></li>
+        <li><Link >Orders</Link></li>
+        <li><Link >Users</Link></li>
+        <li><Link >Products</Link></li>
+        <li><Link >Categories</Link></li>
         <li><Link >products</Link></li>
       </ul>
+      </div>
     </div>
   )
 }

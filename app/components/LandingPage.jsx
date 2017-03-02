@@ -9,7 +9,8 @@ export function LandingPage ({user, products}) {
   const userRole = user ? user.role : null
   return (
     <div>
-    {userRole === 'admin' ? <AdminPortal /> : <AllProducts products={products}/> }
+      {userRole === 'admin' ? <AdminPortal /> : null }
+      <AllProducts products={products}/>
     </div>
   )
 }
