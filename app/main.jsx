@@ -7,28 +7,24 @@ import store from './store'
 import Root from './components/Root'
 import AllProducts from './components/AllProducts'
 import SingleProduct from './components/SingleProduct'
-import {fetchProducts} from './reducers/products'
 import {fetchProduct} from './reducers/product'
 import {fetchProductReviews} from './reducers/reviews'
 import Login from './components/Login'
 import Signup from './components/Signup'
 import WhoAmI from './components/WhoAmI'
-
-const onProductsEnter = function(){
-	store.dispatch(fetchProducts())
-}
+import LandingPage from './components/LandingPage'
 
 const onProductEnter = nextRouterState => {
 	store.dispatch(fetchProduct(nextRouterState.params.id))
 	store.dispatch(fetchProductReviews(nextRouterState.params.id))
 };
 
-render (
+render(
 	<Provider store={store}>
 		<Router history={browserHistory}>
 			<Route path="/" component={Root}>
-				<IndexRedirect to="/allProducts" />
-				<Route path="/allProducts" component={AllProducts} onEnter={onProductsEnter} />
+				<IndexRedirect to="/page" />
+        <Route path="/page" component={LandingPage} />
 				<Route path="/allProducts/:id" component={SingleProduct} onEnter={onProductEnter} />
 				<Route path="/signup" component = {Signup} />
 				<Route path="/login" component = {Login} />
