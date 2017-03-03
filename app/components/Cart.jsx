@@ -4,6 +4,7 @@ import {Link} from 'react-router'
 
 const Cart = ({cart}) => (
   <div>
+    <h3>Cart</h3>
     <ul>
       {
         cart && cart.map(product => 

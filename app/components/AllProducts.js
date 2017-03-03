@@ -2,8 +2,11 @@ import React from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { fetchProducts } from '../reducers/products'
+import {addProduct} from '../reducers/cart'
 
-export function AllProducts ({products}) {
+export const AllProducts = props => {
+  const products = props.products || [],
+    addProduct = props.addProduct 
   return (<div className="allProducts">
       <div className="product-grid">
         <div className="row">
@@ -16,9 +19,15 @@ export function AllProducts ({products}) {
                     </Link>
                     <h2>{product.price}</h2>
                     <p className="product-desc">{product.description}</p>
-                    <button type="button" className="btn btn-default">
+                    <button
+                      type="button"
+                      className="btn btn-default"
+                      onClick={evt => {
+                        evt.preventDefault()
+                        addProduct(product)
+                      }}>
                       <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
-                      Add to cart
+                      add to cart
                     </button>
                   </div>
               </div>
@@ -36,7 +45,10 @@ function MapSetToProps (state) {
 
 function MapDispatchToProps (dispatch) {
   return {
-    fetchProducts: dispatch(fetchProducts())
+    fetchProducts: dispatch(fetchProducts()),
+    addProduct: product => {
+      dispatch(addProduct(product))
+    }
   }
 }
 

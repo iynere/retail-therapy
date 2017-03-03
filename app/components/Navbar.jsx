@@ -11,82 +11,79 @@ class Navbar extends Component {
   }
 
   render () {
-	// need to include user in redux store / state
+  // need to include user in redux store / state
     const currentUser = this.props.currentUser
 
     return (
-			<nav className="navbar navbar-default">
-				<div className="container">
-					<div className="navbar-header">
-						<button
-							type="button"
-							className="navbar-toggle collapsed"
-							data-toggle="collapse"
-							data-target=".navbar-collapse">
-							<span className="icon-bar" />
-							<span className="icon-bar" />
-							<span className="icon-bar" />
-						</button>
-						{/* if we want a Retail Therapy logo we can put it in public and bring it in here / link back to homepage
-						<Link className="navbar-brand" to="/"><img src="/images/logo.png" /></Link> */}
-					</div>
-					<div className="collapse navbar-collapse">
-						{/* this could be links to cart, products, etc
-							<ul className="nav navbar-nav">
-								<li>
-									<Link to="/users" activeClassName="active">users</Link>
-								</li>
-								<li>
-									<Link to="/stories" activeClassName="active">stories</Link>
-								</li>
-							</ul>
-						*/}
-						{currentUser ? this.renderUser() : this.renderLoginSignup()}
-						{currentUser ? this.renderLogout() : null}
-            <Link to="/cart"><span className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></Link>
-					</div>
-				</div>
-			</nav>
+      <nav className="navbar navbar-default">
+        <div className="container">
+          <div className="navbar-header">
+            <button
+              type="button"
+              className="navbar-toggle collapsed"
+              data-toggle="collapse"
+              data-target=".navbar-collapse">
+              <span className="icon-bar" />
+              <span className="icon-bar" />
+              <span className="icon-bar" />
+            </button>
+            {/* if we want a Retail Therapy logo we can put it in public and bring it in here / link back to homepage
+            <Link className="navbar-brand" to="/"><img src="/images/logo.png" /></Link> */}
+          </div>
+          <div className="collapse navbar-collapse">
+            <ul className="nav navbar-nav navbar-left">
+              <li>
+                <Link to="/">home</Link>
+              </li>
+              <li>
+                <Link to="/cart"><span className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></Link>
+              </li>
+            </ul>
+            {currentUser ? this.renderUser() : this.renderLoginSignup()}
+            {currentUser ? this.renderLogout() : null}
+          </div>
+        </div>
+      </nav>
     )
   }
 
   renderLoginSignup () {
     return (
-			<ul className="nav navbar-nav navbar-right">
-				<li>
-				 <Link to="/signup" activeClassName="active">signup</Link>
-				</li>
-				<li>
-					<Link to="/login" activeClassName="active">login</Link>
-				</li>
-			</ul>
+      <ul className="nav navbar-nav navbar-right">
+        <li>
+         <Link to="/signup" activeClassName="active">signup</Link>
+        </li>
+        <li>
+          <Link to="/login" activeClassName="active">login</Link>
+        </li>
+      </ul>
     )
   }
 
   renderUser () {
     const currentUser = this.props.currentUser
     return (
-			<ul className="nav navbar-nav navbar-right">
-			<li>
-				<Link to={`/users/${currentUser.id}`} activeClassName="active">
-				 {`Welcome ${currentUser.name || currentUser.email}!`}
-				</Link>
-			</li>
-			</ul>
+      <ul className="nav navbar-nav navbar-right">
+      <li>
+        <Link to={`/users/${currentUser.id}`} activeClassName="active">
+         {`Welcome ${currentUser.name || currentUser.email}!`}
+        </Link>
+      </li>
+      </ul>
     )
   }
 
   renderLogout () {
     return (
-			<ul className="nav navbar-nav navbar-right">
-				<li>
-				<button
-					className="navbar-btn btn btn-default"
-					onClick={this.props.logout}>
-					logout
-				</button>
-				</li>
-			</ul>
+      <ul className="nav navbar-nav navbar-right">
+        <li>
+        <button
+          className="navbar-btn btn btn-default"
+          onClick={this.props.logout}>
+          logout
+        </button>
+        </li>
+      </ul>
     )
   }
 }
