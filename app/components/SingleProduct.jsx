@@ -4,13 +4,13 @@ import ReviewForm from './ReviewForm'
 import Reviews from './Reviews'
 
 export const SingleProduct = props => {
-	const product = props.product || []
-	return(
+  const product = props.product || []
+  return (
 			<div className="product-grid">
 				<div className="product-card col-sm-6 col-md-4">
 						<img src={product.photoUrl} className="product-img"/>
 						<div className="product-content">
-							 <h3>{product.name}</h3> 
+							 <h3>{product.name}</h3>
 							<h2>{product.price}</h2>
 							<p className="product-desc">{product.description}</p>
 							<button type="button" className="btn btn-default">
@@ -29,7 +29,7 @@ export const SingleProduct = props => {
 }
 
 const mapStateToProps = state => ({
-	product: state.product
+  product: state.product
 })
 
 export default connect(mapStateToProps)(SingleProduct)

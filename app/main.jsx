@@ -13,6 +13,8 @@ import Login from './components/Login'
 import Signup from './components/Signup'
 import WhoAmI from './components/WhoAmI'
 import LandingPage from './components/LandingPage'
+import UserProfile from './components/UserProfile'
+import Profile from './components/Profile'
 
 const onProductEnter = nextRouterState => {
 	store.dispatch(fetchProduct(nextRouterState.params.id))
@@ -23,12 +25,14 @@ render(
 	<Provider store={store}>
 		<Router history={browserHistory}>
 			<Route path="/" component={Root}>
-				<IndexRedirect to="/page" />
-        <Route path="/page" component={LandingPage} />
-				<Route path="/allProducts/:id" component={SingleProduct} onEnter={onProductEnter} />
-				<Route path="/signup" component = {Signup} />
-				<Route path="/login" component = {Login} />
-			</Route>
+				<IndexRedirect to="/Home" />
+					<Route path="/Home" component={LandingPage} />
+					<Route path="/allProducts/:id" component={SingleProduct} onEnter={onProductEnter} />
+					<Route path="/signup" component = {Signup} />
+					<Route path="/login" component = {Login} />
+					<Route path="/profile" component={Profile}/>
+					<Route path="admin" component={UserProfile} />
+					</Route>
 		</Router>
 	</Provider>,
 	document.getElementById('main')

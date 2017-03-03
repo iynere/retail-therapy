@@ -1,13 +1,18 @@
 import React from 'react'
 import {browserHistory} from 'react-router'
+import {login} from 'APP/app/reducers/auth'
+import {connect} from 'react-redux'
+import Profile from './Profile'
 
 export const Login = ({ login }) => (
 	<div>
-		<form onSubmit={evt => {
-			evt.preventDefault()
-			login(evt.target.username.value, evt.target.password.value)
-			browserHistory.push('/')
-		} }>
+		<form onSubmit={
+			evt => {
+							evt.preventDefault()
+							login(evt.target.username.value, evt.target.password.value)
+							browserHistory.push('/profile')
+							}
+						}>
 			<input name="username" required/>
 			<input name="password" type="password" required/>
 			<input type="submit" value="Login" />
@@ -17,10 +22,7 @@ export const Login = ({ login }) => (
 	</div>
 )
 
-import {login} from 'APP/app/reducers/auth'
-import {connect} from 'react-redux'
-
-export default connect (
+export default connect(
 	state => ({}),
 	{login},
-) (Login)
+)(Login)
