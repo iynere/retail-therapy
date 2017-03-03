@@ -7,6 +7,7 @@ import store from './store'
 import Root from './components/Root'
 import AllProducts from './components/AllProducts'
 import SingleProduct from './components/SingleProduct'
+import Cart from './components/Cart'
 import {fetchProduct} from './reducers/product'
 import {fetchProductReviews} from './reducers/reviews'
 import Login from './components/Login'
@@ -26,8 +27,9 @@ render(
 				<IndexRedirect to="/page" />
         <Route path="/page" component={LandingPage} />
 				<Route path="/allProducts/:id" component={SingleProduct} onEnter={onProductEnter} />
-				<Route path="/signup" component = {Signup} />
-				<Route path="/login" component = {Login} />
+				<Route path="/signup" component={Signup} />
+				<Route path="/login" component={Login} />
+        <Route path="/cart" component={Cart} />
 			</Route>
 		</Router>
 	</Provider>,

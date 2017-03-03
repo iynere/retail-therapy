@@ -6,7 +6,7 @@ const Reviews = props => (
 		<ul>
 			{
 				props.reviews && props.reviews.map(review => {
-					return <li key={review.id}>{review.rating}, {review.text}, by {review.user.name}, date: {review.date}</li>
+					return <li key={review.id}>{review.rating}, {review.text}, by {review.user.name || review.user.email}, date: {review.date}</li>
 				})
 			}
 		</ul>
@@ -20,5 +20,5 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps)(Reviews)
 
-// on single product page: each review needs to say who wrote it
+// still needs to get done
 // on single user page: each review needs to say what product it is

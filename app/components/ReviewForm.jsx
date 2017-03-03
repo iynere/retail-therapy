@@ -13,6 +13,8 @@ export const ReviewForm = props => {
 				user_id: props.currentUser.id
 			}
 			props.addReview(review, props.productId)
+      evt.target.rating.value = 1
+      evt.target.text.value = ''
 		}}>	
 			<div>
 			Rating 
