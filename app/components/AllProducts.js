@@ -2,11 +2,12 @@ import React from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { fetchProducts } from '../reducers/products'
-import {addProduct} from '../reducers/cart'
+import {addToCart} from '../reducers/cart'
 
 export const AllProducts = props => {
   const products = props.products || [],
-    addProduct = props.addProduct 
+    addToCart = props.addToCart,
+    currentUser = props.user // still need to deal with adding products to cart if not logged in
   return (<div className="allProducts">
       <div className="product-grid">
         <div className="row">
@@ -24,7 +25,7 @@ export const AllProducts = props => {
                       className="btn btn-default"
                       onClick={evt => {
                         evt.preventDefault()
-                        addProduct(product)
+                        addToCart(product.id, currentUser.id)
                       }}>
                       <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
                       add to cart
@@ -39,15 +40,16 @@ export const AllProducts = props => {
 
 function MapSetToProps (state) {
   return {
-    products: state.products
+    products: state.products,
+    user: state.auth
   }
 }
 
 function MapDispatchToProps (dispatch) {
   return {
     fetchProducts: dispatch(fetchProducts()),
-    addProduct: product => {
-      dispatch(addProduct(product))
+    addToCart: (productId, userId) => {
+      dispatch(addToCart(productId, userId))
     }
   }
 }

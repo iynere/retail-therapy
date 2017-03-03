@@ -36,7 +36,7 @@ class Navbar extends Component {
                 <Link to="/">home</Link>
               </li>
               <li>
-                <Link to="/cart"><span className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></Link>
+                <Link to={currentUser ? `/${currentUser.id}/cart` : '/'}><span className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></Link>
               </li>
             </ul>
             {currentUser ? this.renderUser() : this.renderLoginSignup()}

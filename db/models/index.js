@@ -21,10 +21,15 @@ Product.hasMany(Review)
 Review.belongsTo(Product)
 Order.belongsTo(User)
 
-// ProductsOrdered.belongsTo(Order)
+ProductsOrdered.belongsTo(Order)
+ProductsOrdered.belongsTo(Product)
 
 Order.hasMany(ProductsOrdered)
 Product.hasMany(ProductsOrdered)
+
+// might want to do this so there's a user_id column for every product ordered
+// ProductsOrdered.belongsTo(User) 
+// User.hasMany(ProductsOrdered)
 
 Category.belongsToMany(Product, { through: 'ProductsCategories' })
 

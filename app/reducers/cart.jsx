@@ -1,20 +1,37 @@
+import axios from 'axios'
+
 // CONSTANTS
-const ADD_PRODUCT = 'ADD_PRODUCT'
+const RECEIVE_CART = 'RECEIVE_CART'
 
 // ACTION CREATORS
-export const addProduct = product => ({
-  type: ADD_PRODUCT,
-  product: product 
+const receiveCart = cart => ({
+  type: RECEIVE_CART,
+  cart: cart
 })
 
 const reducer = (state = state ? state : [], action) => {
   switch (action.type) {
-    case ADD_PRODUCT:
-    return state.concat([action.product])
+    case RECEIVE_CART:
+    return action.cart
   }
   return state;
 }
 
-// NO THUNKS, don't need to hit our backend (yet)
+// THUNKS
+export const fetchCart = userId => dispatch => {
+  axios.get(`/api/orders/${userId}/cart`)
+    .then(res => dispatch(receiveCart(res.data)))
+    .catch(err => console.error('fetching cart unsuccessful', err))
+}
+
+export const addToCart = (productId, userId) => (dispatch, getState) => {
+  axios.post(`/api/orders/${productId}/${userId}`)
+    .then(res => res.data)
+    .then(newCartItem => {
+      const newCart = getState().cart.concat([newCartItem])
+      dispatch(receiveCart(newCart))
+    })
+    .catch(err => console.error('adding to cart unsuccessful', err))
+}
 
 export default reducer

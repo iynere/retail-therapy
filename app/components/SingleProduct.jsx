@@ -2,10 +2,12 @@ import React from 'react'
 import {connect} from 'react-redux'
 import ReviewForm from './ReviewForm'
 import Reviews from './Reviews'
-import {addProduct} from '../reducers/cart'
+import {addToCart} from '../reducers/cart'
 
 export const SingleProduct = props => {
-	const product = props.product || {}
+	const product = props.product || {},
+    addToCart = props.addToCart,
+    currentUser = props.user // still need to deal with adding products to cart if not logged in
 	return(
 			<div className="product-grid">
 				<div className="product-card col-sm-6 col-md-4">
@@ -19,7 +21,7 @@ export const SingleProduct = props => {
                 className="btn btn-default"
                 onClick={evt => {
                   evt.preventDefault()
-                  props.addProduct(product)
+                  addToCart(product.id, currentUser.id)
               }}>
 								<span className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
 							add to cart
@@ -36,12 +38,13 @@ export const SingleProduct = props => {
 }
 
 const mapStateToProps = state => ({
-	product: state.product
+	product: state.product,
+  user: state.auth
 })
 
 const mapDispatchToProps = dispatch => ({
-  addProduct: product => {
-    dispatch(addProduct(product))
+  addToCart: (productId, userId) => {
+    dispatch(addToCart(productId, userId))
   }
 })
 

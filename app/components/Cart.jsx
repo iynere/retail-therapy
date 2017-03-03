@@ -7,8 +7,8 @@ const Cart = ({cart}) => (
     <h3>Cart</h3>
     <ul>
       {
-        cart && cart.map(product => 
-          <li key={product.id}><Link to={`/allProducts/${product.id}`}>{product.name}</Link>, quantity: 1{/* do quant later*/}, {product.price}</li>
+        cart.every(cartItem => cartItem.product) && cart.map(cartItem => 
+          <li key={cartItem.id}><Link to={`/allProducts/${cartItem.product.id}`}>{cartItem.product.name}</Link>, quantity: 1{/* do quant later*/}, {cartItem.product.price}</li>
         )
       }
     </ul>

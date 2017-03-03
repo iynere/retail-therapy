@@ -9,6 +9,27 @@ const Product = db.model('products')
 const ProductOrdered = db.model('productsOrdered')
 const User = db.model('users')
 
+router.get('/:userId/cart', (req, res, next) => {
+  // still only for logged-in users for now
+  Order.findOne({
+    where: {
+      status: 'cart',
+      user_id: req.params.userId
+    }
+  })
+    .then(userOrder => {
+      ProductOrdered.findAll({
+        where: {
+          order_id: userOrder.id
+        },
+        include: [Product]
+      })
+        .then(cartWithProducts => {
+          res.json(cartWithProducts)
+        })
+    }).catch(next)
+})
+
 router.post('/:productId/:userId', (req, res, next) => {
   // only for logged-in users for now
   Order.findOrCreate({
