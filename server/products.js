@@ -15,7 +15,17 @@ router.get('/', function(req, res, next){
 
 // View a single product and its reviews
 router.get('/:productId', (req, res, next) => {
+    console.log('hitting the wrong route')
 	Product.findById(req.params.productId, {include: [Review]})
+		.then(product => res.json(product))
+		.catch(next)
+})
+
+// View a single product and its reviews
+router.get('/search/:productName', (req, res, next) => {
+    console.log('hitting this route')
+    var name = req.params.productName
+	Product.findOne({include: [Review], where: {name:name}})
 		.then(product => res.json(product))
 		.catch(next)
 })

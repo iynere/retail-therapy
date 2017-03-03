@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {fetchProduct} from '../reducers/product'
 
 export const SingleProduct = props => {
+  console.log('props in singleproduct:', props)
 	const product = props.product || []
 	return(
       <div className="product-grid">
