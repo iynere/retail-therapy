@@ -20,9 +20,12 @@ Review.belongsTo(User)
 Product.hasMany(Review)
 Review.belongsTo(Product)
 Order.belongsTo(User)
-ProductsOrdered.belongsTo(Order)
+
+// ProductsOrdered.belongsTo(Order)
+
 Order.hasMany(ProductsOrdered)
 Product.hasMany(ProductsOrdered)
+
 Category.belongsToMany(Product, { through: 'ProductsCategories' })
 
 module.exports = {User, Product, Review, Order, ProductsOrdered, Category, OAuth}
