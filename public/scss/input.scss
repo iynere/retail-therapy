@@ -16,15 +16,31 @@
   }
 }
 
-.Admin-Portal{
+.Admin-Profile{
   width: 100%;
   display: inline-block;
-  ul {
-    list-style: none;
-  }
-  .Admin-options-pane{
+
+  ul{
     border: 1px solid #808080;
     width: 25%;
     border-radius: 5px;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    background-color: #f1f1f1;
+    list-style-type: none;
+  }
+
+  li {
+    display: block;
+    color: #000;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+/* Change the link color on hover */
+li:hover {
+    background-color: #555;
+    color: white;
   }
 }
