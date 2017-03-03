@@ -37,8 +37,10 @@ router.post('/:productId', mustBeLoggedIn, (req, res, next) => {
 		user_id: req.user.id
 	})
 		.then(review => {
-			res.json(review)})
-		.catch(next)
+			Review.findById(review.id, {include: [User]})
+				.then(reviewWithUser => res.json(reviewWithUser))
+		})
+			.catch(next)
 })
 
 module.exports = router
