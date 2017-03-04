@@ -65,7 +65,7 @@ class Navbar extends Component {
     return (
       <ul className="nav navbar-nav navbar-right">
       <li>
-        <Link to={`/users/${currentUser.id}`} activeClassName="active">
+        <Link to={`/profile/${currentUser.id}`} activeClassName="active">
          {`Welcome ${currentUser.name || currentUser.email}!`}
         </Link>
       </li>
