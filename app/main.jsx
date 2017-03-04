@@ -7,8 +7,10 @@ import store from './store'
 import Root from './components/Root'
 import AllProducts from './components/AllProducts'
 import SingleProduct from './components/SingleProduct'
+import Cart from './components/Cart'
 import {fetchProduct} from './reducers/product'
 import {fetchProductReviews} from './reducers/reviews'
+import {fetchCart} from './reducers/cart'
 import Login from './components/Login'
 import Signup from './components/Signup'
 import WhoAmI from './components/WhoAmI'
@@ -19,6 +21,10 @@ const onProductEnter = nextRouterState => {
 	store.dispatch(fetchProductReviews(nextRouterState.params.id))
 };
 
+const onCartEnter = nextRouterState => {
+  store.dispatch(fetchCart(nextRouterState.params.userId))
+}
+
 render(
 	<Provider store={store}>
 		<Router history={browserHistory}>
@@ -26,8 +32,9 @@ render(
 				<IndexRedirect to="/page" />
         <Route path="/page" component={LandingPage} />
 				<Route path="/allProducts/:id" component={SingleProduct} onEnter={onProductEnter} />
-				<Route path="/signup" component = {Signup} />
-				<Route path="/login" component = {Login} />
+				<Route path="/signup" component={Signup} />
+				<Route path="/login" component={Login} />
+        <Route path="/:userId/cart" component={Cart} onEnter={onCartEnter}/>
 			</Route>
 		</Router>
 	</Provider>,
