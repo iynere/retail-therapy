@@ -21,20 +21,20 @@ const onProductEnter = nextRouterState => {
 	store.dispatch(fetchProductReviews(nextRouterState.params.id))
 };
 
-const onCartEnter = nextRouterState => {
+const loadCart = nextRouterState => {
   store.dispatch(fetchCart(nextRouterState.params.userId))
 }
 
 render(
 	<Provider store={store}>
 		<Router history={browserHistory}>
-			<Route path="/" component={Root}>
-				<IndexRedirect to="/page" />
-        <Route path="/page" component={LandingPage} />
+			<Route path="/" component={Root} /*onEnter={loadCart}*/>
+				<IndexRedirect to="/home" />
+        <Route path="/home" component={LandingPage} />
 				<Route path="/allProducts/:id" component={SingleProduct} onEnter={onProductEnter} />
 				<Route path="/signup" component={Signup} />
 				<Route path="/login" component={Login} />
-        <Route path="/:userId/cart" component={Cart} onEnter={onCartEnter}/>
+        <Route path="/:userId/cart" component={Cart} onEnter={loadCart} />
 			</Route>
 		</Router>
 	</Provider>,

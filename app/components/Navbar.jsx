@@ -2,18 +2,29 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link, browserHistory} from 'react-router'
 import {logout} from '../reducers/auth'
+import {fetchCart, /*clearCart,*/ receiveCart} from '../reducers/cart'
 
 class Navbar extends Component {
   constructor (props) {
     super(props)
     this.renderLoginSignup = this.renderLoginSignup.bind(this)
     this.renderLogout = this.renderLogout.bind(this)
+    this.renderCart = this.renderCart.bind(this)
   }
 
-  render () {
-  // need to include user in redux store / state
-    const currentUser = this.props.currentUser
+  // componentDidUpdate() {
+  //   console.log(this.props)
+  //   const currentUser = this.props.currentUser
+  //   console.log(currentUser)
+  //   return currentUser ? fetchCart(currentUser.id) : null
+  // }
 
+  render () {
+    console.log(this.props)
+  // need to include user in redux store / state
+    const currentUser = this.props.currentUser,
+      cartSize = this.props.cart.length
+    
     return (
       <nav className="navbar navbar-default">
         <div className="container">
@@ -36,7 +47,9 @@ class Navbar extends Component {
                 <Link to="/">home</Link>
               </li>
               <li>
-                <Link to={currentUser ? `/${currentUser.id}/cart` : '/'}><span className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></Link>
+                {currentUser ? this.renderCart() : 
+                <Link><span className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> (empty!)</Link>
+                }
               </li>
             </ul>
             {currentUser ? this.renderUser() : this.renderLoginSignup()}
@@ -46,7 +59,23 @@ class Navbar extends Component {
       </nav>
     )
   }
-
+  
+  componentDidUpdate() {
+    
+  }
+  
+  renderCart() {
+    const currentUser = this.props.currentUser,
+      cartSize = this.props.cart.length
+    if (!cartSize) this.props.fetchCart(currentUser.id)
+    
+    return(
+      <Link to={`/${currentUser.id}/cart`}>
+        <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>{cartSize ? cartSize === 1 ? ' (1 item)' : ` (${cartSize} items)` : ' (empty!)'}
+      </Link>
+    )
+  }
+  
   renderLoginSignup () {
     return (
       <ul className="nav navbar-nav navbar-right">
@@ -92,15 +121,20 @@ class Navbar extends Component {
 
 const mapStateToProps = state => {
   return {
-    currentUser: state.auth
+    currentUser: state.auth,
+    cart: state.cart
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     logout: () => {
-      dispatch(logout()) // need to write this function
+      dispatch(logout())
+      // dispatch(clearCart())
       browserHistory.push('/')
+    },
+    fetchCart: userId => {
+      dispatch(fetchCart(userId))
     }
   }
 }

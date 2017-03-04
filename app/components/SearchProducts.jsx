@@ -5,7 +5,6 @@ import {findProduct} from '../reducers/product'
 import {browserHistory} from 'react-router'
 
 export function SearchProducts({products}){
-    console.log('this is products', products)
     return(
       <div className="row">
         <div className="col-lg-6">

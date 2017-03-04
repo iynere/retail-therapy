@@ -9,10 +9,18 @@ const receiveCart = cart => ({
   cart: cart
 })
 
+// export const clearCart = () => ({
+//   type: CLEAR_CART,
+//   cart: []
+// })
+
 const reducer = (state = state ? state : [], action) => {
   switch (action.type) {
     case RECEIVE_CART:
     return action.cart
+    // case CLEAR_CART:
+    // console.log('cleared cart')
+    // return action.cart
   }
   return state;
 }
