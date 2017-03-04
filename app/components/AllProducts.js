@@ -3,12 +3,14 @@ import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { fetchProducts } from '../reducers/products'
 import {addToCart} from '../reducers/cart'
+import SearchProducts from './SearchProducts'
 
 export const AllProducts = props => {
   const products = props.products || [],
     addToCart = props.addToCart,
     currentUser = props.user // still need to deal with adding products to cart if not logged in
   return (<div className="allProducts">
+      <SearchProducts />
       <div className="product-grid">
         <div className="row">
           {products.map(product => (
