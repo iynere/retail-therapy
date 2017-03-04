@@ -2,14 +2,13 @@
 import React from 'react'
 import {Link} from 'react-router'
 import {connect} from 'react-redux'
-import AdminPortal from './AdminPortal'
 import AllProducts from './AllProducts'
 
-export function LandingPage ({user, products}) {
-  const userRole = user ? user.role : null
+export function LandingPage ({products, children}) {
   return (
     <div>
-      {userRole === 'admin' ? <AdminPortal /> : null }
+      <h1>Retail Therapy</h1>
+      {children}
       <AllProducts products={products}/>
     </div>
   )

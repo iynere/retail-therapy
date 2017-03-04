@@ -5,7 +5,6 @@ import {findProduct} from '../reducers/product'
 import {browserHistory} from 'react-router'
 
 export function SearchProducts({products}){
-    console.log('this is products', products)
     return(
       <div className="row">
         <div className="col-lg-6">
@@ -16,7 +15,7 @@ export function SearchProducts({products}){
                   const searchValue = evt.target.search.value
                   products.forEach(function(element){
                     if(element.name === searchValue){
-                    browserHistory.push(`/allProducts/${element.id}`) 
+                    browserHistory.push(`/allProducts/${element.id}`)
                     }
                     else return null;
                   })
@@ -39,7 +38,7 @@ export function SearchProducts({products}){
 
 const mapStateToProps = (state) => ({
 
-    products: state.products 
+    products: state.products
 
 });
 /*
