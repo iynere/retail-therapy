@@ -7,7 +7,6 @@ export default function UserProfile ({user}) {
     <div className="Profile-Container">
       <div className="profile-title">
         <h3>Welcome {currentUser.name || currentUser.email}</h3>
-        {browserHistory.push(`/profile/${currentUser.id}`)}
       </div>
       <ul>
         <li><Link to={'/accountInfo'}>Your Account Information</Link></li>
