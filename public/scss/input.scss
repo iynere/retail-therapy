@@ -16,15 +16,26 @@
   }
 }
 
-.Admin-Portal{
-  width: 100%;
-  display: inline-block;
-  ul {
-    list-style: none;
+.Profile-Container{
+   width: 100%;
+   display: inline-block;
+  ul{
+     border: 1px solid #808080;
+     width: 25%;
+     border-radius: 5px;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    background-color: #f1f1f1;
+    list-style-type: none;
   }
-  .Admin-options-pane{
-    border: 1px solid #808080;
-    width: 25%;
-    border-radius: 5px;
+  li {
+    display: block;
+    color: #000;
+    padding: 8px 16px;
+    text-decoration: none;
   }
+  li:hover {
+    background-color: #555;
+    color: white; }
 }

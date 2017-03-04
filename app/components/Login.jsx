@@ -6,7 +6,7 @@ export const Login = ({ login }) => (
 		<form onSubmit={evt => {
 			evt.preventDefault()
 			login(evt.target.username.value, evt.target.password.value)
-			browserHistory.push('/')
+			browserHistory.push('/profile')
 		} }>
 			<input name="username" required/>
 			<input name="password" type="password" required/>
