@@ -1,5 +1,7 @@
 import React from 'react'
 import {browserHistory} from 'react-router'
+import {login} from 'APP/app/reducers/auth'
+import {connect} from 'react-redux'
 
 export const Login = ({ login }) => (
 	<div>
@@ -16,9 +18,6 @@ export const Login = ({ login }) => (
 		<p><a href="/api/auth/facebook/login">log in with Facebook</a></p>
 	</div>
 )
-
-import {login} from 'APP/app/reducers/auth'
-import {connect} from 'react-redux'
 
 export default connect (
 	state => ({}),

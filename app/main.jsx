@@ -19,6 +19,7 @@ import UserProfile from './components/UserProfile'
 import AdminProfile from './components/AdminProfile'
 import Profile from './components/Profile'
 import AccountInfo from './components/userComponents/AccountInfo'
+import AdminManageUsers from './components/userComponents/AdminManageUsers'
 
 const onProductEnter = nextRouterState => {
 	store.dispatch(fetchProduct(nextRouterState.params.id))
@@ -40,11 +41,13 @@ render(
 					<Route path="/signup" component = {Signup} />
 					<Route path="/login" component = {Login} />
 					<Route path="/profile" component={Profile}/>
-					<Route path="user" component={UserProfile} />
-					<Route path="admin" component={AdminProfile} />
-					<Route path="accountInfo" component={AccountInfo} />
-        	<Route path="/:userId/cart" component={Cart} onEnter={onCartEnter}/>
 					<Route path="/profile/:userId" component={Profile}/>
+					<Route path="/user" component={UserProfile} />
+					<Route path="/admin" component={AdminProfile} />
+					<Route path="/admin/manageUsers" component={AdminManageUsers} />
+					<Route path="/accountInfo" component={AccountInfo} />
+        	<Route path="/:userId/cart" component={Cart} onEnter={onCartEnter}/>
+
 			</Route>
 		</Router>
 	</Provider>,
