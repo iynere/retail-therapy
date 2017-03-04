@@ -3,6 +3,10 @@ const debug = require('debug')(`${app.name}:auth`)
 const passport = require('passport')
 
 const User = require('APP/db/models/user')
+const Order = require('APP/db/models/orders')
+const Product = require('APP/db/models/products')
+const ProductOrdered = require('APP/db/models/productsOrdered')
+
 const OAuth = require('APP/db/models/oauth')
 const auth = require('express').Router()
 
@@ -136,6 +140,31 @@ auth.get('/:strategy/login', (req, res, next) =>
 auth.put('/logout', (req, res, next) => {
 	req.logout()
 	res.redirect('/api/auth/whoami')
+})
+
+// Creates anonymous user and starts a cart. We'll only hit this route the first time the user clicks "Add to cart"
+// Check if the user exists in local storage before hitting this route again
+auth.post('/anon/:productId', (req, res, next) => {
+	User.create({
+		role: 'anonymous'
+	})
+	.then(createdUser => {
+		Order.create({
+			user_id: createdUser.id
+		})
+		.then(createdOrder => {
+			Product.findById(req.params.productId)
+				.then(product => {
+					ProductOrdered.create({
+						price: Number(product.price.slice(1))*100,
+						product_id: product.id,
+						order_id: createdOrder.id
+					})
+					res.json(createdUser)
+				})
+		})
+	})
+	.catch(next)
 })
 
 module.exports = auth

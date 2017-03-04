@@ -65,8 +65,13 @@ class Navbar extends Component {
   }
   
   renderCart() {
-    const currentUser = this.props.currentUser,
-      cartSize = this.props.cart.length
+    console.log("Before the reduce: ", this.props.cart)
+    const currentUser = this.props.currentUser, 
+    // [ {quantity: 1} , {quantity: 2} ]
+      cartSize = this.props.cart.reduce((result, cartItem) => {
+        return result + cartItem.quantity
+      }, 0)
+      console.log("After the reduce: ", cartSize)
     if (!cartSize) this.props.fetchCart(currentUser.id)
     
     return(

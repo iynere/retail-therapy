@@ -14,6 +14,19 @@ export const authenticated = user => ({
 	user: user
 })
 
+// Current status: 
+// Able to get user on localStorage (userId) and the DB
+// Does create a cart, but it logs them in, which we don't want (Eventually, instead of logging in, we should check their localStorage for a userId)
+// The cart quantities are broken
+// The cart is very buggy in the navbar
+export const anonCreateCart = (productId) => dispatch => 
+	axios.post(`/api/auth/anon/${productId}`)
+		.then(res => {
+			localStorage.userId = res.data.id
+			dispatch(authenticated(res.data))
+		})
+		.catch(() => dispatch(whoami())) 
+
 export const signup = (name, email, password) => dispatch =>
 		axios.post('/api/auth/local/signup', {name, email, password})
 			.then(() => dispatch(login(email, password)))
