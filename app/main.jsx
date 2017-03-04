@@ -14,7 +14,10 @@ import Signup from './components/Signup'
 import WhoAmI from './components/WhoAmI'
 import LandingPage from './components/LandingPage'
 import UserProfile from './components/UserProfile'
+import AdminProfile from './components/AdminProfile'
 import Profile from './components/Profile'
+import AccountInfo from './components/userComponents/AccountInfo'
+
 
 const onProductEnter = nextRouterState => {
 	store.dispatch(fetchProduct(nextRouterState.params.id))
@@ -31,7 +34,9 @@ render(
 					<Route path="/signup" component = {Signup} />
 					<Route path="/login" component = {Login} />
 					<Route path="/profile" component={Profile}/>
-					<Route path="admin" component={UserProfile} />
+					<Route path="user" component={UserProfile} />
+					<Route path="admin" component={AdminProfile} />
+					<Route path="accountInfo" component={AccountInfo} />
 					</Route>
 		</Router>
 	</Provider>,

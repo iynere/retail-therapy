@@ -1,19 +1,18 @@
 import React from 'react'
-import {Link} from 'react-router'
-import {connect} from 'react-redux'
+import {Link, browserHistory} from 'react-router'
 
-export default function UserProfile ({options}) {
+export default function UserProfile ({user}) {
   return (
     <div className="Admin-Profile">
       <div className="Admin-profile-title">
-        <h3>Admin Page</h3>
+        <h3>Welcome {user.name}</h3>
+        {browserHistory.push(`/${user.name}`)}
       </div>
       <ul>
-        {(<li><Link >{options[0]}</Link></li>)}
-        {
-          options.map(element => (<li key={element}><Link >{element}</Link></li>))
-        }
-
+        <li><Link to={'/accountInfo'}>Your Account Information</Link></li>
+        <li><Link >Your Orders</Link></li>
+        <li><Link >Your Wishlist</Link></li>
+        <li><Link >Your Cart</Link></li>
       </ul>
     </div>
   )

@@ -5,9 +5,9 @@ import AllProducts from './AllProducts'
 
 
 export function LandingPage ({products, children}) {
-  console.log('CHILDREN', children)
   return (
     <div>
+      <h1>Retail Therapy</h1>
       {children}
       <AllProducts products={products}/>
     </div>
