@@ -15,29 +15,20 @@ router.get('/', function(req, res, next){
 
 // View a single product and its reviews
 router.get('/:productId', (req, res, next) => {
-    console.log('hitting the wrong route')
-	Product.findById(req.params.productId, {include: [Review]})
+	Product.findById(req.params.productId/*, {include: [Review]}*/)
 		.then(product => res.json(product))
 		.catch(next)
 })
 
-// // View a single product and its reviews
-// router.get('/search/:productName', (req, res, next) => {
-//     console.log('hitting this route')
-//     var name = req.params.productName
-// 	Product.findOne({include: [Review], where: {name:name}})
-// 		.then(product => res.json(product))
+// moved review getting / posting to separate router
+
+// // Post a review for a given product
+// router.post('/:productId/review', (req, res, next) => {
+// 	Review.create(req.body)
+// 		.then((review) => {
+// 			res.status(204).json(review)
+// 		})
 // 		.catch(next)
 // })
 
-// Post a review for a given product
-router.post('/:productId/review', (req, res, next) => {
-	Review.create(req.body)
-		.then((review) => {
-			res.status(204).json(review)
-		})
-		.catch(next)
-})
-
-//
 module.exports = router;

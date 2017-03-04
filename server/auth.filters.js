@@ -16,7 +16,7 @@ const forbidden = message => (req, res, next) => {
 	res.status(403).send(message)
 }
 
-module.exports = {mustBeLoggedIn, selfOnly, forbidden,}
+module.exports = {mustBeLoggedIn, selfOnly, forbidden}
 
 // controlling authentication in the backend / routes, instead of just in the frontend
 
