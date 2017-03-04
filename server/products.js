@@ -21,14 +21,14 @@ router.get('/:productId', (req, res, next) => {
 		.catch(next)
 })
 
-// View a single product and its reviews
-router.get('/search/:productName', (req, res, next) => {
-    console.log('hitting this route')
-    var name = req.params.productName
-	Product.findOne({include: [Review], where: {name:name}})
-		.then(product => res.json(product))
-		.catch(next)
-})
+// // View a single product and its reviews
+// router.get('/search/:productName', (req, res, next) => {
+//     console.log('hitting this route')
+//     var name = req.params.productName
+// 	Product.findOne({include: [Review], where: {name:name}})
+// 		.then(product => res.json(product))
+// 		.catch(next)
+// })
 
 // Post a review for a given product
 router.post('/:productId/review', (req, res, next) => {
