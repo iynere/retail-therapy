@@ -1,10 +1,13 @@
 import React from 'react'
-import { Link } from 'react-router'
-import { connect } from 'react-redux'
-import { fetchProducts } from '../reducers/products'
+import {Link} from 'react-router'
+import {connect} from 'react-redux'
+import {fetchProducts} from '../reducers/products'
+import SearchProducts from './SearchProducts'
 
-export function AllProducts ({products}) {
-  return (<div className="allProducts">
+export function AllProducts (props) {
+  const products = props.products;
+  return(<div className="allProducts">
+      <SearchProducts />
       <div className="product-grid">
         <div className="row">
           {products.map(product => (

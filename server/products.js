@@ -13,14 +13,14 @@ router.get('/', function(req, res, next){
 				 .catch(next)
 })
 
-// moved review getting / posting to separate router
-
 // View a single product and its reviews
 router.get('/:productId', (req, res, next) => {
 	Product.findById(req.params.productId/*, {include: [Review]}*/)
 		.then(product => res.json(product))
 		.catch(next)
 })
+
+// moved review getting / posting to separate router
 
 // // Post a review for a given product
 // router.post('/:productId/review', (req, res, next) => {
@@ -31,5 +31,4 @@ router.get('/:productId', (req, res, next) => {
 // 		.catch(next)
 // })
 
-//
 module.exports = router;

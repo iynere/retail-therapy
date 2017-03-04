@@ -4,6 +4,7 @@ import ReviewForm from './ReviewForm'
 import Reviews from './Reviews'
 
 export const SingleProduct = props => {
+  console.log('props in singleproduct:', props)
 	const product = props.product || []
 	return(
 			<div className="product-grid">
