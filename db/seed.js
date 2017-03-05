@@ -7,8 +7,11 @@ const seedUsers = () => db.Promise.map([
 
 const seedProducts = () => db.Promise.map([
   //dummy data for now
-  {name: 'happiness', description:'this emotion is rare but the best', categories: ['rare', 'extreme'] , price: 5000 , photoUrl: 'http://www.pursuit-of-happiness.org/wp-content/uploads/positivity.jpg' },
-  {name: 'sadness', description:'this emotion ', categories: ['rare', 'extreme'] , price: 100 , stock: 10000 , photoUrl: 'http://weknownyourdreamz.com/images/sadness/sadness-07.jpg' }
+  {name: 'happiness', description:'this emotion is rare but the best', categories: ['rare', 'extreme'] , price: 5000 , photoUrl: '/images/happiness.png' },
+  {name: 'sadness', description:'this emotion ', categories: ['rare', 'extreme'] , price: 100 , stock: 10000 , photoUrl: '/images/sadness.png' },
+  {name: 'love', description:'lorem ipsum dolor sit amet', categories: ['rare', 'extreme'] , price: 100 , stock: 10000 , photoUrl: '/images/love.png' },
+  {name: 'hope', description:'this emotion ...', categories: ['rare', 'extreme'] , price: 100 , stock: 10000 , photoUrl: '/images/hope.png' },
+  {name: 'anger', description:'this emotion ...', categories: ['rare', 'extreme'] , price: 100 , stock: 10000 , photoUrl: '/images/anger.png' }
   
   
 ], product => db.model('products').create(product))
