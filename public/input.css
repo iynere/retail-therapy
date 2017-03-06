@@ -77,13 +77,6 @@ body {
   width: 100%;
   display: inline-block;
   overflow-x: auto; }
-  .AdminTableContainer table {
-    width: 100%;
-    border-collapse: collapse;
-    color: #333333; }
-    .AdminTableContainer table th {
-      background-color: #555;
-      color: white; }
 
 #cart_icon {
   padding-top: 13px;
@@ -144,3 +137,16 @@ li {
   margin-top: 30px;
   padding-bottom: 15px;
   border-bottom: 1px solid #ccc; }
+
+/*table stuff here*/
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.05); }
+
+.select-padding {
+  padding: 10px;
+  text-transform: capitalize;
+  height: 30px;
+  min-width: 130px; }
+
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+  padding: 15px; }
