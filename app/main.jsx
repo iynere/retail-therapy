@@ -34,28 +34,28 @@ const loadCart = nextRouterState => {
 
 render(
 
-	<Provider store={store}>
-		<Router history={browserHistory}>
-			<Route path="/" component={Root}>
-				<IndexRedirect to="/page" />
-				<IndexRedirect to="/Home" />
-					<Route path="/Home" component={LandingPage} />
-					<Route path="/allProducts/:id" component={SingleProduct} onEnter={onProductEnter} />
-					<Route path="/signup" component = {Signup} />
-					<Route path="/login" component = {Login} />
-					<Route path="/profile" component={Profile}/>
-					<Route path="/profile/:userId" component={Profile}/>
-					<Route path="/user" component={UserProfile} />
-					<Route path="/admin" component={AdminProfile} />
-					<Route path="/admin/manageUsers" component={AdminManageUsers} />
-					<Route path="/admin/manageOrders" component={AdminManageOrders} />
-					<Route path="/admin/manageProducts" component={AdminManageProducts} />
-					<Route path="/accountInfo" component={AccountInfo} />
-        	<Route path="/:userId/cart" component={Cart} onEnter={onCartEnter}/>
+  <Provider store={store}>
+    <Router history={browserHistory}>
+      <Route path="/" component={Root}>
+        <IndexRedirect to="/page" />
+        <IndexRedirect to="/Home" />
+          <Route path="/Home" component={LandingPage} />
+          <Route path="/allProducts/:id" component={SingleProduct} onEnter={onProductEnter} />
+          <Route path="/signup" component = {Signup} />
+          <Route path="/login" component = {Login} />
+          <Route path="/profile" component={Profile}/>
+          <Route path="/profile/:userId" component={Profile}/>
+          <Route path="/user" component={UserProfile} />
+          <Route path="/admin" component={AdminProfile} />
+          <Route path="/admin/manageUsers" component={AdminManageUsers} />
+          <Route path="/admin/manageOrders" component={AdminManageOrders} />
+          <Route path="/admin/manageProducts" component={AdminManageProducts} />
+          <Route path="/accountInfo" component={AccountInfo} />
+          <Route path="/:userId/cart" component={Cart} onEnter={loadCart}/>
 
-			</Route>
-		</Router>
-	</Provider>,
-	document.getElementById('main')
+      </Route>
+    </Router>
+  </Provider>,
+  document.getElementById('main')
 
 )

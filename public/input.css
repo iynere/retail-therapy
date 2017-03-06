@@ -1,0 +1,138 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  background: #f8f8f8;
+  color: #666; }
+
+.nums {
+  font-family: 'Rokkitt', serif; }
+
+.product-grid {
+  width: 100%; }
+  .product-grid .product-card {
+    overflow: hidden;
+    box-sizing: border-box;
+    padding: 0;
+    border-radius: 2px; }
+  .product-grid .product-img {
+    height: 250px; }
+  .product-grid .product-content {
+    padding: 20px; }
+    .product-grid .product-content h3 {
+      text-transform: capitalize;
+      font-weight: normal; }
+    .product-grid .product-content .price-add {
+      display: inline-block;
+      width: 100%; }
+      .product-grid .product-content .price-add h2 {
+        font-size: 24px;
+        font-weight: normal;
+        float: left;
+        margin: 0; }
+      .product-grid .product-content .price-add button {
+        float: right; }
+        .product-grid .product-content .price-add button span {
+          margin-right: 10px; }
+      .product-grid .product-content .price-add .clearfix {
+        overflow: auto; }
+
+.card-padding {
+  margin: 20px;
+  box-shadow: 0 10px 20px rgba(200, 200, 200, 0.19), 0 6px 6px rgba(200, 200, 200, 0.23);
+  background: white; }
+
+.single-card {
+  box-shadow: 0 10px 20px rgba(200, 200, 200, 0.19), 0 6px 6px rgba(200, 200, 200, 0.23);
+  background: white; }
+
+.Profile-Container {
+  width: 100%;
+  display: inline-block; }
+  .Profile-Container ul {
+    border: 1px solid #808080;
+    width: 25%;
+    border-radius: 5px;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    background-color: #f1f1f1;
+    list-style-type: none; }
+  .Profile-Container li {
+    display: block;
+    color: #000;
+    padding: 8px 16px;
+    text-decoration: none; }
+  .Profile-Container li:hover {
+    background-color: #555;
+    color: white; }
+
+.AdminTableContainer {
+  width: 100%;
+  display: inline-block;
+  overflow-x: auto; }
+  .AdminTableContainer table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #333333; }
+    .AdminTableContainer table th {
+      background-color: #555;
+      color: white; }
+
+#cart_icon {
+  padding-top: 13px;
+  font-size: 18px; }
+
+a {
+  color: #666; }
+
+li {
+  list-style: none; }
+
+.navbar {
+  padding-top: 5px;
+  padding-bottom: 10px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #ccc; }
+
+#welcome-message {
+  margin-top: 15px; }
+
+.navbar-nav > li {
+  margin-left: 20px; }
+
+.no-padding {
+  padding-left: 0; }
+
+.padding {
+  padding: 20px; }
+
+#search {
+  display: inline-block;
+  height: 34px; }
+  #search input {
+    float: left;
+    width: 80%; }
+  #search span {
+    float: left;
+    width: 20%;
+    height: 100%; }
+    #search span button {
+      height: 100%; }
+
+.reviews {
+  margin-top: 100px; }
+
+.review-area {
+  margin: 10px 0; }
+
+.rating {
+  margin-left: 10px; }
+
+.reviews-list {
+  padding: 0; }
+  .reviews-list li {
+    border-bottom: 1px solid #ccc; }
+
+.login-form {
+  margin-top: 30px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #ccc; }

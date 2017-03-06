@@ -36,7 +36,7 @@ class Navbar extends Component {
             <span className="icon-bar" />
             <span className="icon-bar" />
           </button>
-          <Link className="navbar-brand">Retail Theraphy</Link>
+          <Link to="/" className="navbar-brand">Retail Therapy</Link>
           <div className="collapse navbar-collapse">
             <ul className="navbar-nav mr-auto no-padding">
               {currentUser && currentUser.role !== 'anonymous' ? this.renderUser() : this.renderLoginSignup()}
