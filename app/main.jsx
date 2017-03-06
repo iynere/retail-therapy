@@ -7,10 +7,12 @@ import store from './store'
 import Root from './components/Root'
 import AllProducts from './components/AllProducts'
 import SingleProduct from './components/SingleProduct'
-import Cart from './components/Cart'
+import CartContainer from './components/CartContainer'
+import Checkout from './components/Checkout'
 import {fetchProduct} from './reducers/product'
 import {fetchProductReviews} from './reducers/reviews'
 import {fetchCart} from './reducers/cart'
+import {fetchOrderForCheckout} from './reducers/cart'
 import Login from './components/Login'
 import Signup from './components/Signup'
 import WhoAmI from './components/WhoAmI'
@@ -32,12 +34,15 @@ const loadCart = nextRouterState => {
   store.dispatch(fetchCart(nextRouterState.params.userId))
 }
 
-render(
+// will do what loadCart does but fetch the order that is processing (ie, user has clicked 'checkout')
+const loadOrderForCheckout = nextRouterState => {
+  store.dispatch(fetchOrderForCheckout(nextRouterState.params.userId))
+}
 
+render(
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={Root}>
-        <IndexRedirect to="/page" />
         <IndexRedirect to="/Home" />
           <Route path="/Home" component={LandingPage} />
           <Route path="/allProducts/:id" component={SingleProduct} onEnter={onProductEnter} />
@@ -51,11 +56,10 @@ render(
           <Route path="/admin/manageOrders" component={AdminManageOrders} />
           <Route path="/admin/manageProducts" component={AdminManageProducts} />
           <Route path="/accountInfo" component={AccountInfo} />
-          <Route path="/:userId/cart" component={Cart} onEnter={loadCart}/>
-
+          <Route path="/:userId/cart" component={CartContainer} onEnter={loadCart}/>
+          <Route path="/:userId/checkout" component={Checkout} onEnter={loadOrderForCheckout}/>
       </Route>
     </Router>
   </Provider>,
   document.getElementById('main')
-
 )

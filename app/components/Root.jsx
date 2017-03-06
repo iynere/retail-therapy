@@ -3,13 +3,13 @@ import Navbar from './Navbar'
 // import Footer once we make one
 
 const Root = ({children}) => {
-	return (
-		<div id="main" className="container-fluid">
+  return (
+    <div id="main" className="container-fluid">
           <Navbar />
           { children }
           {/*<Footer />*/}
-	    </div>
-	)
+      </div>
+  )
 }
 
 export default Root

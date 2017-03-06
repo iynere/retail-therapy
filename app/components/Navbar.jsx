@@ -20,7 +20,6 @@ class Navbar extends Component {
   // }
 
   render () {
-    console.log(this.props)
   // need to include user in redux store / state
     const currentUser = this.props.currentUser,
       cartSize = this.props.cart.length
@@ -56,14 +55,12 @@ class Navbar extends Component {
   }
   
   renderCart() {
-    console.log("Before the reduce: ", this.props.cart)
     const currentUser = this.props.currentUser, 
     // [ {quantity: 1} , {quantity: 2} ]
       cartSize = this.props.cart.reduce((result, cartItem) => {
         return result + cartItem.quantity
       }, 0)
-      console.log("After the reduce: ", cartSize)
-    if (!cartSize) this.props.fetchCart(currentUser.id)
+    // if (!cartSize) this.props.fetchCart(currentUser.id)
     
     return(
       <Link to={`/${currentUser.id}/cart`}>

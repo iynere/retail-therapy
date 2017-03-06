@@ -11,7 +11,7 @@ export const SingleProduct = props => {
     addOneToQuantity = props.addOneToQuantity,
     currentUser = props.user,
     cart = props.cart
-	return(
+  return(
       <div className="product-grid">
       <div className="product-card">
         <div className="col-md-2"></div>
@@ -27,11 +27,7 @@ export const SingleProduct = props => {
                   className="btn btn-default"
                   onClick={evt => {
                   evt.preventDefault()
-                  if (cart.some((item) => item.id === product.id)) {
-                    addOneToQuantity(product.id, currentUser.id)
-                  } else {
-                    addToCart(product.id, currentUser.id)
-                  }
+                  cart.some((item) => item.product_id === product.id) ? addOneToQuantity(product.id, currentUser.id) : addToCart(product.id, currentUser.id)
               }}>
                   <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
                   Add to cart
