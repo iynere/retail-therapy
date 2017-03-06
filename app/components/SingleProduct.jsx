@@ -4,6 +4,9 @@ import ReviewForm from './ReviewForm'
 import Reviews from './Reviews'
 import {addToCart, addOneToQuantity} from '../reducers/cart'
 
+//TATI: user feedback for when item is already in cart?
+//TATI: guest user should be able to add to cart
+
 export const SingleProduct = props => {
   const product = props.product || {},
     addToCart = props.addToCart,
@@ -34,7 +37,7 @@ export const SingleProduct = props => {
                   }
               }}>
                   <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
-                  Add to cart
+                  Add to cart 
                 </button>
               </div>
             </div>

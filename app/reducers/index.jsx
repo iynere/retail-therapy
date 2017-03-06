@@ -5,8 +5,8 @@ const rootReducer = combineReducers({
   auth: require('./auth').default,
   cart: require('./cart').default,
   products: require('./products').default,
-  product: require('./product').default,
-  reviews: require('./reviews').default
+  product: require('./product').default, //TATI: maybe there's a clearer name for this? what specifically is a product?
+  reviews: require('./reviews').default 
 })
 
 export default rootReducer

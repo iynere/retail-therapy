@@ -32,6 +32,8 @@ const loadCart = nextRouterState => {
   store.dispatch(fetchCart(nextRouterState.params.userId))
 }
 
+//TATI: accountInfo should be a sub route of profile/:userId - same with admin routes
+
 render(
 
   <Provider store={store}>

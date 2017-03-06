@@ -2,6 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {addReview} from 'APP/app/reducers/reviews'
 
+//TATI: how does the way you're handling your form data differ from when we track the on change
+
 export const ReviewForm = props => {
 	return (<div>
 		<form className='form-group' onSubmit={evt => {

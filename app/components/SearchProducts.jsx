@@ -4,6 +4,9 @@ import {connect} from 'react-redux'
 import {findProduct} from '../reducers/product'
 import {browserHistory} from 'react-router'
 
+//TATI: maybe awkward having such a large func in you jsx
+//TATI: watch indentation 
+
 export function SearchProducts({products}){
     return(
       <div className="row">

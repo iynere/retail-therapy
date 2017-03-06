@@ -2,6 +2,7 @@ import axios from 'axios'
 
 // CONSTANTS
 const RECEIVE_CART = 'RECEIVE_CART'
+//TATI: is this action being used?
 const RECEIVE_ORDERS = 'RECEIVE_ORDERS'
 
 // ACTION CREATORS
@@ -18,16 +19,18 @@ const reducer = (state = [], action) => {
   return state
 }
 
+//TATI: all of these thunk action creators look great - very well thought out
 // THUNKS
 export const fetchCart = userId => dispatch => {
   axios.get(`/api/orders/${userId}/cart`)
     .then(res => dispatch(receiveCart(res.data)))
-    .catch(err => console.error('fetching cart unsuccessful', err))
+    .catch(err => console.error('fetching cart unsuccessful', err)) //TATI: again, we could centralize our errors 
 }
 
 // Adds a new item to the cart
 export const addToCart = (productId, userId) => dispatch => {
   axios.post(`/api/orders/${productId}/${userId}`)
+  //TATI: maybe we could DRY up this code by make a function catches the promise and dispatches fetchCart 
     .then(res => dispatch(fetchCart(userId)))
     .catch(err => console.error('adding to cart unsuccessful', err))
 }
