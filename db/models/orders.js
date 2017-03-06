@@ -12,7 +12,9 @@ const Order = db.define('orders', {
     type: Sequelize.ENUM('cart', 'processing', 'completed', 'cancelled'),
     allowNull: false,
     defaultValue: 'cart'
-  }
+  },
+  shippingAddress: Sequelize.STRING,
+  billingAddress: Sequelize.STRING
 })
 
 module.exports = Order

@@ -25,7 +25,6 @@ router.get('/:userId/cart', (req, res, next) => {
   // still only for logged-in users for now
   Order.findOne({
     where: {
-      status: 'cart',
       user_id: req.params.userId
     }
   })
@@ -41,6 +40,56 @@ router.get('/:userId/cart', (req, res, next) => {
         })
     }).catch(next)
 })
+
+// // order status will have to have been changed to 'processing' before hitting this route
+// router.get('/:userId/checkout', (req, res, next) => {
+//  Order.findOne({
+//    where: {
+//      status: 'processing',
+//      user_id: req.params.userId
+//    }
+//  })
+//    .then(userOrderForCheckout => {
+//      ProductOrdered.findAll({
+//        where: {
+//          order_id: userOrderForCheckout.id
+//        },
+//        include: [Product]
+//      })
+//        .then(orderForCheckoutWithProducts => {
+//          res.json(orderForCheckoutWithProducts)
+//        })
+//    }).catch(next)
+// })
+
+// router.put for locking in price
+router.put('/:productId/:userId/checkout', (req, res, next) => {
+  Product.findById(req.params.productId)
+    .then(productWithLatestPrice => {
+      ProductOrdered.update({
+        price: productWithLatestPrice.price
+      })
+    })
+    .catch(next)
+})
+
+// ROUTER.PUT FOR INITIAL CHECKOUT UPDATE
+// 1. find the user's cart (order with status cart)
+// 2. change status to 'processing'
+router.put('/:userId/checkout', (req, res, next) => {
+  Order.update({
+    status: 'processing'
+  }, {
+    where: {
+      status: 'cart',
+      user_id: req.params.userId
+    }
+  })
+    .catch(next)
+})
+
+// ROUTER.PUT FOR FINAL CHECKOUT
+// address stuff
 
 // We are querying the DB too many times, remember we have a table called ProudctsOrdered that
 // has accessed to the orders and products related, we can use this table

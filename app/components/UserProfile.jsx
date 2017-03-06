@@ -12,7 +12,7 @@ export default function UserProfile ({user}) {
         <li><Link to={'/accountInfo'}>Your Account Information</Link></li>
         <li><Link >Your Orders</Link></li>
         <li><Link >Your Wishlist</Link></li>
-        <li><Link >Your Cart</Link></li>
+        <li><Link to={`/${user.id}/cart`}>Your Cart</Link></li>
       </ul>
     </div>
   )

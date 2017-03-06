@@ -1,11 +1,10 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router'
+import {Link, browserHistory} from 'react-router'
 import {addOneToQuantity, removeOneFromQuantity, changeQuantity} from '../reducers/cart'
 
 const Cart = ({cart, user, addOneToQuantity, removeOneFromQuantity, changeQuantity}) => (
   <div>
-    <h3>Cart</h3>
     <ul>
       {
         cart.every(cartItem => cartItem.product) && cart.map(cartItem => 
@@ -61,10 +60,13 @@ const mapDispatchToProps = dispatch => ({
   },
   changeQuantity: (productId, userId, quantity) => {
     dispatch(changeQuantity(productId, userId, quantity))
+  },
+  processCartForCheckout: userId => {
+    dispatch(processCartForCheckout(userId))
+  },
+  lockInPriceForCheckout: (productId, userId) => {
+    dispatch(lockInPriceForCheckout(productId, userId))
   }
 })
-
-// will need this when we have a plus, minus, etc, change quant thing in the cart itself
-// const mapDispatchToProps = dispatch => {}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart)
