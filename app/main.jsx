@@ -24,15 +24,16 @@ import AdminManageOrders from './components/userComponents/AdminManageOrders'
 import AdminManageProducts from './components/userComponents/AdminManageProducts'
 
 const onProductEnter = nextRouterState => {
-	store.dispatch(fetchProduct(nextRouterState.params.id))
-	store.dispatch(fetchProductReviews(nextRouterState.params.id))
+  store.dispatch(fetchProduct(nextRouterState.params.id))
+  store.dispatch(fetchProductReviews(nextRouterState.params.id))
 };
 
-const onCartEnter = nextRouterState => {
+const loadCart = nextRouterState => {
   store.dispatch(fetchCart(nextRouterState.params.userId))
 }
 
 render(
+
 	<Provider store={store}>
 		<Router history={browserHistory}>
 			<Route path="/" component={Root}>
@@ -56,4 +57,5 @@ render(
 		</Router>
 	</Provider>,
 	document.getElementById('main')
+
 )

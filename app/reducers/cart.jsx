@@ -10,19 +10,10 @@ const receiveCart = cart => ({
   cart: cart
 })
 
-const receiveOrders = orders => ({
-  type: RECEIVE_ORDERS,
-  orders
-})
-
-// RECUDER
 const reducer = (state = [], action) => {
   switch (action.type) {
     case RECEIVE_CART:
-      return action.cart
-
-    case RECEIVE_ORDERS:
-      return action.orders
+    return action.cart
   }
   return state
 }
@@ -34,20 +25,39 @@ export const fetchCart = userId => dispatch => {
     .catch(err => console.error('fetching cart unsuccessful', err))
 }
 
-export const addToCart = (productId, userId) => (dispatch, getState) => {
+// Adds a new item to the cart
+export const addToCart = (productId, userId) => dispatch => {
   axios.post(`/api/orders/${productId}/${userId}`)
-    .then(res => res.data)
-    .then(newCartItem => {
-      const newCart = getState().cart.concat([newCartItem])
-      dispatch(receiveCart(newCart))
-    })
+    .then(res => dispatch(fetchCart(userId)))
     .catch(err => console.error('adding to cart unsuccessful', err))
 }
 
-export const fetchOrders = orders => dispatch => {
-  axios.get('/api/orders')
-       .then(res => dispatch(receiveOrders(res.data)))
-       .catch(err => console.error(err))
+// Adds one to the quantity of an item already in the cart
+export const addOneToQuantity = (productId, userId) => dispatch => {
+  axios.put(`/api/orders/${productId}/${userId}/add`)
+    .then(res => dispatch(fetchCart(userId)))
+    .catch(err => console.error('updating cart unsuccessful', err))
+}
+
+export const removeOneFromQuantity = (productId, userId) => dispatch => {
+  axios.put(`/api/orders/${productId}/${userId}/remove`)
+    .then(res => dispatch(fetchCart(userId)))
+    .catch(err => console.error('updating cart unsuccessful', err))
+}
+
+// Extrapolate this functionality to take care of adding and removing also
+export const changeQuantity = (productId, userId, update) => dispatch => {
+  axios.put(`/api/orders/${productId}/${userId}/${update}`)
+    .then(res => dispatch(fetchCart(userId)))
+    .catch(err => console.error('updating cart unsuccessful', err))
+}
+
+// not working right now
+export const combineCartItem = (productId, userId, quantity) => dispatch => {
+  console.log('combined cart item', productId)
+  axios.put(`/api/orders/${productId}/${userId}/add/${quantity}`)
+    .then(res => dispatch(fetchCart(userId)))
+    .catch(err => console.error('updating cart unsuccessful', err))   
 }
 
 export default reducer

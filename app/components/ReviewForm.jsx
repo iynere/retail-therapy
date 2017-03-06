@@ -5,17 +5,17 @@ import {addReview} from 'APP/app/reducers/reviews'
 export const ReviewForm = props => {
 	return (<div>
 		<form className='form-group' onSubmit={evt => {
-			evt.preventDefault()
-			const review = {
-				rating: evt.target.rating.value,
-				text: evt.target.text.value,
-				product_id: props.productId,
-				user_id: props.currentUser.id
-			}
-			props.addReview(review, props.productId)
-            evt.target.rating.value = 1
-            evt.target.text.value = ''
-		}}>	
+      evt.preventDefault()
+      const review = {
+        rating: evt.target.rating.value,
+        text: evt.target.text.value,
+        product_id: props.productId,
+        user_id: props.currentUser.id
+      }
+      props.addReview(review, props.productId)
+      evt.target.rating.value = 1
+      evt.target.text.value = ''
+    }}>	
 			<div>
 			Rating 
 				<select className="custom-select rating" name="rating" required>
@@ -33,13 +33,13 @@ export const ReviewForm = props => {
 }
 
 const mapStateToProps = state => ({
-	currentUser: state.auth
+  currentUser: state.auth
 })
 
 const mapDispatchToProps = dispatch => ({
-	addReview: (review, productId) => {
-		dispatch(addReview(review, productId))
-	}
+  addReview: (review, productId) => {
+    dispatch(addReview(review, productId))
+  }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps
