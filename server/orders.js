@@ -15,6 +15,16 @@ router.get('/', (req, res, next) => {
        .catch(err => console.error(err))
 })
 
+router.put('/', (req, res, next) => {
+  console.log('THIS IS THE BODY:', req.body)
+  Order.update({status: req.body.status}, {where: { id: req.body.id}, returning: true})
+       .then(updatedStatus => {
+          console.log('/////////////////////', updatedStatus)
+          res.send(updatedStatus[1][0].dataValues)
+       })
+       .catch(err => console.error(err))
+})
+
 router.get('/:userId/cart', (req, res, next) => {
   // still only for logged-in users for now
   Order.findOne({
