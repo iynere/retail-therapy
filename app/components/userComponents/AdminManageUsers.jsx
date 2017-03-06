@@ -6,7 +6,7 @@ export const ManageUsers = ({user, fetchUsers, users}) => {
   return (
   <div className="AdminTableContainer">
     <h2>Manage Users</h2>
-    <table className="AdminTable">
+    <table className="AdminTable table table-striped">
       <thead>
         <tr>
           <th>User ID</th>
@@ -24,7 +24,7 @@ export const ManageUsers = ({user, fetchUsers, users}) => {
         <td>{element.email}</td>
         <td>{element.address}</td>
         <td>
-          <select>
+          <select className="custom-select select-padding">
             <option>{element.role}</option>
             <option>{element.role === 'admin' ? 'basic' : 'admin'}</option>
           </select>

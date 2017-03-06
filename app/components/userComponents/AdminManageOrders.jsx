@@ -12,7 +12,7 @@ export const ManageOrders = ({updatedOrders, fetchOrders, updateStatus, orders})
   return (
    <div className="AdminTableContainer">
     <h2>Manage Orders</h2>
-    <table className="AdminTable">
+    <table className="AdminTable table table-striped">
       <thead>
         <tr>
           <th>Order ID</th>
@@ -27,7 +27,7 @@ export const ManageOrders = ({updatedOrders, fetchOrders, updateStatus, orders})
         <td>{element.id}</td>
         <td>{element.date}</td>
         <td>
-          <select onChange={(evt) => onChange(evt, element.id)}>
+          <select className="custom-select select-padding" onChange={(evt) => onChange(evt, element.id)}>
             <option value={element.status}>{element.status}</option>
             {statusArr.map(stat => {
               if (stat !== element.status) {
