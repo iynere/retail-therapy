@@ -16,12 +16,8 @@ router.get('/', (req, res, next) => {
 })
 
 router.put('/', (req, res, next) => {
-  console.log('THIS IS THE BODY:', req.body)
-  Order.update({status: req.body.status}, {where: { id: req.body.id}, returning: true})
-       .then(updatedStatus => {
-          console.log('/////////////////////', updatedStatus)
-          res.send(updatedStatus[1][0].dataValues)
-       })
+  Order.update({status: req.body.status}, {where: {id: req.body.id}, returning: true})
+       .then(updatedStatus => res.send(updatedStatus[1][0].dataValues))
        .catch(err => console.error(err))
 })
 

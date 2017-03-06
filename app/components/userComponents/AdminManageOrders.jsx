@@ -3,12 +3,14 @@ import {connect} from 'react-redux'
 import {fetchOrders, updateStatus} from '../../reducers/orders'
 
 export const ManageOrders = ({updatedOrders, fetchOrders, updateStatus, orders}) => {
+
   const statusArr = ['cart', 'processing', 'cancelled', 'completed']
+
   const onChange = function (evt, id) {
     const status = evt.target.value
     updateStatus(id, status)
   }
-    console.log('ORDERS:', orders)
+
   return (
    <div className="AdminTableContainer">
     <h2>Manage Orders</h2>
@@ -22,7 +24,7 @@ export const ManageOrders = ({updatedOrders, fetchOrders, updateStatus, orders})
         </tr>
       </thead>
       <tbody>
-   { typeof orders === 'object' && orders ? orders.map(element => (
+   { orders && orders ? orders.map(element => (
       <tr key={element.id}>
         <td>{element.id}</td>
         <td>{element.date}</td>
@@ -54,6 +56,6 @@ function MapDispatchToProps (dispatch) {
 }
 
 export default connect(
-  state => ({orders: state.orders, updatedOrders: state.updatedOrders}),
+  state => ({orders: state.orders}),
 MapDispatchToProps
 )(ManageOrders)

@@ -10,19 +10,17 @@ const receiveOrders = orders => ({
   orders
 })
 
-const updateOrders = (id, status) => ({
-  type: UPDATE_ORDERS,
-  id,
-  status
-})
+const updateOrders = (id, status) => ({type: UPDATE_ORDERS})
 
 // REDUCER
+
 const reducer = (state = [], action) => {
   switch (action.type) {
     case RECEIVE_ORDERS:
       return action.orders
+
     case UPDATE_ORDERS:
-      return (action.id, action.status)
+      return state
   }
   return state
 }
