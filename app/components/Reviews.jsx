@@ -3,10 +3,16 @@ import {connect} from 'react-redux'
 
 const Reviews = props => (
 	<div>
-		<ul>
+		<ul className='reviews-list'>
 			{
 				props.reviews && props.reviews.map(review => {
-					return <li key={review.id}>{review.rating}, {review.text}, by {review.user.name || review.user.email}, date: {review.date}</li>
+					return(
+                      <li key={review.id}>
+                        <p className="nums">{review.rating}   stars - by {review.user.name || review.user.email}</p>
+                        <p>{review.text}</p>
+                        <p>date: {review.date}</p>
+                      </li>
+                    ) 
 				})
 			}
 		</ul>

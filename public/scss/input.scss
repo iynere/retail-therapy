@@ -10,7 +10,6 @@ body{
 
 .product-grid{
   width: 100%;
-  display: inline-block;
   .product-card{
     overflow: hidden;
     box-sizing: border-box;
@@ -51,6 +50,11 @@ body{
 
 .card-padding{
   margin: 20px;
+  box-shadow: 0 10px 20px rgba(200, 200, 200, 0.19), 0 6px 6px rgba(200, 200, 200, 0.23);
+  background: white;
+}
+
+.single-card{
   box-shadow: 0 10px 20px rgba(200, 200, 200, 0.19), 0 6px 6px rgba(200, 200, 200, 0.23);
   background: white;
 }
@@ -111,6 +115,10 @@ li{
   padding-left: 0;
 }
 
+.padding{
+  padding: 20px;
+}
+
 #search{
   display:inline-block;
   height: 34px;
@@ -128,4 +136,27 @@ li{
   }
 }
 
+.reviews{
+  margin-top: 100px;
+}
 
+.review-area{
+  margin: 10px 0;
+}
+
+.rating{
+  margin-left: 10px;
+}
+
+.reviews-list{
+  padding: 0;
+  li{
+    border-bottom: 1px solid #ccc;
+  }
+}
+
+.login-form{
+  margin-top: 30px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #ccc;
+}
