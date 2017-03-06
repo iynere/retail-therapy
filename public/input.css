@@ -32,3 +32,15 @@
   .Profile-Container li:hover {
     background-color: #555;
     color: white; }
+
+.AdminTableContainer {
+  width: 100%;
+  display: inline-block;
+  overflow-x: auto; }
+  .AdminTableContainer table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #333333; }
+    .AdminTableContainer table th {
+      background-color: #555;
+      color: white; }

@@ -39,3 +39,18 @@
     background-color: #555;
     color: white; }
 }
+
+.AdminTableContainer{
+    width: 100%;
+    display: inline-block;
+    overflow-x: auto;
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #333333;
+    th {
+      background-color: #555;
+      color: white;
+    }
+  }
+}

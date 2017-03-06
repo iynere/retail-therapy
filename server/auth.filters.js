@@ -13,7 +13,6 @@ const selfOnly = action => (req, res, next) => {
 }
 
 const forbidden = message => (req, res, next) => {
-  console.log('THIS IS REQ.USER', req.user)
   if (req.user === undefined) res.status(403).send(message)
   else if (req.user.dataValues.role === 'admin') { next() }
 }

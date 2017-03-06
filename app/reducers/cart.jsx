@@ -2,6 +2,7 @@ import axios from 'axios'
 
 // CONSTANTS
 const RECEIVE_CART = 'RECEIVE_CART'
+const RECEIVE_ORDERS = 'RECEIVE_ORDERS'
 
 // ACTION CREATORS
 const receiveCart = cart => ({
@@ -9,12 +10,21 @@ const receiveCart = cart => ({
   cart: cart
 })
 
-const reducer = (state = state ? state : [], action) => {
+const receiveOrders = orders => ({
+  type: RECEIVE_ORDERS,
+  orders
+})
+
+// RECUDER
+const reducer = (state = [], action) => {
   switch (action.type) {
     case RECEIVE_CART:
-    return action.cart
+      return action.cart
+
+    case RECEIVE_ORDERS:
+      return action.orders
   }
-  return state;
+  return state
 }
 
 // THUNKS
@@ -32,6 +42,12 @@ export const addToCart = (productId, userId) => (dispatch, getState) => {
       dispatch(receiveCart(newCart))
     })
     .catch(err => console.error('adding to cart unsuccessful', err))
+}
+
+export const fetchOrders = orders => dispatch => {
+  axios.get('/api/orders')
+       .then(res => dispatch(receiveOrders(res.data)))
+       .catch(err => console.error(err))
 }
 
 export default reducer

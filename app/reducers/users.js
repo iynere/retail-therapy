@@ -19,12 +19,11 @@ const reducer = (state = [], action) => {
 
 // ---------------THUNK------------------------------//
 
-export const fetchUsers = () => {
-  console.log('IM INSIDE FETCHUSERS THUNK')
-  dispatch =>
-		axios.get('/api/users')
+export const fetchUsers = () =>
+  dispatch => {
+    axios.get('/api/users')
 				 .then(users => dispatch(getUsers(users.data)))
 				 .catch((err) => console.error(err))
-}
+  }
 
 export default reducer
