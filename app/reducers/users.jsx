@@ -7,8 +7,6 @@ export const USER_STATUS_UPDATE = 'USER_STATUS_UPDATE'
 
 const getUsers = (users) => ({type: USERS, users})
 
-const updateUserStatus = (id, status) => ({type: USER_STATUS_UPDATE})
-
 // ------------REDUCER-------------------------------//
 
 const reducer = (state = [], action) => {
@@ -17,8 +15,6 @@ const reducer = (state = [], action) => {
     case USERS:
       return action.users
 
-    case USER_STATUS_UPDATE:
-      return state
   }
   return state
 }
@@ -35,7 +31,6 @@ export const fetchUsers = () =>
 export const UpdateUsrStatus = (id, role) =>
   dispatch => {
     axios.put('/api/users', {id, role})
-				 .then(users => dispatch(updateUserStatus(id, role)))
 				 .catch((err) => console.error(err))
   }
 
