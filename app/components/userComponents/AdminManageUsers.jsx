@@ -26,7 +26,7 @@ export const ManageUsers = ({user, fetchUsers, users}) => {
         <td>
           <select>
             <option>{element.role}</option>
-            <option>{element.role=='admin' ? 'basic' : 'admin'}</option>
+            <option>{element.role === 'admin' ? 'basic' : 'admin'}</option>
           </select>
           </td>
       </tr>

@@ -12,7 +12,8 @@ const receiveOrders = orders => ({
 
 const updateOrders = (id, status) => ({
   type: UPDATE_ORDERS,
-  updatedOrder : {id, satus}
+  id,
+  status
 })
 
 // REDUCER
@@ -21,12 +22,12 @@ const reducer = (state = [], action) => {
     case RECEIVE_ORDERS:
       return action.orders
     case UPDATE_ORDERS:
-      return action.updatedOrder  
+      return (action.id, action.status)
   }
   return state
 }
 
-//THUNKS
+// THUNKS
 export const fetchOrders = orders => dispatch => {
   axios.get('/api/orders')
        .then(res => dispatch(receiveOrders(res.data)))
