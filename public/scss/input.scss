@@ -59,44 +59,37 @@ body{
   background: white;
 }
 
-.Profile-Container{
-   width: 100%;
-   display: inline-block;
-  ul{
-     border: 1px solid #808080;
-     width: 25%;
-     border-radius: 5px;
+.Profile-Container {
+  width: 100%; }
+  .Profile-Container ul {
+    border: 1px solid #ccc;
+    width: 25%;
+    border-radius: 5px;
     margin: 0;
     padding: 0;
-    width: 200px;
-    background-color: #f1f1f1;
+    width: 630px;
+    background-color: #fff;
     list-style-type: none;
-  }
-  li {
+    display: inline-block; }
+  .Profile-Container li {
     display: block;
-    color: #000;
     padding: 8px 16px;
     text-decoration: none;
-  }
-  li:hover {
-    background-color: #555;
+    float: left;
+    border-left: 1px solid #ccc; }
+  .Profile-Container li:hover {
+    background: #ccc;
     color: white; }
-}
+  .Profile-Container a:hover {
+    text-decoration: none;
+    color: white; }
+
 
 
 .AdminTableContainer{
     width: 100%;
     display: inline-block;
     overflow-x: auto;
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    color: #333333;
-    th {
-      background-color: #555;
-      color: white;
-    }
-  }
 }
 
 #cart_icon{
@@ -177,3 +170,18 @@ li{
   border-bottom: 1px solid #ccc;
 }
 
+/*table stuff here*/
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0,0,0,.05);
+}
+.select-padding{
+  padding: 10px;
+  text-transform: capitalize;
+  height: 30px;
+  min-width: 130px;
+}
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+  padding: 15px;
+}
