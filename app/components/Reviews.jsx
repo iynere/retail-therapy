@@ -21,7 +21,7 @@ const Reviews = props => (
 
 
 const mapStateToProps = state => ({
-	reviews: state.reviews
+  reviews: state.reviews
 })
 
 export default connect(mapStateToProps)(Reviews)

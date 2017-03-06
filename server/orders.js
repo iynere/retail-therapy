@@ -73,6 +73,156 @@ router.post('/:productId/:userId', (req, res, next) => {
       }).catch(next)
 })
 
+// Add an item
+router.put('/:productId/:userId/add', (req, res, next) => {
+  Order.findOne({
+    where: {
+      status: 'cart',
+      user_id: req.params.userId
+    }
+  })
+  .then(order => {
+    ProductOrdered.findOne(
+    {
+      where: { 
+        product_id: req.params.productId,
+        order_id: order.id 
+      }
+    })
+    .then(productToUpdate => {
+      ProductOrdered.update({
+        quantity: productToUpdate.quantity + 1
+      }, {
+        where: { 
+          product_id: req.params.productId,
+          order_id: order.id 
+        },
+        returning: true
+      })
+      .then(updatedProductArr => res.json(updatedProductArr[1][0]))
+    })
+  })
+  .catch(next)
+})
+
+// Update cart on a login/signup (for when an anonymous / non-logged-in user has saved a cart & wants it to save on login)
+router.put('/:productId/:userId/add/:quantity', (req, res, next) => {
+  Order.findOrCreate({
+    where: {
+      status: 'cart',
+      user_id: req.params.userId
+    }
+  }).then(foundOrCreatedCart => {
+    Order.findOne({
+      where: {
+        status: 'cart',
+        user_id: req.params.userId
+      }
+    })
+    .then(order => {
+      ProductOrdered.findOne(
+      {
+        where: { 
+          product_id: req.params.productId,
+          order_id: order.id 
+        }
+      })
+      .then(productToUpdate => {
+        ProductOrdered.update({
+          quantity: productToUpdate.quantity + Number(req.params.quantity)
+        }, {
+          where: { 
+            product_id: req.params.productId,
+            order_id: order.id 
+          },
+          returning: true
+        })
+        .then(updatedProductArr => res.json(updatedProductArr[1][0]))
+      })
+    })
+  })
+  .catch(next)
+})
+
+// Subtract an item
+router.put('/:productId/:userId/remove', (req, res, next) => {
+  Order.findOne({
+    where: {
+      status: 'cart',
+      user_id: req.params.userId
+    }
+  })
+  .then(order => {
+    ProductOrdered.findOne(
+    {
+      where: { 
+        product_id: req.params.productId,
+        order_id: order.id 
+      }
+    })
+    .then(productToUpdate => {
+      if (productToUpdate.quantity === 1) {
+        productToUpdate.destroy()
+        .then(() => res.status(201).send())
+        .catch(next)
+      } else {
+        ProductOrdered.update({
+          quantity: productToUpdate.quantity - 1
+        }, {
+          where: { 
+            product_id: req.params.productId,
+            order_id: order.id 
+          },
+          returning: true
+        })
+        .then(updatedProductArr => res.json(updatedProductArr[1][0]))
+        .catch(next)
+      }
+    })
+  })
+  .catch(next)
+})
+
+// Change the quantity
+router.put('/:productId/:userId/:newQuantity', (req, res, next) => {
+  // if newQuantity === 0, then delete
+  Order.findOne({
+    where: {
+      status: 'cart',
+      user_id: req.params.userId
+    }
+  })
+  .then(order => {
+    ProductOrdered.findOne(
+    {
+      where: { 
+        product_id: req.params.productId,
+        order_id: order.id 
+      }
+    })
+    .then(productToUpdate => {
+      if (+req.params.newQuantity === 0) {
+        productToUpdate.destroy()
+        .then(() => res.status(201).send())
+        .catch(next)
+      } else {
+        ProductOrdered.update({
+          quantity: req.params.newQuantity
+        }, {
+          where: { 
+            product_id: req.params.productId,
+            order_id: order.id 
+          },
+          returning: true
+        })
+        .then(updatedProductArr => res.json(updatedProductArr[1][0]))
+        .catch(next)
+      }
+    })
+  })
+  .catch(next)
+})
+
 module.exports = router
 
 // we tried using redux-persist to persist the cart, but it doesn't qualify the persistence based on who's logged in, etc
