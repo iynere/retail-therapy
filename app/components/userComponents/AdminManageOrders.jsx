@@ -20,7 +20,15 @@ export const ManageOrders = ({user, fetchOrders, orders}) => {
       <tr key={element.id}>
         <td>{element.id}</td>
         <td>{element.date}</td>
-        <td>{element.status}</td>
+        <td>
+          <select>
+            <option>{element.status}</option>
+            <option>created</option>
+            <option>processing</option>
+            <option>cancelled</option>
+            <option>completed</option>
+          </select>
+          </td>
         <td>{element.user_id}</td>
       </tr>
       )) : <p>You don't have permission to manage users</p>}

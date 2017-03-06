@@ -23,11 +23,19 @@ export const ManageUsers = ({user, fetchUsers, users}) => {
         <td>{element.name}</td>
         <td>{element.email}</td>
         <td>{element.address}</td>
-        <td>{element.role}</td>
+        <td>
+          <select>
+            <option>{element.role}</option>
+            <option>admin</option>
+          </select>
+          </td>
       </tr>
       )) : <p>You don't have permission to manage users</p>}
       </tbody>
     </table>
+    <div>
+      <button>Save</button>
+    </div>
   </div>
   )
 }
