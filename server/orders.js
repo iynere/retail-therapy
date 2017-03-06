@@ -91,6 +91,45 @@ router.put('/:productId/:userId/add', (req, res, next) => {
   .catch(next)
 })
 
+// Update cart on a login/signup (for when an anonymous / non-logged-in user has saved a cart & wants it to save on login)
+router.put('/:productId/:userId/add/:quantity', (req, res, next) => {
+  Order.findOrCreate({
+    where: {
+      status: 'cart',
+      user_id: req.params.userId
+    }
+  }).then(foundOrCreatedCart => {
+    Order.findOne({
+      where: {
+        status: 'cart',
+        user_id: req.params.userId
+      }
+    })
+    .then(order => {
+      ProductOrdered.findOne(
+      {
+        where: { 
+          product_id: req.params.productId,
+          order_id: order.id 
+        }
+      })
+      .then(productToUpdate => {
+        ProductOrdered.update({
+          quantity: productToUpdate.quantity + Number(req.params.quantity)
+        }, {
+          where: { 
+            product_id: req.params.productId,
+            order_id: order.id 
+          },
+          returning: true
+        })
+        .then(updatedProductArr => res.json(updatedProductArr[1][0]))
+      })
+    })
+  })
+  .catch(next)
+})
+
 // Subtract an item
 router.put('/:productId/:userId/remove', (req, res, next) => {
   Order.findOne({

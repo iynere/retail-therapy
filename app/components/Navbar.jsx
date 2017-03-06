@@ -52,8 +52,8 @@ class Navbar extends Component {
                 }
               </li>
             </ul>
-            {currentUser ? this.renderUser() : this.renderLoginSignup()}
-            {currentUser ? this.renderLogout() : null}
+            {currentUser && currentUser.role !== 'anonymous' ? this.renderUser() : this.renderLoginSignup()}
+            {currentUser && currentUser.role !== 'anonymous' ? this.renderLogout() : null}
           </div>
         </div>
       </nav>

@@ -17,8 +17,8 @@ import WhoAmI from './components/WhoAmI'
 import LandingPage from './components/LandingPage'
 
 const onProductEnter = nextRouterState => {
-	store.dispatch(fetchProduct(nextRouterState.params.id))
-	store.dispatch(fetchProductReviews(nextRouterState.params.id))
+  store.dispatch(fetchProduct(nextRouterState.params.id))
+  store.dispatch(fetchProductReviews(nextRouterState.params.id))
 };
 
 const loadCart = nextRouterState => {
@@ -26,17 +26,17 @@ const loadCart = nextRouterState => {
 }
 
 render(
-	<Provider store={store}>
-		<Router history={browserHistory}>
-			<Route path="/" component={Root} /*onEnter={loadCart}*/>
-				<IndexRedirect to="/home" />
+  <Provider store={store}>
+    <Router history={browserHistory}>
+      <Route path="/" component={Root} /*onEnter={loadCart}*/>
+        <IndexRedirect to="/home" />
         <Route path="/home" component={LandingPage} />
-				<Route path="/allProducts/:id" component={SingleProduct} onEnter={onProductEnter} />
-				<Route path="/signup" component={Signup} />
-				<Route path="/login" component={Login} />
+        <Route path="/allProducts/:id" component={SingleProduct} onEnter={onProductEnter} />
+        <Route path="/signup" component={Signup} />
+        <Route path="/login" component={Login} />
         <Route path="/:userId/cart" component={Cart} onEnter={loadCart} />
-			</Route>
-		</Router>
-	</Provider>,
-	document.getElementById('main')
+      </Route>
+    </Router>
+  </Provider>,
+  document.getElementById('main')
 )

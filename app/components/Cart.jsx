@@ -34,6 +34,7 @@ const Cart = ({cart, user, addOneToQuantity, removeOneFromQuantity, changeQuanti
             <form onSubmit={evt => {
                 evt.preventDefault()
                 changeQuantity(cartItem.product.id, user.id, evt.target.quantity.value)
+                evt.target.quantity.value = ''
               }
             }>
               <input name="quantity" placeholder="new quantity" />

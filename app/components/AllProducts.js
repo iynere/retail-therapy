@@ -30,9 +30,9 @@ export const AllProducts = props => {
                       className="btn btn-default"
                       onClick={evt => {
                         evt.preventDefault()
-                        if (!currentUser) {
-                          props.anonCreateCart(product.id)
-                        }
+                        // if (!currentUser) {
+                        //  props.anonCreateCart(product.id)
+                        // }
                         if (cart.some((item) => item.id === product.id)) {
                           addOneToQuantity(product.id, currentUser.id)
                         } else {
