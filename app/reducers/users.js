@@ -1,30 +1,29 @@
 import axios from 'axios'
 
 // ---------------CONSTANTS---------------------------//
-const PRODUCTS = 'PRODUCTS'
+export const USERS = 'USERS'
 
 // --------------ACTION CREATORS----------------------//
 
-const getProducts = (products) => ({type: PRODUCTS, products})
+const getUsers = (users) => ({type: USERS, users})
 
 // ------------REDUCER-------------------------------//
-const initialState = []
 
-const reducer = (state = initialState, action) => {
+const reducer = (state = [], action) => {
   switch (action.type) {
-    case PRODUCTS:
-      return action.products
+    case USERS:
+      return action.users
   }
   return state
 }
 
 // ---------------THUNK------------------------------//
 
-export const fetchProducts = () =>
-	dispatch => {
-    axios.get('/api/products')
-				 .then(products => dispatch(getProducts(products.data)))
+export const fetchUsers = () =>
+  dispatch => {
+    axios.get('/api/users')
+				 .then(users => dispatch(getUsers(users.data)))
 				 .catch((err) => console.error(err))
-}
+  }
 
 export default reducer

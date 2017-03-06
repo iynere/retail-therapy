@@ -83,6 +83,22 @@ body{
     color: white; }
 }
 
+
+.AdminTableContainer{
+    width: 100%;
+    display: inline-block;
+    overflow-x: auto;
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #333333;
+    th {
+      background-color: #555;
+      color: white;
+    }
+  }
+}
+
 #cart_icon{
   padding-top: 13px;
   font-size: 18px;
@@ -160,3 +176,4 @@ li{
   padding-bottom: 15px;
   border-bottom: 1px solid #ccc;
 }
+

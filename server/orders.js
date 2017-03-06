@@ -9,6 +9,12 @@ const Product = db.model('products')
 const ProductOrdered = db.model('productsOrdered')
 const User = db.model('users')
 
+router.get('/', (req, res, next) => {
+  Order.findAll({})
+       .then(orders => res.json(orders))
+       .catch(err => console.error(err))
+})
+
 router.get('/:userId/cart', (req, res, next) => {
   // still only for logged-in users for now
   Order.findOne({
@@ -30,6 +36,8 @@ router.get('/:userId/cart', (req, res, next) => {
     }).catch(next)
 })
 
+// We are querying the DB too many times, remember we have a table called ProudctsOrdered that
+// has accessed to the orders and products related, we can use this table
 router.post('/:productId/:userId', (req, res, next) => {
   // only for logged-in users for now
   Order.findOrCreate({
@@ -53,7 +61,7 @@ router.post('/:productId/:userId', (req, res, next) => {
                 product_id: product.id,
                 order_id: order.id
               })
-                res.json(product) 
+                res.json(product)
             })
           })
       }).catch(next)

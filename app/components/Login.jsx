@@ -1,5 +1,7 @@
 import React from 'react'
 import {browserHistory} from 'react-router'
+import {login} from 'APP/app/reducers/auth'
+import {connect} from 'react-redux'
 
 export const Login = ({ login }) => (
 	<div className="product-grid">
@@ -31,9 +33,6 @@ export const Login = ({ login }) => (
 	 </div>
     </div>
 )
-
-import {login} from 'APP/app/reducers/auth'
-import {connect} from 'react-redux'
 
 export default connect (
 	state => ({}),
