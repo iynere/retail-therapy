@@ -1,12 +1,20 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchOrders} from '../../reducers/cart'
+import {fetchOrders, updateStatus} from '../../reducers/orders'
 
-export const ManageOrders = ({user, fetchOrders, orders}) => {
+export const ManageOrders = ({updatedOrders, fetchOrders, updateStatus, orders}) => {
+
+  const statusArr = ['cart', 'processing', 'cancelled', 'completed']
+
+  const onChange = function (evt, id) {
+    const status = evt.target.value
+    updateStatus(id, status)
+  }
+
   return (
    <div className="AdminTableContainer">
     <h2>Manage Orders</h2>
-    <table className="AdminTable">
+    <table className="AdminTable table table-striped">
       <thead>
         <tr>
           <th>Order ID</th>
@@ -21,12 +29,14 @@ export const ManageOrders = ({user, fetchOrders, orders}) => {
         <td>{element.id}</td>
         <td>{element.date}</td>
         <td>
-          <select>
-            <option>{element.status}</option>
-            <option>created</option>
-            <option>processing</option>
-            <option>cancelled</option>
-            <option>completed</option>
+          <select className="custom-select select-padding" onChange={(evt) => onChange(evt, element.id)}>
+            <option value={element.status}>{element.status}</option>
+            {statusArr.map(stat => {
+              if (stat !== element.status) {
+                return <option key={stat} value={stat}>{stat}</option>
+              }
+            })
+            }
           </select>
           </td>
         <td>{element.user_id}</td>
@@ -40,11 +50,12 @@ export const ManageOrders = ({user, fetchOrders, orders}) => {
 
 function MapDispatchToProps (dispatch) {
   return {
-    fetchOrders: dispatch(fetchOrders())
+    fetchOrders: dispatch(fetchOrders()),
+    updateStatus: (id, status) => dispatch(updateStatus(id, status))
   }
 }
 
 export default connect(
-  state => ({orders: state.cart}),
+  state => ({orders: state.orders}),
 MapDispatchToProps
 )(ManageOrders)
