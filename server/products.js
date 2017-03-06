@@ -20,15 +20,16 @@ router.get('/:productId', (req, res, next) => {
 		.catch(next)
 })
 
-// moved review getting / posting to separate router
+router.put('/edit/:productId', (req, res, next) => {
+	Product.findById(req.params.productId/*, {include: [Review]}*/)
+		.then(product => res.json(product))
+		.catch(next)
+})
 
-// // Post a review for a given product
-// router.post('/:productId/review', (req, res, next) => {
-// 	Review.create(req.body)
-// 		.then((review) => {
-// 			res.status(204).json(review)
-// 		})
-// 		.catch(next)
-// })
+router.post('/', (req, res, next) => {
+	Product.create(req.body)
+		   .then(review => res.json(review))
+		   .catch(next)
+})
 
 module.exports = router;

@@ -22,10 +22,17 @@ import AccountInfo from './components/userComponents/AccountInfo'
 import AdminManageUsers from './components/userComponents/AdminManageUsers'
 import AdminManageOrders from './components/userComponents/AdminManageOrders'
 import AdminManageProducts from './components/userComponents/AdminManageProducts'
+import ProductForm from './components/ProductForm'
+import AddProduct from './components/AddProduct'
+import EditProduct from './components/EditProduct'
 
 const onProductEnter = nextRouterState => {
 	store.dispatch(fetchProduct(nextRouterState.params.id))
 	store.dispatch(fetchProductReviews(nextRouterState.params.id))
+};
+
+const onEditEnter = nextRouterState => {
+	store.dispatch(fetchProduct(nextRouterState.params.id))
 };
 
 const onCartEnter = nextRouterState => {
@@ -40,6 +47,8 @@ render(
 				<IndexRedirect to="/Home" />
 					<Route path="/Home" component={LandingPage} />
 					<Route path="/allProducts/:id" component={SingleProduct} onEnter={onProductEnter} />
+                    <Route path="/admin/addProduct" component={AddProduct}/>
+                    <Route path="/admin/editProduct/:id" component={EditProduct} onEnter={onEditEnter}/>
 					<Route path="/signup" component = {Signup} />
 					<Route path="/login" component = {Login} />
 					<Route path="/profile" component={Profile}/>
