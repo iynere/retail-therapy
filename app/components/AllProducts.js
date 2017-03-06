@@ -17,18 +17,20 @@ export const AllProducts = props => {
       <div className="product-grid">
         <div className="row">
           {products.map(product => (
-              <div key={product.id} className="product-card col-sm-6 col-md-4">
+              <div key={product.id} className="product-card col-md-3">
+                <div className="card-padding">
                   <img src={product.photoUrl} className="product-img"/>
                   <div className="product-content">
                     <Link to={`/allProducts/${product.id}`}>
                     <h3>{product.name}</h3>
                     </Link>
-                    <h2>{product.price}</h2>
                     <p className="product-desc">{product.description}</p>
-                    <button
-                      type="button"
-                      className="btn btn-default"
-                      onClick={evt => {
+                    <div className="price-add">
+                      <h2 className="nums">{product.price}</h2>
+                      <button
+                        type="button"
+                        className="btn btn-default"
+                         onClick={evt => {
                         evt.preventDefault()
                         // if (!currentUser) {
                         //  props.anonCreateCart(product.id)
@@ -39,10 +41,13 @@ export const AllProducts = props => {
                           addToCart(product.id, currentUser.id)
                         }
                       }}>
-                      <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
-                      add to cart
-                    </button>
+                        <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+                        Add to cart
+                      </button>
+                      <div className="clearfix"></div>
+                    </div>
                   </div>
+                </div>
               </div>
           ))}
         </div>

@@ -1,27 +1,24 @@
 import axios from 'axios'
 
-//---------------CONSTANTS---------------------------//
+// ---------------CONSTANTS---------------------------//
 const PRODUCTS = 'PRODUCTS'
 
-
-//--------------ACTION CREATORS----------------------//
+// --------------ACTION CREATORS----------------------//
 
 const getProducts = (products) => ({type: PRODUCTS, products})
 
-//------------REDUCER-------------------------------//
-const initialState =[]
+// ------------REDUCER-------------------------------//
+const initialState = []
 
-const reducer = (state= initialState, action) =>{
-  switch(action.type){
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
     case PRODUCTS:
-    return action.products
-
+      return action.products
   }
   return state
 }
 
-
-//---------------THUNK------------------------------//
+// ---------------THUNK------------------------------//
 
 export const fetchProducts = () =>
   dispatch => {

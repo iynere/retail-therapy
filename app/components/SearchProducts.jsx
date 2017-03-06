@@ -7,28 +7,26 @@ import {browserHistory} from 'react-router'
 export function SearchProducts({products}){
     return(
       <div className="row">
-        <div className="col-lg-6">
-          <div className="input-group">
-            <form onSubmit={
+        <div className="col-lg-3">
+            <form id="search" onSubmit={
                 function(evt){
                   evt.preventDefault()
                   const searchValue = evt.target.search.value
                   products.forEach(function(element){
                     if(element.name === searchValue){
-                    browserHistory.push(`/allProducts/${element.id}`) 
+                    browserHistory.push(`/allProducts/${element.id}`)
                     }
                     else return null;
                   })
                 }
               }>
               <input name='search' type="text" className="form-control" placeholder="Search for..."/>
-                <span className="input-group-btn">
-                  <button className="btn btn-default" type="submit">
-                    <span className="glyphicon glyphicon-search" aria-hidden="true"></span>
-                  </button>
-                </span>
+              <span className="input-group-btn">
+                <button className="btn btn-default" type="submit">
+                  <span className="glyphicon glyphicon-search" aria-hidden="true"></span>
+                </button>
+              </span>
             </form>
-          </div>
         </div>
         <div className="col-lg-6">
         </div>
@@ -38,7 +36,7 @@ export function SearchProducts({products}){
 
 const mapStateToProps = (state) => ({
 
-    products: state.products 
+    products: state.products
 
 });
 /*

@@ -26,42 +26,33 @@ class Navbar extends Component {
       cartSize = this.props.cart.length
     
     return (
-      <nav className="navbar navbar-default">
-        <div className="container">
-          <div className="navbar-header">
-            <button
-              type="button"
-              className="navbar-toggle collapsed"
-              data-toggle="collapse"
-              data-target=".navbar-collapse">
-              <span className="icon-bar" />
-              <span className="icon-bar" />
-              <span className="icon-bar" />
-            </button>
-            {/* if we want a Retail Therapy logo we can put it in public and bring it in here / link back to homepage
-            <Link className="navbar-brand" to="/"><img src="/images/logo.png" /></Link> */}
-          </div>
+      <nav className="navbar navbar-toggleable-md">
+          <button
+            type="button"
+            className="navbar-toggle collapsed"
+            data-toggle="collapse"
+            data-target=".navbar-collapse">
+            <span className="icon-bar" />
+            <span className="icon-bar" />
+            <span className="icon-bar" />
+          </button>
+          <Link className="navbar-brand">Retail Theraphy</Link>
           <div className="collapse navbar-collapse">
-            <ul className="nav navbar-nav navbar-left">
-              <li>
-                <Link to="/">home</Link>
-              </li>
-              <li>
+            <ul className="navbar-nav mr-auto no-padding">
+              {currentUser && currentUser.role !== 'anonymous' ? this.renderUser() : this.renderLoginSignup()}
+            </ul>
+            <ul className="navbar-nav mr-auto navbar-right">
+              
+              <li className="nav-item" id="cart_icon">
                 {currentUser ? this.renderCart() : 
                 <Link><span className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> (empty!)</Link>
                 }
               </li>
+             {currentUser && currentUser.role !== 'anonymous' ? this.renderLogout() : null}
             </ul>
-            {currentUser && currentUser.role !== 'anonymous' ? this.renderUser() : this.renderLoginSignup()}
-            {currentUser && currentUser.role !== 'anonymous' ? this.renderLogout() : null}
           </div>
-        </div>
       </nav>
     )
-  }
-  
-  componentDidUpdate() {
-    
   }
   
   renderCart() {
@@ -85,10 +76,10 @@ class Navbar extends Component {
     return (
       <ul className="nav navbar-nav navbar-right">
         <li>
-         <Link to="/signup" activeClassName="active">signup</Link>
+         <Link to="/signup" activeClassName="active">Signup</Link>
         </li>
         <li>
-          <Link to="/login" activeClassName="active">login</Link>
+          <Link to="/login" activeClassName="active">Login</Link>
         </li>
       </ul>
     )
@@ -97,27 +88,27 @@ class Navbar extends Component {
   renderUser () {
     const currentUser = this.props.currentUser
     return (
-      <ul className="nav navbar-nav navbar-right">
-      <li>
-        <Link to={`/users/${currentUser.id}`} activeClassName="active">
-         {`Welcome ${currentUser.name || currentUser.email}!`}
+      //<ul className="nav navbar-nav navbar-right">
+      <li className="nav-item" id="welcome-message">
+        <Link to={`/profile/${currentUser.id}`} activeClassName="active">
+         {`Welcome back ${currentUser.name || currentUser.email}!`}
         </Link>
       </li>
-      </ul>
+      //</ul>
     )
   }
 
   renderLogout () {
     return (
-      <ul className="nav navbar-nav navbar-right">
-        <li>
+      //<ul className="nav navbar-nav navbar-right">
+        <li className="nav-item">
         <button
           className="navbar-btn btn btn-default"
           onClick={this.props.logout}>
-          logout
+          Logout
         </button>
         </li>
-      </ul>
+      //</ul>
     )
   }
 }

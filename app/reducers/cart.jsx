@@ -2,6 +2,7 @@ import axios from 'axios'
 
 // CONSTANTS
 const RECEIVE_CART = 'RECEIVE_CART'
+const RECEIVE_ORDERS = 'RECEIVE_ORDERS'
 
 // ACTION CREATORS
 const receiveCart = cart => ({
@@ -9,14 +10,12 @@ const receiveCart = cart => ({
   cart: cart
 })
 
-
 const reducer = (state = [], action) => {
   switch (action.type) {
     case RECEIVE_CART:
     return action.cart
-
   }
-  return state;
+  return state
 }
 
 // THUNKS
