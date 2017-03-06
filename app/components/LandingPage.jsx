@@ -7,7 +7,6 @@ import AllProducts from './AllProducts'
 export function LandingPage ({products, children}) {
   return (
     <div>
-      <h1>Retail Therapy</h1>
       {children}
       <AllProducts products={products}/>
     </div>
