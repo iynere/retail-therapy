@@ -42,25 +42,25 @@ router.get('/:userId/cart', (req, res, next) => {
 })
 
 // // order status will have to have been changed to 'processing' before hitting this route
-// router.get('/:userId/checkout', (req, res, next) => {
-//  Order.findOne({
-//    where: {
-//      status: 'processing',
-//      user_id: req.params.userId
-//    }
-//  })
-//    .then(userOrderForCheckout => {
-//      ProductOrdered.findAll({
-//        where: {
-//          order_id: userOrderForCheckout.id
-//        },
-//        include: [Product]
-//      })
-//        .then(orderForCheckoutWithProducts => {
-//          res.json(orderForCheckoutWithProducts)
-//        })
-//    }).catch(next)
-// })
+router.get('/:userId/checkout', (req, res, next) => {
+ Order.findOne({
+   where: {
+     status: 'processing',
+     user_id: req.params.userId
+   }
+ })
+   .then(userOrderForCheckout => {
+     ProductOrdered.findAll({
+       where: {
+         order_id: userOrderForCheckout.id
+       },
+       include: [Product]
+     })
+       .then(orderForCheckoutWithProducts => {
+         res.json(orderForCheckoutWithProducts)
+       })
+   }).catch(next)
+})
 
 // router.put for locking in price
 router.put('/:productId/:userId/checkout', (req, res, next) => {
@@ -83,8 +83,10 @@ router.put('/:userId/checkout', (req, res, next) => {
     where: {
       status: 'cart',
       user_id: req.params.userId
-    }
+    },
+    returning: true
   })
+    .then(updatedOrder => res.send(updatedOrder))
     .catch(next)
 })
 
