@@ -9,8 +9,8 @@ export default function UserProfile ({user}) {
         <h3>Welcome {currentUser.name || currentUser.email}</h3>
       </div>
       <ul>
-        <li><Link to={'/accountInfo'}>Your Account Information</Link></li>
-        <li><Link >Your Orders</Link></li>
+        <li><Link to={`/${user.id}/accountInfo`}>Your Account Information</Link></li>
+        <li><Link to={`/${user.id}/orders`}>Your Orders</Link></li>
         <li><Link >Your Wishlist</Link></li>
         <li><Link to={`/${user.id}/cart`}>Your Cart</Link></li>
       </ul>

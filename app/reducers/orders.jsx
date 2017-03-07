@@ -38,4 +38,10 @@ export const updateStatus = (id, status) => dispatch => {
        .catch(err => console.error(err))
 }
 
+export const fetchUserOrders = userId => dispatch => {
+  axios.get(`/api/orders/${userId}`)
+    .then(userOrders => dispatch(receiveOrders(userOrders.data)))
+    .catch(console.error())
+}
+
 export default reducer

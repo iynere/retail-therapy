@@ -178,10 +178,10 @@ module.exports = auth
 //  })(req, res, next)
 // )
 
-// auth.post('/local/signup', (req, res, next) => {
-//  User.create(req.body)
-//    .then(user => {
-//      res.status(201).json(user)
-//    })
-//    .catch(next)
-// })
+auth.post('/local/signup', (req, res, next) => {
+ User.create(req.body)
+   .then(user => {
+     res.status(201).json(user)
+   })
+   .catch(next)
+})
