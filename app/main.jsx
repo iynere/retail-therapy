@@ -24,6 +24,9 @@ import AccountInfo from './components/userComponents/AccountInfo'
 import AdminManageUsers from './components/userComponents/AdminManageUsers'
 import AdminManageOrders from './components/userComponents/AdminManageOrders'
 import AdminManageProducts from './components/userComponents/AdminManageProducts'
+import ProductForm from './components/ProductForm'
+import AddProduct from './components/AddProduct'
+import EditProduct from './components/EditProduct'
 import Orders from './components/userComponents/Orders'
 
 const onProductEnter = nextRouterState => {
@@ -34,12 +37,18 @@ const onProductEnter = nextRouterState => {
 const loadCart = nextRouterState => {
   store.dispatch(fetchCart(nextRouterState.params.userId))
 }
+       
+const onCartEnter = nextRouterState => {
+  store.dispatch(fetchCart(nextRouterState.params.userId))
+}
 
-// will do what loadCart does but fetch the order that is processing (ie, user has clicked 'checkout')
 const loadOrderForCheckout = nextRouterState => {
   store.dispatch(fetchOrderForCheckout(nextRouterState.params.userId))
 }
-
+        
+const onEditEnter = nextRouterState => {	     store.dispatch(fetchProduct(nextRouterState.params.id))
+};
+        
 const loadUserOrders = nextRouterState => {
   store.dispatch(fetchUserOrders(nextRouterState.params.userId))
 }
@@ -56,6 +65,8 @@ render(
         <IndexRedirect to="/Home" />
           <Route path="/Home" component={LandingPage} />
           <Route path="/allProducts/:id" component={SingleProduct} onEnter={onProductEnter} />
+            <Route path="/admin/addProduct" component={AddProduct}/>
+            <Route path="/admin/editProduct/:id" component={EditProduct} onEnter={onEditEnter}/>
           <Route path="/signup" component = {Signup} />
           <Route path="/login" component = {Login} />
           <Route path="/profile" component={Profile}/>
