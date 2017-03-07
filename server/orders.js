@@ -48,25 +48,25 @@ router.get('/:userId/cart', (req, res, next) => {
 })
 
 // // order status will have to have been changed to 'processing' before hitting this route
-// router.get('/:userId/checkout', (req, res, next) => {
-//  Order.findOne({
-//    where: {
-//      status: 'processing',
-//      user_id: req.params.userId
-//    }
-//  })
-//    .then(userOrderForCheckout => {
-//      ProductOrdered.findAll({
-//        where: {
-//          order_id: userOrderForCheckout.id
-//        },
-//        include: [Product]
-//      })
-//        .then(orderForCheckoutWithProducts => {
-//          res.json(orderForCheckoutWithProducts)
-//        })
-//    }).catch(next)
-// })
+router.get('/:userId/checkout', (req, res, next) => {
+ Order.findOne({
+   where: {
+     status: 'processing',
+     user_id: req.params.userId
+   }
+ })
+   .then(userOrderForCheckout => {
+     ProductOrdered.findAll({
+       where: {
+         order_id: userOrderForCheckout.id
+       },
+       include: [Product]
+     })
+       .then(orderForCheckoutWithProducts => {
+         res.json(orderForCheckoutWithProducts)
+       })
+   }).catch(next)
+})
 
 // router.put for locking in price
 router.put('/:productId/:userId/checkout', (req, res, next) => {
@@ -89,8 +89,10 @@ router.put('/:userId/checkout', (req, res, next) => {
     where: {
       status: 'cart',
       user_id: req.params.userId
-    }
+    },
+    returning: true
   })
+    .then(updatedOrder => res.send(updatedOrder))
     .catch(next)
 })
 
@@ -158,6 +160,21 @@ router.put('/:productId/:userId/add', (req, res, next) => {
     })
   })
   .catch(next)
+})
+
+// for checkout button: mark order as 'completed'
+router.put('/:userId/complete', (req, res, next) => {
+  Order.update({
+    status: 'completed',
+  }, {
+    where: {
+      status: 'processing',
+      user_id: req.params.userId
+    },
+    returning: true
+  })
+    .then(completedOrder => res.json(completedOrder))
+    .catch(next)
 })
 
 // Update cart on a login/signup (for when an anonymous / non-logged-in user has saved a cart & wants it to save on login)
