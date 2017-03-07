@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {fetchCart} from './cart'
 
 const reducer = (state=null, action) => {
   switch(action.type) {
@@ -50,7 +51,11 @@ export const whoami = () =>
       .then(response => {
         const user = response.data
         dispatch(authenticated(user))
+        dispatch(fetchCart(user.id))
       })
-      .catch(failed => dispatch(authenticated(null)))
+      .catch(failed => {
+        dispatch(authenticated(null))
+        dispatch(fetchCart(null))
+      })
 
 export default reducer

@@ -35,7 +35,9 @@ export const AllProducts = props => {
                         // if (!currentUser) {
                         //  props.anonCreateCart(product.id)
                         // }
-                        cart.some((item) => item.product_id === product.id) ? addOneToQuantity(product.id, currentUser.id) : addToCart(product.id, currentUser.id)
+                        currentUser ? 
+                        (cart.some((item) => item.product_id === product.id) ? addOneToQuantity(product.id, currentUser.id) : addToCart(product.id, currentUser.id)) :
+                        cart.some((item) => item.product_id === product.id) ? addOneToQuantity(product.id, null) : addToCart(product.id, null)
                         }}>
                         <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
                         Add to cart

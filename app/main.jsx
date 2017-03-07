@@ -9,9 +9,9 @@ import SingleProduct from './components/SingleProduct'
 import CartContainer from './components/CartContainer'
 import Checkout from './components/Checkout'
 import Complete from './components/Complete'
--import {fetchCart} from './reducers/cart'
 import {fetchProduct} from './reducers/product'
 import {fetchProductReviews} from './reducers/reviews'
+import {whoami} from './reducers/auth'
 import {fetchOrderForCheckout, fetchCart} from './reducers/cart'
 import {fetchUserOrders} from './reducers/orders'
 import Login from './components/Login'
@@ -32,6 +32,7 @@ import Orders from './components/userComponents/Orders'
 const onProductEnter = nextRouterState => {
   store.dispatch(fetchProduct(nextRouterState.params.id))
   store.dispatch(fetchProductReviews(nextRouterState.params.id))
+  store.dispatch(whoami)
 }
 
 const loadCart = nextRouterState => {
