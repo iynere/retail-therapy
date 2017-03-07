@@ -148,6 +148,21 @@ router.put('/:productId/:userId/add', (req, res, next) => {
   .catch(next)
 })
 
+// for checkout button: mark order as 'completed'
+router.put('/:userId/complete', (req, res, next) => {
+  Order.update({
+    status: 'completed',
+  }, {
+    where: {
+      status: 'processing',
+      user_id: req.params.userId
+    },
+    returning: true
+  })
+    .then(completedOrder => res.json(completedOrder))
+    .catch(next)
+})
+
 // Update cart on a login/signup (for when an anonymous / non-logged-in user has saved a cart & wants it to save on login)
 router.put('/:productId/:userId/add/:quantity', (req, res, next) => {
   Order.findOrCreate({

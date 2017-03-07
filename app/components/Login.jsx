@@ -5,7 +5,7 @@ import {combineCartItem} from 'APP/app/reducers/cart'
 import {connect} from 'react-redux'
 
 export const Login = props => (
-	<div className="product-grid">
+  <div className="product-grid">
       <div className="product-card">
         <div className="col-md-2"></div>
         <div className="col-md-8 single-card">
@@ -20,11 +20,11 @@ export const Login = props => (
       browserHistory.push('/')
     } }>
             <div className="form-group">
-              <label for="username">Email</label>
+              <label htmlFor="username">Email</label>
               <input className="form-control" name="username" id="username" placeholder="example@example.com" required/>
             </div>
             <div className="form-group">
-              <label for="password">Password</label>
+              <label htmlFor="password">Password</label>
               <input className="form-control" name="password" type="password" id="password" placeholder="****" required/>
             </div>
             <button className="btn btn-default" type="submit">Login</button>
@@ -34,7 +34,7 @@ export const Login = props => (
           <p><a className="btn btn-primary" href="/api/auth/facebook/login">Log in with Facebook</a></p>
          </div>
         </div>
-	 </div>
+   </div>
     </div>
 )
 
