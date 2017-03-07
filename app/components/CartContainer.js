@@ -12,7 +12,7 @@ class CartContainer extends Component {
   
   renderCheckout() {
     return (
-      <button onClick={evt => {
+      <button className="btn btn-danger" onClick={evt => {
         evt.preventDefault()
         processCartForCheckout(this.props.user.id)
         this.props.cart.forEach(cartItem => {

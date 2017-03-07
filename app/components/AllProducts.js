@@ -26,7 +26,7 @@ export const AllProducts = props => {
                     </Link>
                     <p className="product-desc">{product.description}</p>
                     <div className="price-add">
-                      <h2 className="nums">{'$' + (product.price / 100)}</h2>
+                      <h2 className="nums">{product.price}</h2>
                       <button
                         type="button"
                         className="btn btn-default"

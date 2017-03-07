@@ -200,3 +200,39 @@ li{
 .clearfix {
   overflow: auto;
 }
+
+.cart-quantity{
+  width: 150px;
+}
+
+.cart-list{
+  li{
+    display: inline-block;
+    width: 100%;
+  }
+  div{
+    float: left;
+    margin-left: 20px;
+    div{
+      float: left;
+    }
+    a{
+      text-transform: uppercase;
+    }
+    button{
+      margin-left: 10px;
+    }
+  }
+  form{
+    float: left;
+    margin-left: 20px;
+    input{
+      float: left;
+      margin-left: 20px;
+    }
+    button{
+      float: left;
+      margin-left: 10px;
+    }
+  }
+}
