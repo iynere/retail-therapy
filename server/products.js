@@ -20,15 +20,26 @@ router.get('/:productId', (req, res, next) => {
 		.catch(next)
 })
 
-// moved review getting / posting to separate router
+router.delete('/delete/:productId', (req, res, next) => {
+	Product.destroy({where: {id: req.params.productId}})
+		.then(res => res.send(200))
+		.catch(next)
+})
 
-// // Post a review for a given product
-// router.post('/:productId/review', (req, res, next) => {
-// 	Review.create(req.body)
-// 		.then((review) => {
-// 			res.status(204).json(review)
-// 		})
-// 		.catch(next)
-// })
+router.put('/edit/:productId', (req, res, next) => {
+    console.log('in put where are getting:', req.params.productId, req.body)
+	Product.update(req.body, {where: {id: req.params.productId}})
+		.then(updatedProduct => {
+          console.log('product successfully updated:', updatedProduct)
+          res.send(updatedProduct[1][0].dataValues)
+       })
+       .catch(err => console.error(err))
+})
+
+router.post('/', (req, res, next) => {
+	Product.create(req.body)
+		   .then(review => res.json(review))
+		   .catch(next)
+})
 
 module.exports = router;

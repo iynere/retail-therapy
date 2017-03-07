@@ -19,8 +19,12 @@ module.exports = require('express').Router()
 		User.findById(req.params.id, {include: [Review]})
 		.then(user => res.json(user))
 		.catch(next))
-	.put('/', (req, res, next) => {
+	.put('/', (req, res, next) =>
   	User.update({role: req.body.role}, {where: {id: req.body.id}, returning: true})
 		.then(updatedStatus => res.send(updatedStatus[1][0].dataValues))
-		.catch(next)
-})
+		.catch(next))
+	.delete('/:userId', (req, res, next) =>
+  	User.destroy({where: {id: req.params.userId}})
+		.then(deleted => res.status(204).send())
+		.catch(next))
+

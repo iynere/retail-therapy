@@ -1,12 +1,18 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchUsers, UpdateUsrStatus} from '../../reducers/users'
+import {browserHistory} from 'react-router'
+import {fetchUsers, UpdateUsrStatus, RemoveUser} from '../../reducers/users'
 
-export const ManageUsers = ({user, fetchUsers, users, UpdateUserStatus}) => {
+export const ManageUsers = ({user, fetchUsers, users, UpdateUserStatus, removeUser}) => {
 
   const onChange = function (event, id) {
     const role = event.target.value
     UpdateUserStatus(id, role)
+  }
+
+  const handleRemoveClick = (userId) => {
+    console.log(userId)
+    removeUser(userId)
   }
 
   return (
@@ -20,6 +26,7 @@ export const ManageUsers = ({user, fetchUsers, users, UpdateUserStatus}) => {
           <th>Email</th>
           <th>Adress</th>
           <th>Role</th>
+          <th>Options</th>
         </tr>
       </thead>
       <tbody>
@@ -35,6 +42,7 @@ export const ManageUsers = ({user, fetchUsers, users, UpdateUserStatus}) => {
             <option>{element.role === 'admin' ? 'basic' : 'admin'}</option>
           </select>
           </td>
+        <td><button className="glyphicon glyphicon-trash" onClick={ () => handleRemoveClick(element.id)}></button></td>
       </tr>
       )) : <p>You don't have permission to manage users</p>}
       </tbody>
@@ -46,7 +54,8 @@ export const ManageUsers = ({user, fetchUsers, users, UpdateUserStatus}) => {
 function MapDispatchToProps (dispatch) {
   return {
     fetchUsers: dispatch(fetchUsers()),
-    UpdateUserStatus: (id, role) => dispatch(UpdateUsrStatus(id, role))
+    UpdateUserStatus: (id, role) => dispatch(UpdateUsrStatus(id, role)),
+    removeUser: (userId) => dispatch(RemoveUser(userId))
   }
 }
 

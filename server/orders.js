@@ -21,6 +21,12 @@ router.put('/', (req, res, next) => {
        .catch(err => console.error(err))
 })
 
+router.get('/:userId', (req, res, next) => {
+  Order.findAll({where: {user_id: +req.params.userId}})
+    .then(orders => res.send(orders))
+    .catch(next)
+})
+
 router.get('/:userId/cart', (req, res, next) => {
   // still only for logged-in users for now
   if (req.params.userId === "visitor") {
@@ -140,18 +146,18 @@ router.put('/:productId/:userId/add', (req, res, next) => {
   .then(order => {
     ProductOrdered.findOne(
     {
-      where: { 
+      where: {
         product_id: req.params.productId,
-        order_id: order.id 
+        order_id: order.id
       }
     })
     .then(productToUpdate => {
       ProductOrdered.update({
         quantity: productToUpdate.quantity + 1
       }, {
-        where: { 
+        where: {
           product_id: req.params.productId,
-          order_id: order.id 
+          order_id: order.id
         },
         returning: true
       })
@@ -193,18 +199,18 @@ router.put('/:productId/:userId/add/:quantity', (req, res, next) => {
     .then(order => {
       ProductOrdered.findOne(
       {
-        where: { 
+        where: {
           product_id: req.params.productId,
-          order_id: order.id 
+          order_id: order.id
         }
       })
       .then(productToUpdate => {
         ProductOrdered.update({
           quantity: productToUpdate.quantity + Number(req.params.quantity)
         }, {
-          where: { 
+          where: {
             product_id: req.params.productId,
-            order_id: order.id 
+            order_id: order.id
           },
           returning: true
         })
@@ -226,9 +232,9 @@ router.put('/:productId/:userId/remove', (req, res, next) => {
   .then(order => {
     ProductOrdered.findOne(
     {
-      where: { 
+      where: {
         product_id: req.params.productId,
-        order_id: order.id 
+        order_id: order.id
       }
     })
     .then(productToUpdate => {
@@ -240,9 +246,9 @@ router.put('/:productId/:userId/remove', (req, res, next) => {
         ProductOrdered.update({
           quantity: productToUpdate.quantity - 1
         }, {
-          where: { 
+          where: {
             product_id: req.params.productId,
-            order_id: order.id 
+            order_id: order.id
           },
           returning: true
         })
@@ -266,9 +272,9 @@ router.put('/:productId/:userId/:newQuantity', (req, res, next) => {
   .then(order => {
     ProductOrdered.findOne(
     {
-      where: { 
+      where: {
         product_id: req.params.productId,
-        order_id: order.id 
+        order_id: order.id
       }
     })
     .then(productToUpdate => {
@@ -280,9 +286,9 @@ router.put('/:productId/:userId/:newQuantity', (req, res, next) => {
         ProductOrdered.update({
           quantity: req.params.newQuantity
         }, {
-          where: { 
+          where: {
             product_id: req.params.productId,
-            order_id: order.id 
+            order_id: order.id
           },
           returning: true
         })

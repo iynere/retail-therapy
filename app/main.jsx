@@ -5,19 +5,17 @@ import {render} from 'react-dom'
 import {connect, Provider} from 'react-redux'
 import store from './store'
 import Root from './components/Root'
-import AllProducts from './components/AllProducts'
 import SingleProduct from './components/SingleProduct'
 import CartContainer from './components/CartContainer'
 import Checkout from './components/Checkout'
 import Complete from './components/Complete'
 import {fetchProduct} from './reducers/product'
 import {fetchProductReviews} from './reducers/reviews'
-import {fetchCart} from './reducers/cart'
 import {whoami} from './reducers/auth'
-import {fetchOrderForCheckout} from './reducers/cart'
+import {fetchOrderForCheckout, fetchCart} from './reducers/cart'
+import {fetchUserOrders} from './reducers/orders'
 import Login from './components/Login'
 import Signup from './components/Signup'
-import WhoAmI from './components/WhoAmI'
 import LandingPage from './components/LandingPage'
 import UserProfile from './components/UserProfile'
 import AdminProfile from './components/AdminProfile'
@@ -26,22 +24,36 @@ import AccountInfo from './components/userComponents/AccountInfo'
 import AdminManageUsers from './components/userComponents/AdminManageUsers'
 import AdminManageOrders from './components/userComponents/AdminManageOrders'
 import AdminManageProducts from './components/userComponents/AdminManageProducts'
+import ProductForm from './components/ProductForm'
+import AddProduct from './components/AddProduct'
+import EditProduct from './components/EditProduct'
+import Orders from './components/userComponents/Orders'
 
 const onProductEnter = nextRouterState => {
   store.dispatch(fetchProduct(nextRouterState.params.id))
   store.dispatch(fetchProductReviews(nextRouterState.params.id))
   store.dispatch(whoami)
-};
+}
 
 const loadCart = nextRouterState => {
   store.dispatch(fetchCart(nextRouterState.params.userId))
 }
+       
+const onCartEnter = nextRouterState => {
+  store.dispatch(fetchCart(nextRouterState.params.userId))
+}
 
-// will do what loadCart does but fetch the order that is processing (ie, user has clicked 'checkout')
 const loadOrderForCheckout = nextRouterState => {
   store.dispatch(fetchOrderForCheckout(nextRouterState.params.userId))
 }
-
+        
+const onEditEnter = nextRouterState => {	     store.dispatch(fetchProduct(nextRouterState.params.id))
+};
+        
+const loadUserOrders = nextRouterState => {
+  store.dispatch(fetchUserOrders(nextRouterState.params.userId))
+}
+  
 const completedOrder = nextRouterState => {
   // fetch order info for completed order,
   // send emails
@@ -54,6 +66,8 @@ render(
         <IndexRedirect to="/Home" />
           <Route path="/Home" component={LandingPage} />
           <Route path="/allProducts/:id" component={SingleProduct} onEnter={onProductEnter} />
+            <Route path="/admin/addProduct" component={AddProduct}/>
+            <Route path="/admin/editProduct/:id" component={EditProduct} onEnter={onEditEnter}/>
           <Route path="/signup" component = {Signup} />
           <Route path="/login" component = {Login} />
           <Route path="/profile" component={Profile}/>
@@ -63,9 +77,10 @@ render(
           <Route path="/admin/manageUsers" component={AdminManageUsers} />
           <Route path="/admin/manageOrders" component={AdminManageOrders} />
           <Route path="/admin/manageProducts" component={AdminManageProducts} />
-          <Route path="/accountInfo" component={AccountInfo} />
-          <Route path="/:userId/cart" component={CartContainer} />
-          <Route path="/:userId/checkout" component={Checkout} onEnter={loadOrderForCheckout} />
+          <Route path="/:userId/orders" component={Orders} onEnter={loadUserOrders}/>
+          <Route path="/:userId/accountInfo" component={AccountInfo} />
+          <Route path="/:userId/cart" component={CartContainer} onEnter={loadCart}/>
+          <Route path="/:userId/checkout" component={Checkout} onEnter={loadOrderForCheckout}/>
           <Route path="/:userId/complete" component={Complete} onEnter={completedOrder} />
       </Route>
     </Router>
