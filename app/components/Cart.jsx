@@ -7,7 +7,7 @@ const Cart = ({cart, user, addOneToQuantity, removeOneFromQuantity, changeQuanti
   <div>
     <ul>
       {
-        cart.every(cartItem => cartItem.product) ? (cart.map(cartItem => 
+        user ? (cart.map(cartItem => 
           <li key={cartItem.id}>
             <Link to={`/allProducts/${cartItem.product.id}`}>
               {cartItem.product.name}
@@ -39,15 +39,19 @@ const Cart = ({cart, user, addOneToQuantity, removeOneFromQuantity, changeQuanti
               <input name="quantity" placeholder="new quantity" />
               <input type="submit" value="Update Quantity" />
             </form>
-          </li>)) : 
-        (cart.map(cartItem => 
+          </li>)) : (cart.map(cartItem => 
+            <Link to={`/allProducts/${cartItem.id}`}>
+            <li key={cartItem.id}>
+              {cartItem.name}, quantity: , {cartItem.price}
+            </li>
+            </Link>)
+        )}
+        {/*(cart.map(cartItem => 
           <li key={"Anonymous:", cartItem.id}>
             <Link to={`/allProducts/${cartItem.id}`}>
               {cartItem.name}
-            </Link>, quantity: {/*HAVE TO ADD QUANTITY!!*/}, {cartItem.price}
-          </li>)
-        ) 
-      }
+            </Link>, quantity: , {cartItem.price}
+          </li>))*/} 
     </ul>
   </div>
 )
