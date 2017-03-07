@@ -1,16 +1,16 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchOrders, updateStatus} from '../../reducers/orders'
-var id, status
 
-export const ManageOrders = ({user, fetchOrders, updateStatus, orders}) => {
-  const statusArr = ['created', 'processing', 'cancelled', 'completed']
-  const onChange = function(evt, id){
-    status = evt.target.value
-    id = id
-    console.log('this is the select value & id', status, id)
+export const ManageOrders = ({updatedOrders, fetchOrders, updateStatus, orders}) => {
+
+  const statusArr = ['cart', 'processing', 'cancelled', 'completed']
+
+  const onChange = function (evt, id) {
+    const status = evt.target.value
     updateStatus(id, status)
   }
+
   return (
    <div className="AdminTableContainer">
     <h2>Manage Orders</h2>
@@ -31,11 +31,11 @@ export const ManageOrders = ({user, fetchOrders, updateStatus, orders}) => {
         <td>
           <select className="custom-select select-padding" onChange={(evt) => onChange(evt, element.id)}>
             <option value={element.status}>{element.status}</option>
-            {statusArr.map( stat => {
-                if(stat !== element.status){
-                  return <option key={stat} value={stat}>{stat}</option>
-                }
-              })  
+            {statusArr.map(stat => {
+              if (stat !== element.status) {
+                return <option key={stat} value={stat}>{stat}</option>
+              }
+            })
             }
           </select>
           </td>
@@ -49,7 +49,6 @@ export const ManageOrders = ({user, fetchOrders, updateStatus, orders}) => {
 }
 
 function MapDispatchToProps (dispatch) {
-  console.log('this is the select value & id', status, id)
   return {
     fetchOrders: dispatch(fetchOrders()),
     updateStatus: (id, status) => dispatch(updateStatus(id, status))

@@ -6,7 +6,7 @@ import AdminProfile from './AdminProfile'
 const Profile = ({user}) => {
   const userRole = user && user.role ? user.role : ''
   return (
-    <div className="profile-page-container">
+    <div className="form-group profile-page-container">
       <h2>Profile Page</h2>
       <div className="Profile-page-options">
         { userRole && userRole === 'basic' ? <UserProfile user={user} /> : null }

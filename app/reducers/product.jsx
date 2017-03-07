@@ -24,10 +24,10 @@ const reducer = (state = {}, action) =>{
 //---------------THUNK------------------------------//
 
 export const fetchProduct = productId =>
-	dispatch =>
-		axios.get(`/api/products/${productId}`)
-			.then(product => dispatch(getProduct(product.data)))
-			.catch((err)=>console.error(err))
+  dispatch =>
+    axios.get(`/api/products/${productId}`)
+      .then(product => dispatch(getProduct(product.data)))
+      .catch((err)=>console.error(err))
 
 export const addProduct = (product) => dispatch => {
 	axios.post(`/api/products`, product)

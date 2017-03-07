@@ -1,8 +1,20 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchUsers} from '../../reducers/users'
+import {browserHistory} from 'react-router'
+import {fetchUsers, UpdateUsrStatus, RemoveUser} from '../../reducers/users'
 
-export const ManageUsers = ({user, fetchUsers, users}) => {
+export const ManageUsers = ({user, fetchUsers, users, UpdateUserStatus, removeUser}) => {
+
+  const onChange = function (event, id) {
+    const role = event.target.value
+    UpdateUserStatus(id, role)
+  }
+
+  const handleRemoveClick = (userId) => {
+    console.log(userId)
+    removeUser(userId)
+  }
+
   return (
   <div className="AdminTableContainer">
     <h2>Manage Users</h2>
@@ -14,6 +26,7 @@ export const ManageUsers = ({user, fetchUsers, users}) => {
           <th>Email</th>
           <th>Adress</th>
           <th>Role</th>
+          <th>Options</th>
         </tr>
       </thead>
       <tbody>
@@ -24,25 +37,25 @@ export const ManageUsers = ({user, fetchUsers, users}) => {
         <td>{element.email}</td>
         <td>{element.address}</td>
         <td>
-          <select className="custom-select select-padding">
-            <option>{element.role}</option>
-            <option>{element.role=='admin' ? 'basic' : 'admin'}</option>
+          <select className="custom-select select-padding" onChange={(event) => onChange(event, element.id)}>
+            <option value={element.role}>{element.role}</option>
+            <option>{element.role === 'admin' ? 'basic' : 'admin'}</option>
           </select>
           </td>
+        <td><button className="glyphicon glyphicon-trash" onClick={ () => handleRemoveClick(element.id)}></button></td>
       </tr>
       )) : <p>You don't have permission to manage users</p>}
       </tbody>
     </table>
-    <div>
-      <button>Save</button>
-    </div>
   </div>
   )
 }
 
 function MapDispatchToProps (dispatch) {
   return {
-    fetchUsers: dispatch(fetchUsers())
+    fetchUsers: dispatch(fetchUsers()),
+    UpdateUserStatus: (id, role) => dispatch(UpdateUsrStatus(id, role)),
+    removeUser: (userId) => dispatch(RemoveUser(userId))
   }
 }
 

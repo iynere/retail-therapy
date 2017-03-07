@@ -16,20 +16,21 @@ router.get('/', (req, res, next) => {
 })
 
 router.put('/', (req, res, next) => {
-  console.log('THIS IS THE BODY:', req.body)
-  Order.update({status: req.body.status}, {where: { id: req.body.id}, returning: true})
-       .then(updatedStatus => {
-          console.log('/////////////////////', updatedStatus)
-          res.send(updatedStatus[1][0].dataValues)
-       })
+  Order.update({status: req.body.status}, {where: {id: req.body.id}, returning: true})
+       .then(updatedStatus => res.send(updatedStatus[1][0].dataValues))
        .catch(err => console.error(err))
+})
+
+router.get('/:userId', (req, res, next) => {
+  Order.findAll({where: {user_id: +req.params.userId}})
+    .then(orders => res.send(orders))
+    .catch(next)
 })
 
 router.get('/:userId/cart', (req, res, next) => {
   // still only for logged-in users for now
   Order.findOne({
     where: {
-      status: 'cart',
       user_id: req.params.userId
     }
   })
@@ -45,6 +46,58 @@ router.get('/:userId/cart', (req, res, next) => {
         })
     }).catch(next)
 })
+
+// // order status will have to have been changed to 'processing' before hitting this route
+router.get('/:userId/checkout', (req, res, next) => {
+ Order.findOne({
+   where: {
+     status: 'processing',
+     user_id: req.params.userId
+   }
+ })
+   .then(userOrderForCheckout => {
+     ProductOrdered.findAll({
+       where: {
+         order_id: userOrderForCheckout.id
+       },
+       include: [Product]
+     })
+       .then(orderForCheckoutWithProducts => {
+         res.json(orderForCheckoutWithProducts)
+       })
+   }).catch(next)
+})
+
+// router.put for locking in price
+router.put('/:productId/:userId/checkout', (req, res, next) => {
+  Product.findById(req.params.productId)
+    .then(productWithLatestPrice => {
+      ProductOrdered.update({
+        price: productWithLatestPrice.price
+      })
+    })
+    .catch(next)
+})
+
+// ROUTER.PUT FOR INITIAL CHECKOUT UPDATE
+// 1. find the user's cart (order with status cart)
+// 2. change status to 'processing'
+router.put('/:userId/checkout', (req, res, next) => {
+  Order.update({
+    status: 'processing'
+  }, {
+    where: {
+      status: 'cart',
+      user_id: req.params.userId
+    },
+    returning: true
+  })
+    .then(updatedOrder => res.send(updatedOrder))
+    .catch(next)
+})
+
+// ROUTER.PUT FOR FINAL CHECKOUT
+// address stuff
 
 // We are querying the DB too many times, remember we have a table called ProudctsOrdered that
 // has accessed to the orders and products related, we can use this table
@@ -75,6 +128,171 @@ router.post('/:productId/:userId', (req, res, next) => {
             })
           })
       }).catch(next)
+})
+
+// Add an item
+router.put('/:productId/:userId/add', (req, res, next) => {
+  Order.findOne({
+    where: {
+      status: 'cart',
+      user_id: req.params.userId
+    }
+  })
+  .then(order => {
+    ProductOrdered.findOne(
+    {
+      where: {
+        product_id: req.params.productId,
+        order_id: order.id
+      }
+    })
+    .then(productToUpdate => {
+      ProductOrdered.update({
+        quantity: productToUpdate.quantity + 1
+      }, {
+        where: {
+          product_id: req.params.productId,
+          order_id: order.id
+        },
+        returning: true
+      })
+      .then(updatedProductArr => res.json(updatedProductArr[1][0]))
+    })
+  })
+  .catch(next)
+})
+
+// for checkout button: mark order as 'completed'
+router.put('/:userId/complete', (req, res, next) => {
+  Order.update({
+    status: 'completed',
+  }, {
+    where: {
+      status: 'processing',
+      user_id: req.params.userId
+    },
+    returning: true
+  })
+    .then(completedOrder => res.json(completedOrder))
+    .catch(next)
+})
+
+// Update cart on a login/signup (for when an anonymous / non-logged-in user has saved a cart & wants it to save on login)
+router.put('/:productId/:userId/add/:quantity', (req, res, next) => {
+  Order.findOrCreate({
+    where: {
+      status: 'cart',
+      user_id: req.params.userId
+    }
+  }).then(foundOrCreatedCart => {
+    Order.findOne({
+      where: {
+        status: 'cart',
+        user_id: req.params.userId
+      }
+    })
+    .then(order => {
+      ProductOrdered.findOne(
+      {
+        where: {
+          product_id: req.params.productId,
+          order_id: order.id
+        }
+      })
+      .then(productToUpdate => {
+        ProductOrdered.update({
+          quantity: productToUpdate.quantity + Number(req.params.quantity)
+        }, {
+          where: {
+            product_id: req.params.productId,
+            order_id: order.id
+          },
+          returning: true
+        })
+        .then(updatedProductArr => res.json(updatedProductArr[1][0]))
+      })
+    })
+  })
+  .catch(next)
+})
+
+// Subtract an item
+router.put('/:productId/:userId/remove', (req, res, next) => {
+  Order.findOne({
+    where: {
+      status: 'cart',
+      user_id: req.params.userId
+    }
+  })
+  .then(order => {
+    ProductOrdered.findOne(
+    {
+      where: {
+        product_id: req.params.productId,
+        order_id: order.id
+      }
+    })
+    .then(productToUpdate => {
+      if (productToUpdate.quantity === 1) {
+        productToUpdate.destroy()
+        .then(() => res.status(201).send())
+        .catch(next)
+      } else {
+        ProductOrdered.update({
+          quantity: productToUpdate.quantity - 1
+        }, {
+          where: {
+            product_id: req.params.productId,
+            order_id: order.id
+          },
+          returning: true
+        })
+        .then(updatedProductArr => res.json(updatedProductArr[1][0]))
+        .catch(next)
+      }
+    })
+  })
+  .catch(next)
+})
+
+// Change the quantity
+router.put('/:productId/:userId/:newQuantity', (req, res, next) => {
+  // if newQuantity === 0, then delete
+  Order.findOne({
+    where: {
+      status: 'cart',
+      user_id: req.params.userId
+    }
+  })
+  .then(order => {
+    ProductOrdered.findOne(
+    {
+      where: {
+        product_id: req.params.productId,
+        order_id: order.id
+      }
+    })
+    .then(productToUpdate => {
+      if (+req.params.newQuantity === 0) {
+        productToUpdate.destroy()
+        .then(() => res.status(201).send())
+        .catch(next)
+      } else {
+        ProductOrdered.update({
+          quantity: req.params.newQuantity
+        }, {
+          where: {
+            product_id: req.params.productId,
+            order_id: order.id
+          },
+          returning: true
+        })
+        .then(updatedProductArr => res.json(updatedProductArr[1][0]))
+        .catch(next)
+      }
+    })
+  })
+  .catch(next)
 })
 
 module.exports = router

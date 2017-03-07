@@ -23,9 +23,11 @@ Order.belongsTo(User)
 
 ProductsOrdered.belongsTo(Order)
 ProductsOrdered.belongsTo(Product)
+// ProductsOrdered.belongsTo(User)
 
 Order.hasMany(ProductsOrdered)
 Product.hasMany(ProductsOrdered)
+// User.hasMany(ProductsOrdered)
 
 // might want to do this so there's a user_id column for every product ordered
 // ProductsOrdered.belongsTo(User) 

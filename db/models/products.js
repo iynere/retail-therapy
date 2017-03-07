@@ -4,6 +4,7 @@ const Sequelize = require('sequelize')
 const db = require('APP/db')
 
 const Product = db.define('products', {
+
 	name : {
 		type: Sequelize.STRING,
 		allowNull: false
@@ -34,6 +35,7 @@ const Product = db.define('products', {
 	photoUrl: {
 		type: Sequelize.STRING
 	}
+
 })
 
 module.exports = Product
