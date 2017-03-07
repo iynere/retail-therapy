@@ -48,7 +48,7 @@ export const SingleProduct = props => {
 
 const mapStateToProps = state => ({
 	product: state.product,
-  user: state.auth
+    user: state.auth
 })
 
 const mapDispatchToProps = dispatch => ({

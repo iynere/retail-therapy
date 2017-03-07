@@ -185,3 +185,19 @@ li{
 .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
   padding: 15px;
 }
+
+.same-line{
+  display: inline-block;
+  width: 100%;
+  
+  .left {
+    float: left;
+  }
+  .right{
+    float: right;
+  }
+}
+
+.clearfix {
+  overflow: auto;
+}

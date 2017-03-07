@@ -17,7 +17,6 @@ export const ManageProducts = ({ fetchProducts, products}) => {
           <th>Description</th>
           <th>Price</th>
           <th>Stock</th>
-          <th>Categories</th>
           <th>Edit product</th>
         </tr>
       </thead>

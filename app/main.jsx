@@ -31,8 +31,7 @@ const onProductEnter = nextRouterState => {
 	store.dispatch(fetchProductReviews(nextRouterState.params.id))
 };
 
-const onEditEnter = nextRouterState => {
-	store.dispatch(fetchProduct(nextRouterState.params.id))
+const onEditEnter = nextRouterState => {	     store.dispatch(fetchProduct(nextRouterState.params.id))
 };
 
 const onCartEnter = nextRouterState => {
