@@ -20,13 +20,13 @@ const Product = db.define('products', {
 	price: {
 		//number is *100 to account for decimals
 		type: Sequelize.INTEGER,
-		allowNull: false
+		allowNull: false,
         //I need to retrieve the price on the edit price, so cannot send it with the formatting. Instead, create an utils function to change format on the front end
-        /*
+
         get: function() {
           return '$' + (this.getDataValue('price') / 100);
         }
-        */
+
 	},
 	stock: {
 		type: Sequelize.INTEGER,
