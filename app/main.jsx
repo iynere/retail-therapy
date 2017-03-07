@@ -9,6 +9,7 @@ import AllProducts from './components/AllProducts'
 import SingleProduct from './components/SingleProduct'
 import CartContainer from './components/CartContainer'
 import Checkout from './components/Checkout'
+import Complete from './components/Complete'
 import {fetchProduct} from './reducers/product'
 import {fetchProductReviews} from './reducers/reviews'
 import {fetchCart} from './reducers/cart'
@@ -39,10 +40,15 @@ const loadOrderForCheckout = nextRouterState => {
   store.dispatch(fetchOrderForCheckout(nextRouterState.params.userId))
 }
 
+const completedOrder = nextRouterState => {
+  // fetch order info for completed order,
+  // send emails
+}
+
 render(
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/" component={Root}>
+      <Route path="/" component={Root} onEnter={loadCart}>
         <IndexRedirect to="/Home" />
           <Route path="/Home" component={LandingPage} />
           <Route path="/allProducts/:id" component={SingleProduct} onEnter={onProductEnter} />
@@ -56,8 +62,9 @@ render(
           <Route path="/admin/manageOrders" component={AdminManageOrders} />
           <Route path="/admin/manageProducts" component={AdminManageProducts} />
           <Route path="/accountInfo" component={AccountInfo} />
-          <Route path="/:userId/cart" component={CartContainer} onEnter={loadCart}/>
-          <Route path="/:userId/checkout" component={Checkout} onEnter={loadOrderForCheckout}/>
+          <Route path="/:userId/cart" component={CartContainer} />
+          <Route path="/:userId/checkout" component={Checkout} onEnter={loadOrderForCheckout} />
+          <Route path="/:userId/complete" component={Complete} onEnter={completedOrder} />
       </Route>
     </Router>
   </Provider>,

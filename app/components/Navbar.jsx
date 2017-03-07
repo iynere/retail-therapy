@@ -57,10 +57,10 @@ class Navbar extends Component {
   renderCart() {
     const currentUser = this.props.currentUser, 
     // [ {quantity: 1} , {quantity: 2} ]
-      cartSize = this.props.cart.reduce((result, cartItem) => {
+      cartSize = this.props.cart && this.props.cart.reduce((result, cartItem) => {
         return result + cartItem.quantity
       }, 0)
-    // if (!cartSize) this.props.fetchCart(currentUser.id)
+    // if (cartSize) this.props.fetchCart(currentUser.id)
     
     return(
       <Link to={`/${currentUser.id}/cart`}>
