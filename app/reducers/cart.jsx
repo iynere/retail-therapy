@@ -9,10 +9,11 @@ const receiveCart = cart => ({
   cart: cart
 })
 
+// REDUCER
 const reducer = (state = [], action) => {
   switch (action.type) {
     case RECEIVE_CART:
-    return action.cart
+      return action.cart
   }
   return state
 }

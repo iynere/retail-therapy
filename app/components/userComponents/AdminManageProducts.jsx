@@ -7,7 +7,7 @@ export const ManageProducts = ({ fetchProducts, products}) => {
   return (
    <div className="AdminTableContainer">
     <h2>Manage Products</h2>
-    <table className="AdminTable">
+    <table className="AdminTable table table-striped">
       <thead>
         <tr>
           <th>Product ID</th>
