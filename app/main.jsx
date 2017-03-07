@@ -13,6 +13,7 @@ import Complete from './components/Complete'
 import {fetchProduct} from './reducers/product'
 import {fetchProductReviews} from './reducers/reviews'
 import {fetchCart} from './reducers/cart'
+import {whoami} from './reducers/auth'
 import {fetchOrderForCheckout} from './reducers/cart'
 import Login from './components/Login'
 import Signup from './components/Signup'
@@ -29,6 +30,7 @@ import AdminManageProducts from './components/userComponents/AdminManageProducts
 const onProductEnter = nextRouterState => {
   store.dispatch(fetchProduct(nextRouterState.params.id))
   store.dispatch(fetchProductReviews(nextRouterState.params.id))
+  store.dispatch(whoami)
 };
 
 const loadCart = nextRouterState => {

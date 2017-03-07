@@ -1,12 +1,12 @@
 import axios from 'axios'
-
+import store from 'store'
 // CONSTANTS
 const RECEIVE_CART = 'RECEIVE_CART'
 
 // ACTION CREATORS
 const receiveCart = cart => ({
   type: RECEIVE_CART,
-  cart: cart
+  cart: cart || []
 })
 
 // REDUCER
@@ -20,9 +20,15 @@ const reducer = (state = [], action) => {
 
 // THUNKS
 export const fetchCart = userId => dispatch => {
-  axios.get(`/api/orders/${userId}/cart`)
-    .then(res => dispatch(receiveCart(res.data)))
-    .catch(err => console.error('fetching cart unsuccessful', err))
+  if (!userId) {
+    var cart = store.get('cart')
+    dispatch(receiveCart(cart))
+  } else {
+    axios.get(`/api/orders/${userId}/cart`)
+      .then(res => {
+        dispatch(receiveCart(res.data))})
+      .catch(err => console.error('fetching cart unsuccessful', err))
+  }
 }
 
 // lock in prices, change order status from 'cart' to 'processing'
@@ -52,9 +58,28 @@ export const completeOrder = userId => dispatch => {
 
 // Adds a new item to the cart
 export const addToCart = (productId, userId) => dispatch => {
-  axios.post(`/api/orders/${productId}/${userId}`)
-    .then(res => dispatch(fetchCart(userId)))
-    .catch(err => console.error('adding to cart unsuccessful', err))
+  if (userId) {
+    axios.post(`/api/orders/${productId}/${userId}`)
+      .then(res => {
+        dispatch(fetchCart(userId))})
+      .catch(err => console.error('adding to cart unsuccessful', err))
+  } else {
+    axios.get(`/api/products/${productId}`)
+      .then(res => res.data)
+      .then(product => {
+        if (localStorage.cart) {
+          var newLocalCart = store.get('cart')
+          newLocalCart.push(product)
+          store.set('cart', newLocalCart)
+        } else {
+          store.set('cart', [product])
+        }
+      })
+      .then(() => dispatch(fetchCart(null)))
+      .catch(console.error)
+
+    // Going to need an axios request here for the product, then add that to the cart
+  }
 }
 
 // Adds one to the quantity of an item already in the cart

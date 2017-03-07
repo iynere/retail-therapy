@@ -30,7 +30,7 @@ class CartContainer extends Component {
       <div>
         <h3>Cart</h3>
         <Cart />
-        {this.props.cart.length ? this.renderCheckout() : null}
+        {this.props.cart.length && this.props.user.id ? this.renderCheckout() : null}
       </div>
     )
   }

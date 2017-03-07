@@ -23,9 +23,14 @@ router.put('/', (req, res, next) => {
 
 router.get('/:userId/cart', (req, res, next) => {
   // still only for logged-in users for now
+  if (req.params.userId === "visitor") {
+    res.send()
+  }
+  
   Order.findOne({
     where: {
-      user_id: req.params.userId
+      user_id: req.params.userId,
+      status: "cart"
     }
   })
     .then(userOrder => {

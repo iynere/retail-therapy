@@ -43,9 +43,10 @@ class Navbar extends Component {
             <ul className="navbar-nav mr-auto navbar-right">
               
               <li className="nav-item" id="cart_icon">
-                {currentUser ? this.renderCart() : 
+                {this.renderCart()}
+                {/*currentUser ? this.renderCart() : 
                 <Link><span className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> (empty!)</Link>
-                }
+                */}
               </li>
              {currentUser && currentUser.role !== 'anonymous' ? this.renderLogout() : null}
             </ul>
@@ -60,10 +61,17 @@ class Navbar extends Component {
       cartSize = this.props.cart && this.props.cart.reduce((result, cartItem) => {
         return result + cartItem.quantity
       }, 0)
-    // if (cartSize) this.props.fetchCart(currentUser.id)
-    
+
+    let userOrVisitor
+
+    if (currentUser) {
+      userOrVisitor = currentUser.id
+    } else {
+      userOrVisitor = "visitor"
+    }
+
     return(
-      <Link to={`/${currentUser.id}/cart`}>
+      <Link to={`/${userOrVisitor}/cart`}>
         <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>{cartSize ? cartSize === 1 ? ' (1 item)' : ` (${cartSize} items)` : ' (empty!)'}
       </Link>
     )
