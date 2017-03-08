@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link, browserHistory} from 'react-router'
 import {completeOrder} from '../reducers/cart'
+import {updateUserEmail} from '../reducers/auth'
 
 class Checkout extends Component {
   constructor(props) {
@@ -23,7 +24,8 @@ class Checkout extends Component {
         city: '',
         state: '',
         zip: ''
-      }
+      },
+      email: ''
     }
     
     this.handleBillingChangeName = this.handleBillingChangeName.bind(this)
@@ -39,6 +41,13 @@ class Checkout extends Component {
     this.handleShippingChangeState = this.handleShippingChangeState.bind(this)
     this.handleShippingChangeZip = this.handleShippingChangeZip.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleEmailChange = this.handleEmailChange.bind(this)
+  }
+  
+  handleEmailChange(evt) {
+    this.setState({
+      email: evt.target.value
+    })
   }
   
   handleBillingChangeName(evt) {
@@ -140,6 +149,7 @@ class Checkout extends Component {
   handleSubmit(evt) {
     evt.preventDefault()
     console.log('testing')
+    this.props.updateUserEmail(this.props.user.id, this.state.email)
     this.props.completeOrder(this.props.user.id)
     this.setState({
       billingAddress: {
@@ -159,7 +169,7 @@ class Checkout extends Component {
         zip: ''
       }
     })
-    browserHistory.push(`/${this.props.userId}/complete`)
+    browserHistory.push(`/${this.props.user.id}/${this.props.cart[0].order_id}/complete`)
   }
   
   render() {
@@ -301,6 +311,17 @@ class Checkout extends Component {
             value={this.state.shippingAddress.zip}
             />
           </div>
+          <div>
+            <label htmlFor="email">Email</label>
+            <input
+            className="form-control"
+            name="email" id="email" type="email"
+            placeholder="for order confirmation"
+            onChange={this.handleEmailChange}
+            value={this.state.email}
+            required
+            />
+          </div>
           <input type="submit" value="Complete your order" />
         </form>
       </div>
@@ -316,6 +337,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   completeOrder: userId => {
     dispatch(completeOrder(userId))
+  },
+  updateUserEmail: (userId, email) => {
+    dispatch(updateUserEmail(userId, email))
   }
 })
 
