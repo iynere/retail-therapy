@@ -38,6 +38,12 @@ export const UpdateUsrStatus = (id, role) =>
     .then(update => dispatch(updateUser(update.data)))
     .catch((err) => console.error(err))
   }
+  
+export const sendConfirmationEmail = userId => dispatch => {
+  axios.get(`/api/users/${userId}/orderConfirm`)
+    .then(confirmed => console.log('success!'))
+    .catch(error => console.error(error))
+}
 
 export const RemoveUser = (userId) =>
   dispatch => {

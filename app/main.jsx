@@ -15,6 +15,7 @@ import {fetchProductReviews} from './reducers/reviews'
 import {whoami} from './reducers/auth'
 import {fetchOrderForCheckout, fetchCart, fetchCompletedOrder} from './reducers/cart'
 import {fetchUserOrders} from './reducers/orders'
+import {sendConfirmationEmail} from './reducers/users'
 import Login from './components/Login'
 import Signup from './components/Signup'
 import LandingPage from './components/LandingPage'
@@ -59,6 +60,7 @@ const loadUserOrders = nextRouterState => {
   
 const onCompleteOrder = nextRouterState => {
   store.dispatch(fetchCompletedOrder(nextRouterState.params.userId, nextRouterState.params.orderId))
+  store.dispatch(sendConfirmationEmail(nextRouterState.params.userId))
 }
 
 render(
@@ -79,7 +81,7 @@ render(
           <Route path="/profile/:userId/manageProducts" component={AdminManageProducts} />
           <Route path="/profile/:userId/orders" component={Orders} onEnter={loadUserOrders}/>
           <Route path="/profile/:userId/accountInfo" component={AccountInfo} />
-          <Route path="/profile/:userId/cart" component={CartContainer}/>
+          <Route path="/:userId/cart" component={CartContainer}/>
           <Route path="/:userId/checkout" component={Checkout} onEnter={loadOrderForCheckout}/>
           <Route path="/:userId/:orderId/complete" component={Complete} onEnter={onCompleteOrder} />
       </Route>

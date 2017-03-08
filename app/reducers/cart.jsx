@@ -65,7 +65,6 @@ export const fetchCompletedOrder = (userId, orderId) => dispatch => {
 
 // Adds a new item to the cart
 export const addToCart = (productId, userId) => dispatch => {
-  console.log("OR AM I GETTING INSIDE ADD TO CART??", userId)
   if (userId) {
     axios.post(`/api/orders/${productId}/${userId}`)
       .then(res => {

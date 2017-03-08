@@ -145,7 +145,7 @@ router.post('/:productId/:userId', (req, res, next) => {
 })
 
 // FETCH COMPLETED ORDER
-router.get('/:userId/:orderId', (req, res, next) => {
+router.get('/:userId/:orderId/complete', (req, res, next) => {
   Order.findById(req.params.orderId)
     .then(completedOrder => {
       ProductOrdered.findAll({
