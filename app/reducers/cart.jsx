@@ -68,6 +68,7 @@ export const addToCart = (productId, userId) => dispatch => {
       .then(res => res.data)
       .then(product => {
         if (localStorage.cart) {
+          product.quantity = 1
           var newLocalCart = store.get('cart')
           newLocalCart.push(product)
           store.set('cart', newLocalCart)
