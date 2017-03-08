@@ -58,6 +58,12 @@ export const completeOrder = userId => dispatch => {
     .catch(err => console.error('error completing order', err))
 }
 
+export const fetchCompletedOrder = (userId, orderId) => dispatch => {
+  axios.get(`/api/orders/${userId}/${orderId}/complete`)
+    .then(res => dispatch(receiveCart(res.data)))
+    .catch(err => console.error('error fetching completed order', err))
+}
+
 // Adds a new item to the cart
 export const addToCart = (productId, userId) => dispatch => {
   if (userId) {

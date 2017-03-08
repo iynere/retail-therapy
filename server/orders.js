@@ -144,6 +144,23 @@ router.post('/:productId/:userId', (req, res, next) => {
       }).catch(next)
 })
 
+// FETCH COMPLETED ORDER
+router.get('/:userId/:orderId', (req, res, next) => {
+  Order.findById(req.params.orderId)
+    .then(completedOrder => {
+      ProductOrdered.findAll({
+        where: {
+          order_id: completedOrder.id,
+        },
+        include: [Product]
+      })
+        .then(completedOrderWithProducts => {
+          res.json(completedOrderWithProducts)
+        })
+    })
+    .catch(next)
+})
+
 // Add an item
 router.put('/:productId/:userId/add', (req, res, next) => {
   Order.findOne({

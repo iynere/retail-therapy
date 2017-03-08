@@ -27,6 +27,10 @@ export const anonCreateCart = (productId) => dispatch =>
     })
     .catch(() => dispatch(whoami())) 
 
+export const updateUserEmail = (userId, email) => dispatch => axios.put(`/api/users/${userId}`, {email})
+    .then(() => console.log('email updated'))
+    .catch(err => console.error('error updating email', err))
+
 export const signup = (name, email, password) => dispatch =>
     axios.post('/api/auth/local/signup', {name, email, password})
       .then(() => dispatch(login(email, password)))
