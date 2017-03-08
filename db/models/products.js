@@ -2,8 +2,8 @@
 
 const Sequelize = require('sequelize')
 const db = require('APP/db')
-
 const Product = db.define('products', {
+
 
   name : {
     type: Sequelize.STRING,
@@ -26,7 +26,6 @@ const Product = db.define('products', {
         get: function() {
           return '$' + (this.getDataValue('price') / 100);
         }
-
   },
   stock: {
     type: Sequelize.INTEGER,

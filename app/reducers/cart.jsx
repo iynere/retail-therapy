@@ -25,8 +25,7 @@ export const fetchCart = userId => dispatch => {
     dispatch(receiveCart(cart))
   } else {
     axios.get(`/api/orders/${userId}/cart`)
-      .then(res => {
-        dispatch(receiveCart(res.data))})
+      .then(res => dispatch(receiveCart(res.data)))
       .catch(err => console.error('fetching cart unsuccessful', err))
   }
 }
@@ -47,7 +46,7 @@ export const lockInPriceForCheckout = (orderId, productId) => {
 
 // get the user's order for checkout
 export const fetchOrderForCheckout = userId => dispatch => {
- axios.get(`/api/orders/${userId}/checkout`)
+  axios.get(`/api/orders/${userId}/checkout`)
    .then(res => dispatch(receiveCart(res.data)))
    .catch(err => console.error('error fetching order for checkout', err))
 }
@@ -70,7 +69,8 @@ export const addToCart = (productId, userId) => dispatch => {
   if (userId) {
     axios.post(`/api/orders/${productId}/${userId}`)
       .then(res => {
-        dispatch(fetchCart(userId))})
+        dispatch(fetchCart(userId))
+})
       .catch(err => console.error('adding to cart unsuccessful', err))
   } else {
     axios.get(`/api/products/${productId}`)
@@ -149,7 +149,7 @@ export const changeQuantity = (productId, userId, update) => dispatch => {
 //  console.log('combined cart item', productId)
 //  axios.put(`/api/orders/${productId}/${userId}/add/${quantity}`)
 //    .then(res => dispatch(fetchCart(userId)))
-//    .catch(err => console.error('updating cart unsuccessful', err))   
+//    .catch(err => console.error('updating cart unsuccessful', err))
 // }
 
 export default reducer

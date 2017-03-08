@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 // Require our models. Running each module registers the model into sequelize
 // so any other part of the application could call sequelize.model('User')
@@ -30,7 +30,7 @@ Product.hasMany(ProductsOrdered)
 // User.hasMany(ProductsOrdered)
 
 // might want to do this so there's a user_id column for every product ordered
-// ProductsOrdered.belongsTo(User) 
+// ProductsOrdered.belongsTo(User)
 // User.hasMany(ProductsOrdered)
 
 Category.belongsToMany(Product, { through: 'ProductsCategories' })
