@@ -42,7 +42,7 @@ const Cart = ({cart, user, addOneToQuantity, removeOneFromQuantity, changeQuanti
           </li>)) : (cart.map(cartItem => 
             <Link to={`/allProducts/${cartItem.id}`}>
             <li key={cartItem.id}>
-              {cartItem.name}, quantity: , {cartItem.price}
+              {cartItem.name}, quantity: {cartItem.quantity}, {cartItem.price}
             </li>
             </Link>)
         )}
