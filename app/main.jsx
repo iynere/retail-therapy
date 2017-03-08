@@ -32,6 +32,9 @@ import Orders from './components/userComponents/Orders'
 const onProductEnter = nextRouterState => {
   store.dispatch(fetchProduct(nextRouterState.params.id))
   store.dispatch(fetchProductReviews(nextRouterState.params.id))
+}
+
+const onHomeEnter = nextRouterState => {
   store.dispatch(whoami)
 }
 
@@ -62,9 +65,9 @@ const completedOrder = nextRouterState => {
 render(
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/" component={Root} onEnter={onProductEnter}>
+      <Route path="/" component={Root} onEnter={onHomeEnter}>
         <IndexRedirect to="/Home" />
-          <Route path="/Home" component={LandingPage} onEnter={onProductEnter} />
+          <Route path="/Home" component={LandingPage} onEnter={onHomeEnter} />
           <Route path="/allProducts/:id" component={SingleProduct} onEnter={onProductEnter} />
             <Route path="/admin/addProduct" component={AddProduct}/>
             <Route path="/admin/editProduct/:id" component={EditProduct} onEnter={onEditEnter}/>
