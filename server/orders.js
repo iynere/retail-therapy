@@ -74,26 +74,35 @@ router.get('/:userId/checkout', (req, res, next) => {
 })
 
 // router.put for locking in price
-router.put('/:productId/:userId/checkout', (req, res, next) => {
+router.put('/:orderId/:productId/checkout', (req, res, next) => {
   Product.findById(req.params.productId)
     .then(productWithLatestPrice => {
       ProductOrdered.update({
-        price: productWithLatestPrice.price
+        price: Number(productWithLatestPrice.price.slice(1)) * 100
+      }, {
+        where: {
+          order_id: req.params.orderId,
+          product_id: req.params.productId
+        },
+        returning: true
       })
     })
-    .catch(next)
+      .then(productWithUpdatedPrice => {
+        res.json(productWithUpdatedPrice)
+      })
+      .catch(next)
 })
 
 // ROUTER.PUT FOR INITIAL CHECKOUT UPDATE
 // 1. find the user's cart (order with status cart)
 // 2. change status to 'processing'
-router.put('/:userId/checkout', (req, res, next) => {
+router.put('/:orderId/checkout', (req, res, next) => {
   Order.update({
     status: 'processing'
   }, {
     where: {
       status: 'cart',
-      user_id: req.params.userId
+      id: req.params.orderId
     },
     returning: true
   })

@@ -47,7 +47,7 @@ const loadOrderForCheckout = nextRouterState => {
   store.dispatch(fetchOrderForCheckout(nextRouterState.params.userId))
 }
         
-const onEditEnter = nextRouterState => {	     store.dispatch(fetchProduct(nextRouterState.params.id))
+const onEditEnter = nextRouterState => {       store.dispatch(fetchProduct(nextRouterState.params.id))
 };
         
 const loadUserOrders = nextRouterState => {

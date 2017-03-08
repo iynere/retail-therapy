@@ -67,8 +67,8 @@ const mapDispatchToProps = dispatch => ({
   changeQuantity: (productId, userId, quantity) => {
     dispatch(changeQuantity(productId, userId, quantity))
   },
-  processCartForCheckout: userId => {
-    dispatch(processCartForCheckout(userId))
+  processCartForCheckout: orderId => {
+    dispatch(processCartForCheckout(orderId))
   },
   lockInPriceForCheckout: (productId, userId) => {
     dispatch(lockInPriceForCheckout(productId, userId))
