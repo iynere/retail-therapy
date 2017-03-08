@@ -48,7 +48,7 @@ class Navbar extends Component {
                 <Link><span className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> (empty!)</Link>
                 */}
               </li>
-             {currentUser && currentUser.role !== 'anonymous' ? this.renderLogout() : null}
+             {currentUser ? this.renderLogout() : null}
             </ul>
           </div>
       </nav>
@@ -63,6 +63,9 @@ class Navbar extends Component {
       }, 0)
 
     let userOrVisitor
+
+    console.log("GETTING INSIDE RENDER CART")
+    console.log("CART", this.props.cart)
 
     if (currentUser) {
       userOrVisitor = currentUser.id

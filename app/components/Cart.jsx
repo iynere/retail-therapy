@@ -50,11 +50,38 @@ const Cart = ({cart, user, addOneToQuantity, removeOneFromQuantity, changeQuanti
 							</form>
 						</div>
 					</li>)) : (cart.map(cartItem => 
-						<Link to={`/allProducts/${cartItem.id}`}>
 						<li key={cartItem.id}>
-							{cartItem.name}, quantity: {cartItem.quantity}, {cartItem.price}
-						</li>
-						</Link>)
+							<Link to={`/allProducts/${cartItem.id}`}>{cartItem.name}</Link>, quantity: {cartItem.quantity}, {cartItem.price}
+              <div>
+                <button 
+                  type="button" 
+                  className="btn btn-default"
+                  onClick={evt => {
+                    evt.preventDefault()
+                    addOneToQuantity(cartItem.id, null)
+                  }}
+                > +  
+                </button>
+                <button 
+                  type="button" 
+                  className="btn btn-default"
+                  onClick={evt => {
+                    evt.preventDefault()
+                    removeOneFromQuantity(cartItem.id, null)
+                  }}
+                > - 
+                </button>
+                <form onSubmit={evt => {
+                    evt.preventDefault()
+                    changeQuantity(cartItem.id, null, evt.target.quantity.value)
+                    evt.target.quantity.value = ''
+                  }
+                }>
+                  <input className="form-control cart-quantity" name="quantity" placeholder="new quantity" />
+                  <button type="submit" className="btn btn-primary">Update Quantity</button>
+                </form>
+              </div>
+						</li>)
 				)}
 		</ul>
 	</div>

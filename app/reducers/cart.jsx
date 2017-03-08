@@ -58,6 +58,7 @@ export const completeOrder = userId => dispatch => {
 
 // Adds a new item to the cart
 export const addToCart = (productId, userId) => dispatch => {
+  console.log("OR AM I GETTING INSIDE ADD TO CART??", userId)
   if (userId) {
     axios.post(`/api/orders/${productId}/${userId}`)
       .then(res => {
@@ -67,8 +68,8 @@ export const addToCart = (productId, userId) => dispatch => {
     axios.get(`/api/products/${productId}`)
       .then(res => res.data)
       .then(product => {
+        product.quantity = 1
         if (localStorage.cart) {
-          product.quantity = 1
           var newLocalCart = store.get('cart')
           newLocalCart.push(product)
           store.set('cart', newLocalCart)
@@ -83,24 +84,56 @@ export const addToCart = (productId, userId) => dispatch => {
   }
 }
 
+export const changeLocalStorageCart = (change, productId) => (dispatch, getState) => {
+    var cartToUpdate = getState().cart
+    for (var i = 0; i < cartToUpdate.length; i++) {
+      if (cartToUpdate[i].id === productId) {
+        if (change === "add") {
+          cartToUpdate[i].quantity += 1
+        } else if (change === "minus") {
+          cartToUpdate[i].quantity -= 1
+        } else {
+          cartToUpdate[i].quantity = change
+        }
+      }
+    }
+    store.set('cart', cartToUpdate)
+}
+
 // Adds one to the quantity of an item already in the cart
-export const addOneToQuantity = (productId, userId) => dispatch => {
-  axios.put(`/api/orders/${productId}/${userId}/add`)
-    .then(res => dispatch(fetchCart(userId)))
-    .catch(err => console.error('updating cart unsuccessful', err))
+export const addOneToQuantity = (productId, userId) => (dispatch, getState) => {
+  console.log("ADDING ONE TO QUANTITY")
+  if (!userId) {
+    dispatch(changeLocalStorageCart("add", productId))
+    dispatch(fetchCart())
+  } else {
+    axios.put(`/api/orders/${productId}/${userId}/add`)
+      .then(res => dispatch(fetchCart(userId)))
+      .catch(err => console.error('updating cart unsuccessful', err))
+  }
 }
 
 export const removeOneFromQuantity = (productId, userId) => dispatch => {
-  axios.put(`/api/orders/${productId}/${userId}/remove`)
-    .then(res => dispatch(fetchCart(userId)))
-    .catch(err => console.error('updating cart unsuccessful', err))
+  if (!userId) {
+    dispatch(changeLocalStorageCart("minus", productId))
+    dispatch(fetchCart())
+  } else {
+    axios.put(`/api/orders/${productId}/${userId}/remove`)
+      .then(res => dispatch(fetchCart(userId)))
+      .catch(err => console.error('updating cart unsuccessful', err))
+  }
 }
 
 // Extrapolate this functionality to take care of adding and removing also
 export const changeQuantity = (productId, userId, update) => dispatch => {
-  axios.put(`/api/orders/${productId}/${userId}/${update}`)
-    .then(res => dispatch(fetchCart(userId)))
-    .catch(err => console.error('updating cart unsuccessful', err))
+  if (!userId) {
+    dispatch(changeLocalStorageCart(+update, productId))
+    dispatch(fetchCart())
+  } else {
+    axios.put(`/api/orders/${productId}/${userId}/${update}`)
+      .then(res => dispatch(fetchCart(userId)))
+      .catch(err => console.error('updating cart unsuccessful', err))
+  }
 }
 
 // not working right now
