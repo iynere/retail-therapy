@@ -48,7 +48,7 @@ class Navbar extends Component {
                 <Link><span className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> (empty!)</Link>
                 */}
               </li>
-             {currentUser && currentUser.role !== 'anonymous' ? this.renderLogout() : null}
+             {currentUser ? this.renderLogout() : null}
             </ul>
           </div>
       </nav>

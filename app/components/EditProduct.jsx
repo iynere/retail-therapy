@@ -37,7 +37,7 @@ export const EditProduct = ({product, editProduct}) => {
               </div>
               <div className="form-group">
                 <label htmlFor="price">Price ($)</label>
-                <input className="form-control" name="price" id="price" defaultValue={(product.price/100).toFixed(2)} type="number" required/>
+                <input className="form-control" name="price" id="price" defaultValue={+(product.price).slice(1)} type="number" required/>
               </div>
               <div className="form-group">
                 <label htmlFor="photo">Photo</label>
