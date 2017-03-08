@@ -9,6 +9,7 @@ import SingleProduct from './components/SingleProduct'
 import CartContainer from './components/CartContainer'
 import Checkout from './components/Checkout'
 import Complete from './components/Complete'
+import {fetchProducts} from './reducers/products'
 import {fetchProduct} from './reducers/product'
 import {fetchProductReviews} from './reducers/reviews'
 import {whoami} from './reducers/auth'
@@ -26,6 +27,10 @@ import ProductForm from './components/ProductForm'
 import AddProduct from './components/AddProduct'
 import EditProduct from './components/EditProduct'
 import Orders from './components/userComponents/Orders'
+
+const onHomeEnter = nextRouterState => {
+  store.dispatch(fetchProducts())
+}
 
 const onProductEnter = nextRouterState => {
   store.dispatch(fetchProduct(nextRouterState.params.id))
@@ -61,9 +66,9 @@ const completedOrder = nextRouterState => {
 render(
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/" component={Root} onEnter={onProductEnter}>
+      <Route path="/" component={Root} onEnter={onHomeEnter}>
         <IndexRedirect to="/Home" />
-          <Route path="/Home" component={LandingPage} onEnter={onProductEnter} />
+          <Route path="/Home" component={LandingPage} onEnter={onHomeEnter} />
           <Route path="/allProducts/:id" component={SingleProduct} onEnter={onProductEnter} />
           <Route path="/admin/addProduct" component={AddProduct}/>
           <Route path="/admin/editProduct/:id" component={EditProduct} onEnter={onEditEnter}/>
@@ -71,12 +76,12 @@ render(
           <Route path="/login" component = {Login} />
           <Route path="/profile" component={Profile}/>
           <Route path="/profile/:userId" component={Profile}/>
-          <Route path="/admin/manageUsers" component={AdminManageUsers} />
-          <Route path="/admin/manageOrders" component={AdminManageOrders} />
-          <Route path="/admin/manageProducts" component={AdminManageProducts} />
-          <Route path="/:userId/orders" component={Orders} onEnter={loadUserOrders}/>
-          <Route path="/:userId/accountInfo" component={AccountInfo} />
-          <Route path="/:userId/cart" component={CartContainer}/>
+          <Route path="/profile/:userId/manageUsers" component={AdminManageUsers} />
+          <Route path="/profile/:userId/manageOrders" component={AdminManageOrders} />
+          <Route path="/profile/:userId/manageProducts" component={AdminManageProducts} />
+          <Route path="/profile/:userId/orders" component={Orders} onEnter={loadUserOrders}/>
+          <Route path="/profile/:userId/accountInfo" component={AccountInfo} />
+          <Route path="/profile/:userId/cart" component={CartContainer}/>
           <Route path="/:userId/checkout" component={Checkout} onEnter={loadOrderForCheckout}/>
           <Route path="/:userId/complete" component={Complete} onEnter={completedOrder} />
       </Route>
