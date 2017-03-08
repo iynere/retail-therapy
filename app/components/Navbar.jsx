@@ -64,9 +64,6 @@ class Navbar extends Component {
 
     let userOrVisitor
 
-    console.log("GETTING INSIDE RENDER CART")
-    console.log("CART", this.props.cart)
-
     if (currentUser) {
       userOrVisitor = currentUser.id
     } else {
