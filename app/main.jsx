@@ -12,7 +12,7 @@ import Complete from './components/Complete'
 import {fetchProduct} from './reducers/product'
 import {fetchProductReviews} from './reducers/reviews'
 import {whoami} from './reducers/auth'
-import {fetchOrderForCheckout, fetchCart} from './reducers/cart'
+import {fetchOrderForCheckout, fetchCart, fetchCompletedOrder} from './reducers/cart'
 import {fetchUserOrders} from './reducers/orders'
 import Login from './components/Login'
 import Signup from './components/Signup'
@@ -50,16 +50,15 @@ const loadOrderForCheckout = nextRouterState => {
   store.dispatch(fetchOrderForCheckout(nextRouterState.params.userId))
 }
         
-const onEditEnter = nextRouterState => {	     store.dispatch(fetchProduct(nextRouterState.params.id))
+const onEditEnter = nextRouterState => {       store.dispatch(fetchProduct(nextRouterState.params.id))
 };
         
 const loadUserOrders = nextRouterState => {
   store.dispatch(fetchUserOrders(nextRouterState.params.userId))
 }
   
-const completedOrder = nextRouterState => {
-  // fetch order info for completed order,
-  // send emails
+const onCompleteOrder = nextRouterState => {
+  store.dispatch(fetchCompletedOrder(nextRouterState.params.userId, nextRouterState.params.orderId))
 }
 
 render(
@@ -84,7 +83,7 @@ render(
           <Route path="/:userId/accountInfo" component={AccountInfo} />
           <Route path="/:userId/cart" component={CartContainer}/>
           <Route path="/:userId/checkout" component={Checkout} onEnter={loadOrderForCheckout}/>
-          <Route path="/:userId/complete" component={Complete} onEnter={completedOrder} />
+          <Route path="/:userId/:orderId/complete" component={Complete} onEnter={onCompleteOrder} />
       </Route>
     </Router>
   </Provider>,

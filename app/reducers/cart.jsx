@@ -33,13 +33,15 @@ export const fetchCart = userId => dispatch => {
 
 // lock in prices, change order status from 'cart' to 'processing'
 // this only updates the backend, don't need to use the res.data at all
-export const processCartForCheckout = userId => dispatch => {
-  axios.put(`/api/orders/${userId}/checkout`)
+export const processCartForCheckout = orderId => dispatch => {
+  axios.put(`/api/orders/${orderId}/checkout`)
+    .then(res => console.log('cart ok'))
     .catch(err => console.error('error processing cart for checkout', err))
 }
 
-export const lockInPriceForCheckout = (productId, userId) => {
-  axios.put(`/api/orders/${productId}/${userId}/checkout`)
+export const lockInPriceForCheckout = (orderId, productId) => {
+  axios.put(`/api/orders/${orderId}/${productId}/checkout`)
+    .then(res => console.log('price update ok'))
     .catch(err => console.error('error locking in item price for checkout', err))
 }
 
@@ -54,6 +56,12 @@ export const completeOrder = userId => dispatch => {
   axios.put(`/api/orders/${userId}/complete`)
     .then(() => console.log('order is complete'))
     .catch(err => console.error('error completing order', err))
+}
+
+export const fetchCompletedOrder = (userId, orderId) => dispatch => {
+  axios.get(`/api/orders/${userId}/${orderId}/complete`)
+    .then(res => dispatch(receiveCart(res.data)))
+    .catch(err => console.error('error fetching completed order', err))
 }
 
 // Adds a new item to the cart

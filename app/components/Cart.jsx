@@ -93,6 +93,23 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
+// <<<<<<< complete-order
+//   addOneToQuantity: (productId, userId) => {
+//     dispatch(addOneToQuantity(productId, userId))
+//   },
+//   removeOneFromQuantity: (productId, userId) => {
+//     dispatch(removeOneFromQuantity(productId, userId))
+//   },
+//   changeQuantity: (productId, userId, quantity) => {
+//     dispatch(changeQuantity(productId, userId, quantity))
+//   },
+//   processCartForCheckout: orderId => {
+//     dispatch(processCartForCheckout(orderId))
+//   },
+//   lockInPriceForCheckout: (productId, userId) => {
+//     dispatch(lockInPriceForCheckout(productId, userId))
+//   }
+// =======
 	addOneToQuantity: (productId, userId) => {
 		dispatch(addOneToQuantity(productId, userId))
 	},
