@@ -26,7 +26,9 @@ export const AllProducts = props => {
                     </Link>
                     <p className="product-desc">{product.description}</p>
                     <div className="price-add">
+
                       <h2 className="nums">{product.price}</h2>
+
                       <button
                         type="button"
                         className="btn btn-default"
@@ -37,7 +39,9 @@ export const AllProducts = props => {
                         // }
                         currentUser ? 
                         (cart.some((item) => item.product_id === product.id) ? addOneToQuantity(product.id, currentUser.id) : addToCart(product.id, currentUser.id)) :
-                        cart.some((item) => item.product_id === product.id) ? addOneToQuantity(product.id, null) : addToCart(product.id, null)
+
+                        (cart.some((item) => item.id === product.id) ? addOneToQuantity(product.id, null) : addToCart(product.id, null))
+
                         }}>
                         <span className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
                         Add to cart
