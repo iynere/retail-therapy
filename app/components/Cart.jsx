@@ -5,43 +5,53 @@ import {addOneToQuantity, removeOneFromQuantity, changeQuantity} from '../reduce
 
 const Cart = ({cart, user, addOneToQuantity, removeOneFromQuantity, changeQuantity}) => (
   <div>
-    <ul>
+    <ul className="list-group cart-list">
       {
         cart.every(cartItem => cartItem.product) ? (cart.map(cartItem => 
-          <li key={cartItem.id}>
-            <Link to={`/allProducts/${cartItem.product.id}`}>
-              {cartItem.product.name}
-            </Link>, quantity: {cartItem.quantity}, {cartItem.product.price}, 
-            <button 
-              type="button" 
-              className="btn btn-default"
-              onClick={evt => {
-                evt.preventDefault()
-                addOneToQuantity(cartItem.product.id, user.id)
-              }}
-            > +  
-            </button>
-            <button 
-              type="button" 
-              className="btn btn-default"
-              onClick={evt => {
-                evt.preventDefault()
-                removeOneFromQuantity(cartItem.product.id, user.id)
-              }}
-            > - 
-            </button>
+          <li className="list-group-item" key={cartItem.id}>
+            <div>
+              <div>
+                <Link to={`/allProducts/${cartItem.product.id}`}>
+                  {cartItem.product.name}
+                </Link>
+                <p>Price: {cartItem.product.price}</p>
+              </div>
+              <div>
+              <p>Current quantity: {cartItem.quantity}</p>
+              </div>
+            </div>
+            <div>
+              <button 
+                type="button" 
+                className="btn btn-default"
+                onClick={evt => {
+                  evt.preventDefault()
+                  addOneToQuantity(cartItem.product.id, user.id)
+                }}
+              > +  
+              </button>
+              <button 
+                type="button" 
+                className="btn btn-default"
+                onClick={evt => {
+                  evt.preventDefault()
+                  removeOneFromQuantity(cartItem.product.id, user.id)
+                }}
+              > - 
+              </button>                                                   
             <form onSubmit={evt => {
                 evt.preventDefault()
                 changeQuantity(cartItem.product.id, user.id, evt.target.quantity.value)
                 evt.target.quantity.value = ''
               }
             }>
-              <input name="quantity" placeholder="new quantity" />
-              <input type="submit" value="Update Quantity" />
+              <input className="form-control cart-quantity" name="quantity" placeholder="new quantity" />
+              <button type="submit" className="btn btn-primary">Update Quantity</button>
             </form>
+           </div>
           </li>)) : 
         (cart.map(cartItem => 
-          <li key={"Anonymous:", cartItem.id}>
+          <li className="list-group-item" key={"Anonymous:", cartItem.id}>
             <Link to={`/allProducts/${cartItem.id}`}>
               {cartItem.name}
             </Link>, quantity: {/*HAVE TO ADD QUANTITY!!*/}, {cartItem.price}
