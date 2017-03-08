@@ -62,9 +62,9 @@ const completedOrder = nextRouterState => {
 render(
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/" component={Root} onEnter={loadCart}>
+      <Route path="/" component={Root} onEnter={onProductEnter}>
         <IndexRedirect to="/Home" />
-          <Route path="/Home" component={LandingPage} />
+          <Route path="/Home" component={LandingPage} onEnter={onProductEnter} />
           <Route path="/allProducts/:id" component={SingleProduct} onEnter={onProductEnter} />
             <Route path="/admin/addProduct" component={AddProduct}/>
             <Route path="/admin/editProduct/:id" component={EditProduct} onEnter={onEditEnter}/>
@@ -79,7 +79,7 @@ render(
           <Route path="/admin/manageProducts" component={AdminManageProducts} />
           <Route path="/:userId/orders" component={Orders} onEnter={loadUserOrders}/>
           <Route path="/:userId/accountInfo" component={AccountInfo} />
-          <Route path="/:userId/cart" component={CartContainer} onEnter={loadCart}/>
+          <Route path="/:userId/cart" component={CartContainer}/>
           <Route path="/:userId/checkout" component={Checkout} onEnter={loadOrderForCheckout}/>
           <Route path="/:userId/complete" component={Complete} onEnter={completedOrder} />
       </Route>
