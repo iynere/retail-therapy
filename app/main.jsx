@@ -38,7 +38,7 @@ const onProductEnter = nextRouterState => {
 const loadCart = nextRouterState => {
   store.dispatch(fetchCart(nextRouterState.params.userId))
 }
-       
+
 const onCartEnter = nextRouterState => {
   store.dispatch(fetchCart(nextRouterState.params.userId))
 }
@@ -46,14 +46,15 @@ const onCartEnter = nextRouterState => {
 const loadOrderForCheckout = nextRouterState => {
   store.dispatch(fetchOrderForCheckout(nextRouterState.params.userId))
 }
-        
-const onEditEnter = nextRouterState => {	     store.dispatch(fetchProduct(nextRouterState.params.id))
-};
-        
+
+const onEditEnter = nextRouterState => {
+  store.dispatch(fetchProduct(nextRouterState.params.id))
+}
+
 const loadUserOrders = nextRouterState => {
   store.dispatch(fetchUserOrders(nextRouterState.params.userId))
 }
-  
+
 const completedOrder = nextRouterState => {
   // fetch order info for completed order,
   // send emails
