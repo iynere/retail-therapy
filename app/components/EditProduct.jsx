@@ -5,7 +5,7 @@ import {Link, browserHistory} from 'react-router'
 
 export const EditProduct = ({product, editProduct}) => {
   //first time the product is not loaded, that makes the inputValues to be null. The change in update doesn't affect inputValues. I could use values, but then the fields are not editable - still need to find a solution for this problem.
-  console.log('edit product is getting', product)
+  
   var onEditProduct = function(evt){
       evt.preventDefault()
       //for now I'm sending the complete object. An optimization would be listen on change and update only what changes
@@ -17,7 +17,7 @@ export const EditProduct = ({product, editProduct}) => {
           photoUrl: evt.target.photo.value,
           stock: +evt.target.stock.value
       }
-      console.log('this is the product TBU', product)
+      
       editProduct(productToSend, product.id)
       browserHistory.push('/admin/manageProducts')
   }
