@@ -28,15 +28,15 @@ const reducer = (state = [], action) => {
 export const fetchUsers = () =>
   dispatch => {
     axios.get('/api/users')
-				 .then(users => dispatch(getUsers(users.data)))
-				 .catch((err) => console.error(err))
+         .then(users => dispatch(getUsers(users.data)))
+         .catch((err) => console.error(err))
   }
 
 export const UpdateUsrStatus = (id, role) =>
   dispatch => {
     axios.put('/api/users', {id, role})
     .then(update => dispatch(updateUser(update.data)))
-		.catch((err) => console.error(err))
+    .catch((err) => console.error(err))
   }
 
 export const RemoveUser = (userId) =>

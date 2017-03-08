@@ -4,7 +4,8 @@ const Sequelize = require('sequelize')
 const db = require('APP/db')
 const Product = db.define('products', {
 
-  name: {
+
+  name : {
     type: Sequelize.STRING,
     allowNull: false
   },
@@ -12,20 +13,19 @@ const Product = db.define('products', {
     type: Sequelize.TEXT,
     allowNull: false
   },
-	// categories: {
-	// 	//tbd - do we want to keep it an array or make it into a concat string and then use a getter method
-	// 	type: Sequelize.ARRAY(Sequelize.STRING)
-	// },
+  // categories: {
+  //  //tbd - do we want to keep it an array or make it into a concat string and then use a getter method
+  //  type: Sequelize.ARRAY(Sequelize.STRING)
+  // },
   price: {
-		// number is *100 to account for decimals
+    //number is *100 to account for decimals
     type: Sequelize.INTEGER,
-    allowNull: false
-        // I need to retrieve the price on the edit price, so cannot send it with the formatting. Instead, create an utils function to change format on the front end
-        /*
+    allowNull: false,
+        //I need to retrieve the price on the edit price, so cannot send it with the formatting. Instead, create an utils function to change format on the front end
+
         get: function() {
           return '$' + (this.getDataValue('price') / 100);
         }
-        */
   },
   stock: {
     type: Sequelize.INTEGER,

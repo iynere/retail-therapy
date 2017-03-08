@@ -12,12 +12,9 @@ class CartContainer extends Component {
   
   renderCheckout() {
     return (
-      <button onClick={evt => {
+      <button className="btn btn-danger" onClick={evt => {
         evt.preventDefault()
-        processCartForCheckout(this.props.user.id)
-        this.props.cart.forEach(cartItem => {
-          lockInPriceForCheckout(cartItem.product.id, this.props.user.id)
-        })
+        this.props.processCartForCheckout(this.props.cart[0].order_id)
         browserHistory.push(`/${this.props.user.id}/checkout`)
       }}>
       Checkout
@@ -42,11 +39,11 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  processCartForCheckout: userId => {
-    dispatch(processCartForCheckout(userId))
+  processCartForCheckout: orderId => {
+    dispatch(processCartForCheckout(orderId))
   },
-  lockInPriceForCheckout: (productId, userId) => {
-    dispatch(lockInPriceForCheckout(productId, userId))
+  lockInPriceForCheckout: (orderId, productId) => {
+    dispatch(lockInPriceForCheckout(orderId, productId))
   }
 })
 
