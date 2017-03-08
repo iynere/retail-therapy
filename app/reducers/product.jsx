@@ -38,6 +38,7 @@ export const addProduct = (product) => dispatch => {
 export const editProduct = (product, id) => dispatch => {
     console.log('on editProduct thunk, product and id are:', product, id)
 	axios.put(`/api/products/edit/${id}`, product)
+    //the product gets added last to the list of products... why?
 		 .then(updated => dispatch(getProduct(updated.data)))
 		 .catch(err => console.error('adding review unsuccessful', err))
 }
