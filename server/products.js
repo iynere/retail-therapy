@@ -27,19 +27,19 @@ router.delete('/delete/:productId', (req, res, next) => {
 })
 
 router.put('/edit/:productId', (req, res, next) => {
-    console.log('in put where are getting:', req.params.productId, req.body)
+		console.log('in put where are getting:', req.params.productId, req.body)
 	Product.update(req.body, {where: {id: req.params.productId}})
 		.then(updatedProduct => {
-          console.log('product successfully updated:', updatedProduct)
-          res.send(updatedProduct[1][0].dataValues)
-       })
-       .catch(err => console.error(err))
+					console.log('product successfully updated:', updatedProduct)
+					res.send(updatedProduct[1][0].dataValues)
+			 })
+			 .catch(err => console.error(err))
 })
 
 router.post('/', (req, res, next) => {
 	Product.create(req.body)
-		   .then(review => res.json(review))
-		   .catch(next)
+			 .then(review => res.json(review))
+			 .catch(next)
 })
 
 module.exports = router;
