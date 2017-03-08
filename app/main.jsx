@@ -17,8 +17,6 @@ import {fetchUserOrders} from './reducers/orders'
 import Login from './components/Login'
 import Signup from './components/Signup'
 import LandingPage from './components/LandingPage'
-import UserProfile from './components/UserProfile'
-import AdminProfile from './components/AdminProfile'
 import Profile from './components/Profile'
 import AccountInfo from './components/userComponents/AccountInfo'
 import AdminManageUsers from './components/userComponents/AdminManageUsers'
@@ -38,7 +36,7 @@ const onProductEnter = nextRouterState => {
 const loadCart = nextRouterState => {
   store.dispatch(fetchCart(nextRouterState.params.userId))
 }
-       
+
 const onCartEnter = nextRouterState => {
   store.dispatch(fetchCart(nextRouterState.params.userId))
 }
@@ -46,14 +44,15 @@ const onCartEnter = nextRouterState => {
 const loadOrderForCheckout = nextRouterState => {
   store.dispatch(fetchOrderForCheckout(nextRouterState.params.userId))
 }
-        
-const onEditEnter = nextRouterState => {	     store.dispatch(fetchProduct(nextRouterState.params.id))
-};
-        
+
+const onEditEnter = nextRouterState => {
+  store.dispatch(fetchProduct(nextRouterState.params.id))
+}
+
 const loadUserOrders = nextRouterState => {
   store.dispatch(fetchUserOrders(nextRouterState.params.userId))
 }
-  
+
 const completedOrder = nextRouterState => {
   // fetch order info for completed order,
   // send emails
@@ -66,14 +65,12 @@ render(
         <IndexRedirect to="/Home" />
           <Route path="/Home" component={LandingPage} onEnter={onProductEnter} />
           <Route path="/allProducts/:id" component={SingleProduct} onEnter={onProductEnter} />
-            <Route path="/admin/addProduct" component={AddProduct}/>
-            <Route path="/admin/editProduct/:id" component={EditProduct} onEnter={onEditEnter}/>
+          <Route path="/admin/addProduct" component={AddProduct}/>
+          <Route path="/admin/editProduct/:id" component={EditProduct} onEnter={onEditEnter}/>
           <Route path="/signup" component = {Signup} />
           <Route path="/login" component = {Login} />
           <Route path="/profile" component={Profile}/>
           <Route path="/profile/:userId" component={Profile}/>
-          <Route path="/user" component={UserProfile} />
-          <Route path="/admin" component={AdminProfile} />
           <Route path="/admin/manageUsers" component={AdminManageUsers} />
           <Route path="/admin/manageOrders" component={AdminManageOrders} />
           <Route path="/admin/manageProducts" component={AdminManageProducts} />
