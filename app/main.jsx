@@ -28,10 +28,6 @@ import AddProduct from './components/AddProduct'
 import EditProduct from './components/EditProduct'
 import Orders from './components/userComponents/Orders'
 
-const onHomeEnter = nextRouterState => {
-  store.dispatch(fetchProducts())
-}
-
 const onProductEnter = nextRouterState => {
   store.dispatch(fetchProduct(nextRouterState.params.id))
   store.dispatch(fetchProductReviews(nextRouterState.params.id))
